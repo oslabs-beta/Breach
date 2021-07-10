@@ -1,5 +1,5 @@
 {
-  "name": "What The Hack",
+  "name": "whatthehack",
   "version": ".0001",
   "description": "A cyber-sec tool to be used responsibly in identifying XSS vulnerabilities",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "author": {
     "name": "Jason Yoon, Michael Geismar, Tommy Edmunds",
-    "email": "jasony779@gmail.com, mikelafobe@yahoo.com, tommyedmunds5@gmail.com",
+    "email": "jasony779@gmail.com",
     "url": "https://github.com/WhatThe-Hack/WhatTheHack"
   },
   "keywords": [
