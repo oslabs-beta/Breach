@@ -1,3 +1,11 @@
 /* Main CSS file */
 
 @import "_example/example.css";
+
+.settingsDiv {
+  margin-left: 30px;
+}
+
+.historyDiv {
+  margin-left: 30px;
+}
