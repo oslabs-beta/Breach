@@ -5,6 +5,18 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 
+//Attempt at hot reloading
+// if (process.env.NODE_ENV === "development") {
+//   try {
+//     require("electron-reloader")(module, {
+//       debug: true,
+//       watchRenderer: true,
+//     });
+//   } catch (_) {
+//     console.log("Error");
+//   }
+// }
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -56,14 +68,20 @@ function createWindow() {
   } else {
     indexPath = url.format({
       protocol: "file:",
+      //change back to "dist" and "index.html" after webpack rebuild or for production build
       pathname: path.join(__dirname, "dist", "index.html"),
       slashes: true,
     });
   }
 
+  // setTimeout(() => mainWindow.loadURL(indexPath), 10000);
   mainWindow.loadURL(indexPath);
 
-  console.log(mainWindow.webContents.getURL());
+  // app.on("ready", () => {
+  //   mainWindow.loadURL(indexPath);
+  // });
+
+  // console.log(mainWindow.webContents.getURL());
 
   // Don't show until we are ready and loaded
   mainWindow.once("ready-to-show", () => {
