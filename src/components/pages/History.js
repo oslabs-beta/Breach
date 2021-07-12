@@ -5,10 +5,10 @@ function History() {
   const pastURLs = ["url1", "url2", "url3", "url4"];
   const pastStats = pastURLs.map((el, i) => {
     return (
-      <div>
+      <li>
         <h3>{el}</h3>
         <p>Lots of Stats</p>
-      </div>
+      </li>
     );
   });
   return (
@@ -16,8 +16,10 @@ function History() {
       <center>
         <h1>History</h1>
       </center>
-      {pastStats}
-      <PermanentDrawerLeft />
+      <ul>
+        {pastStats}
+      </ul>
+       <PermanentDrawerLeft />
     </div>
   );
 }
