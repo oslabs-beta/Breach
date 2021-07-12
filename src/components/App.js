@@ -28,7 +28,7 @@ class App extends Component {
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/about" component={About} />
 
-          <Route path="/" component={RedirectToHome} />
+          <Route path="/index.html" component={RedirectToHome} />
         </Switch>
 
         {/* <h1>Hello, Electron!</h1>
