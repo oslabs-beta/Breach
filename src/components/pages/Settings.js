@@ -7,7 +7,6 @@ function Settings() {
       <center>
         <h1>Settings</h1>
       </center>
-
       <PermanentDrawerLeft />
     </div>
   );

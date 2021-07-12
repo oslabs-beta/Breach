@@ -7,6 +7,7 @@ function Home() {
       <center>
         <h1>Home</h1>
       </center>
+
       <PermanentDrawerLeft />
     </div>
   );

@@ -7,6 +7,7 @@ function About() {
       <center>
         <h1>About</h1>
       </center>
+
       <PermanentDrawerLeft />
     </div>
   );
