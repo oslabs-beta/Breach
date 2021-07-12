@@ -38,13 +38,15 @@
     "prod": "cross-env NODE_ENV=production webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
     "start": "cross-env NODE_ENV=development webpack serve --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
     "build": "cross-env NODE_ENV=production webpack --config webpack.build.config.js --mode production",
-    "dev": "set NODE_ENV=development&&electron .",
+    "dev": "concurrently \"cross-env NODE_ENV=development --config=./webpack.dev.config.js\" \"NODE_ENV=development webpack serve --open\"",
     "package": "npm run build",
     "postpackage": "electron-packager ./ --out=./builds"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12",
     "postcss": "^8.2.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
