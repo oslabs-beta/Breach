@@ -12,7 +12,7 @@ function History() {
     );
   });
   return (
-    <div>
+    <div className="historyDiv">
       <center>
         <h1>History</h1>
       </center>
