@@ -6,6 +6,10 @@
   margin-left: 30px;
 }
 
+.settingsDiv > button {
+  margin-left: 1%;
+}
+
 .historyDiv {
   margin-left: 30px;
 }
