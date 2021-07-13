@@ -1,6 +1,7 @@
 import React from "react";
 import PermanentDrawerLeft from "../material/SideNav";
 import ControlledOpenSelect from "../material/OpenSelect";
+import { Button } from "@material-ui/core";
 
 function Settings() {
   const modes = [
@@ -10,6 +11,13 @@ function Settings() {
     "Purple SQL Injection Mode",
   ];
   const fontSizes = ["12px", "16px", "20px", "24px"];
+
+  //const store = new Store();
+
+  const clicked = () => {
+    console.log("settings saved");
+  };
+
   return (
     <div className="settingsDiv">
       <center>
@@ -25,6 +33,11 @@ function Settings() {
         <input type="text" placeholder="Font Size" name="size" />
         <input type="submit" value="Change Font Size" />
       </form> */}
+      <br></br>
+      <Button variant="contained" color="primary" onClick={clicked}>
+        Save Changes
+      </Button>
+      <br></br>
       <br></br>
       <button>Export Data</button>
       <PermanentDrawerLeft />
