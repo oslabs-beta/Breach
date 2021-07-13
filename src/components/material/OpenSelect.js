@@ -17,13 +17,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ControlledOpenSelect() {
+export default function ControlledOpenSelect(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
+  const [option, setOption] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  // console.log(props);
+  const options = props.options.map((el, i) => {
+    return (
+      <MenuItem key={i} value={el}>
+        {el}
+      </MenuItem>
+    );
+  });
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setOption(event.target.value);
   };
 
   const handleClose = () => {
@@ -37,24 +45,24 @@ export default function ControlledOpenSelect() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">
+        {/* <InputLabel id="demo-controlled-open-select-label">
           Color Themes
-        </InputLabel>
+        </InputLabel> */}
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={"Theme"}
+          value={""}
           onChange={handleChange}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={"night"}>Night Mode</MenuItem>
-          <MenuItem value={"grey"}>Grey Mode</MenuItem>
-          <MenuItem value={"blue"}>Blue Mode</MenuItem>
+          {options}
+          {/* <MenuItem value={"night"}>Night Mode</MenuItem>
+          <MenuItem value={"grey"}>Grey Mode</MenuItem> */}
         </Select>
       </FormControl>
     </div>
