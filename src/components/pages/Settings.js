@@ -30,11 +30,12 @@ function Settings() {
 
   if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light); //setColor(createTheme(label.light))
   if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark); //setColor(createTheme(label.dark))
+  if (label.theme === "Blue DOS Mode") theme = createTheme(label.blue);
 
   const modes = [
     "Regular Hacker Mode",
     "Dark XSS Mode",
-    // "Blue DOS Mode",
+    "Blue DOS Mode",
     // "Purple SQL Injection Mode",
     // "Green Forest Mode"
   ];

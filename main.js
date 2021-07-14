@@ -137,7 +137,7 @@ function createWindow() {
           // MUI typography elements use REMs, so you can scale the global
           // font size by setting the font-size on the <html> element.
           html: {
-            fontSize: parseInt(store.get("fontSize").slice(0, 1)),
+            fontSize: parseInt(store.get("fontSize").slice(0, 2)),
           }
         }}},
     palette: {
@@ -145,15 +145,80 @@ function createWindow() {
     },
   }
 
+  const blue = {
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          // MUI typography elements use REMs, so you can scale the global
+          // font size by setting the font-size on the <html> element.
+          html: {
+            fontSize: parseInt(store.get("fontSize").slice(0, 2)),
+          }
+        }}},
+        palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(25, 161, 200, 1)","default":"rgba(42, 132, 157, 1)"},"primary":{"light":"rgba(147, 159, 255, 1)","main":"rgba(52, 72, 205, 1)","dark":"rgba(1, 22, 155, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(129, 182, 244, 1)","main":"rgba(122, 178, 242, 1)","dark":"rgba(0, 50, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(16, 64, 120, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 1)","hint":"rgba(0, 0, 0, 0.38)"}}
+  }
+
   store.set('dark', dark);
 
   store.set('light', light);
 
-  console.log("light and dark ", store.store)
+  store.set('blue', blue);
+
+  // console.log("light and dark ", store.store)
 
 
 
   ipcMain.on("load-data", function (event, arg) {
+
+    const dark = {
+      overrides: {
+        MuiCssBaseline: {
+          "@global": {
+            // MUI typography elements use REMs, so you can scale the global
+            // font size by setting the font-size on the <html> element.
+            html: {
+              fontSize: parseInt(store.get("fontSize").slice(0, 2)),
+            }
+          }}},
+      palette: {
+        type: 'dark',
+      },
+    }
+  
+    const light = {
+      overrides: {
+        MuiCssBaseline: {
+          "@global": {
+            // MUI typography elements use REMs, so you can scale the global
+            // font size by setting the font-size on the <html> element.
+            html: {
+              fontSize: parseInt(store.get("fontSize").slice(0, 2)),
+            }
+          }}},
+      palette: {
+        type: 'light',
+      },
+    }
+  
+    const blue = {
+      overrides: {
+        MuiCssBaseline: {
+          "@global": {
+            // MUI typography elements use REMs, so you can scale the global
+            // font size by setting the font-size on the <html> element.
+            html: {
+              fontSize: parseInt(store.get("fontSize").slice(0, 2)),
+            }
+          }}},
+          palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(25, 161, 200, 1)","default":"rgba(42, 132, 157, 1)"},"primary":{"light":"rgba(147, 159, 255, 1)","main":"rgba(52, 72, 205, 1)","dark":"rgba(1, 22, 155, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(129, 182, 244, 1)","main":"rgba(122, 178, 242, 1)","dark":"rgba(0, 50, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(16, 64, 120, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 1)","hint":"rgba(0, 0, 0, 0.38)"}}
+    }
+  
+    store.set('dark', dark);
+  
+    store.set('light', light);
+  
+    store.set('blue', blue);
+
     mainWindow.webContents.send("data-reply", store.store);
   });
 
