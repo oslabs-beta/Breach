@@ -5,6 +5,12 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 
+const { ipcMain } = require("electron");
+
+const Store = require("electron-store");
+
+const store = new Store();
+
 //Attempt at hot reloading
 // if (process.env.NODE_ENV === "development") {
 //   try {
@@ -16,6 +22,8 @@ const url = require("url");
 //     console.log("Error");
 //   }
 // }
+
+//local storage working
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -77,11 +85,75 @@ function createWindow() {
   // setTimeout(() => mainWindow.loadURL(indexPath), 10000);
   mainWindow.loadURL(indexPath);
 
-  // app.on("ready", () => {
-  //   mainWindow.loadURL(indexPath);
-  // });
+  // ipc testing
+
+  // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
+
+  ipcMain.on("asynchronous-message", (event, arg) => {
+    //console.log(arg, arg.value); // prints var sent from front end
+
+    const regex = /\d/g;
+
+    if (regex.test(arg.value)) {
+      arg.name = "fontSize";
+    } else {
+      arg.name = "theme";
+    }
+    console.log("102 ", arg);
+
+    store.set(arg.name, arg.value);
+
+    event.reply("asynchronous-reply", "pong");
+  });
+
+  console.log("109 ", store.store);
 
   // console.log(mainWindow.webContents.getURL());
+
+  //themes 
+
+
+  const dark = {
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          // MUI typography elements use REMs, so you can scale the global
+          // font size by setting the font-size on the <html> element.
+          html: {
+            fontSize: store.get("fontSize"),
+          }
+        }}},
+    palette: {
+      type: 'dark',
+    },
+  }
+
+  const light = {
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          // MUI typography elements use REMs, so you can scale the global
+          // font size by setting the font-size on the <html> element.
+          html: {
+            fontSize: store.get("fontSize"),
+          }
+        }}},
+    palette: {
+      type: 'light',
+    },
+  }
+
+  store.set('dark', dark);
+
+  store.set('light', light);
+
+  console.log("light and dark ", store.store)
+
+
+
+  ipcMain.on("load-data", function (event, arg) {
+    mainWindow.webContents.send("data-reply", store.store);
+  });
 
   // Don't show until we are ready and loaded
   mainWindow.once("ready-to-show", () => {

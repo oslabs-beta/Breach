@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+
+import { ipcRenderer } from "electron";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -21,6 +23,7 @@ export default function ControlledOpenSelect(props) {
   const classes = useStyles();
   const [option, setOption] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [label, setLabel] = React.useState("");
   // console.log(props);
   const options = props.options.map((el, i) => {
     return (
@@ -30,8 +33,34 @@ export default function ControlledOpenSelect(props) {
     );
   });
 
+
+  //on load get values from local storage database
+
+  useEffect(() => {
+    console.log("drop down loaded");
+
+    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
+    ipcRenderer.on("data-reply", (event, arg) => {
+      if (options[0].props.value === "Regular Hacker Mode") {
+        setLabel(arg.theme);
+      } else {
+        setLabel(arg.fontSize);
+      }
+
+      console.log(label);
+    });
+  });
+
+  //sends msg to update local storage upon change
   const handleChange = (event) => {
+    console.log(event.target);
     setOption(event.target.value);
+
+    ipcRenderer.on("asynchronous-reply", (event, arg) => {
+      console.log(arg); // prints "pong"
+    });
+
+    ipcRenderer.send("asynchronous-message", event.target);
   };
 
   const handleClose = () => {
@@ -45,26 +74,23 @@ export default function ControlledOpenSelect(props) {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        {/* <InputLabel id="demo-controlled-open-select-label">
-          Color Themes
-        </InputLabel> */}
+        <InputLabel id="demo-controlled-open-select-label">{label}</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={""}
+          value={option}
           onChange={handleChange}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
           {options}
-          {/* <MenuItem value={"night"}>Night Mode</MenuItem>
-          <MenuItem value={"grey"}>Grey Mode</MenuItem> */}
         </Select>
       </FormControl>
     </div>
   );
 }
+
