@@ -1,9 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { ipcRenderer } from "electron";
 import { CssBaseline } from "@material-ui/core";
 import PermanentDrawerLeft from "../material/SideNav";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-
 
 function History() {
   const [label, setLabel] = useState({});
@@ -11,9 +11,10 @@ function History() {
   useEffect(() => {
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.once("data-reply", (event, arg) => {
-      setLabel(arg)
-    },{label});
-  });
+
+      setLabel(arg);
+    });
+  }, "");
   console.log("label", label)
 
   let theme
@@ -32,6 +33,7 @@ function History() {
   });
   return (
     <ThemeProvider theme={theme}>
+
     <CssBaseline />
     <div className="historyDiv">
       <center>

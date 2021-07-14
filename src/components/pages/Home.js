@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import PermanentDrawerLeft from "../material/SideNav";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import { ipcRenderer } from "electron";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import { CssBaseline } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -17,21 +18,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Home() {
-
   const [label, setLabel] = useState({});
 
   useEffect(() => {
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.once("data-reply", (event, arg) => {
-      setLabel(arg)
-    },{label});
-  });
-  console.log("label", label)
+      setLabel(arg);
+    });
+  }, "");
 
-  let theme
+  console.log("label", label);
 
-  if (label.theme === "Regular Hacker Mode") theme=createTheme(label.light)
-  if (label.theme === "Dark XSS Mode") theme=createTheme(label.dark)
+
+  let theme;
+
+  if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light);
+  if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark);
 
   const classes = useStyles();
 
@@ -59,6 +61,7 @@ function Home() {
       <h3>Stats</h3>np
       <PermanentDrawerLeft />
     </div>
+
     </ThemeProvider>
   );
 }

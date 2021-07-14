@@ -9,25 +9,27 @@ import Typography from "@material-ui/core/Typography";
 import { CssBaseline } from "@material-ui/core";
 
 
-
 function Settings() {
   const [label, setLabel] = useState({});
-  
+  const [dummyState, setDummy] = useState(0);
 
-  useEffect(() => {
-    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
-    ipcRenderer.on("data-reply", (event, arg) => {
-      setLabel(arg)
-    });
-  });
-  console.log("label", label)
+  useEffect(
+    () => {
+      ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
+      ipcRenderer.once("data-reply", (event, arg) => {
+        setLabel(arg);
+      });
+    },
+    { label }
+  );
+  console.log("label", label);
 
   // const [color, setColor] = useState(label.theme);
 
-  let theme
+  let theme;
 
-  if (label.theme === "Regular Hacker Mode")  theme=createTheme(label.light) //setColor(createTheme(label.light))
-  if (label.theme === "Dark XSS Mode")  theme=createTheme(label.dark) //setColor(createTheme(label.dark))
+  if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light); //setColor(createTheme(label.light))
+  if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark); //setColor(createTheme(label.dark))
 
   const modes = [
     "Regular Hacker Mode",
@@ -41,7 +43,14 @@ function Settings() {
   //const store = new Store();
 
   const clicked = () => {
-    console.log("settings saved");
+    console.log("state updated");
+
+    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
+    ipcRenderer.once("data-reply", (event, arg) => {
+      setLabel(arg);
+    });
+
+    setDummy(dummyState + 1);
   };
 
   return (
