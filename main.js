@@ -110,6 +110,29 @@ function createWindow() {
 
   // console.log(mainWindow.webContents.getURL());
 
+  //themes 
+
+
+  const dark = {
+    palette: {
+      type: 'dark',
+    },
+  }
+
+  const light = {
+    palette: {
+      type: 'light',
+    },
+  }
+
+  store.set('dark', dark);
+
+  store.set('light', light);
+
+  console.log("light and dark ", store.store)
+
+
+
   ipcMain.on("load-data", function (event, arg) {
     mainWindow.webContents.send("data-reply", store.store);
   });

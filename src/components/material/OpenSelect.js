@@ -33,6 +33,7 @@ export default function ControlledOpenSelect(props) {
     );
   });
 
+
   //on load get values from local storage database
 
   useEffect(() => {
@@ -92,3 +93,4 @@ export default function ControlledOpenSelect(props) {
     </div>
   );
 }
+
