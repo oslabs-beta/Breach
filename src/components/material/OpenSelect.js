@@ -24,7 +24,7 @@ export default function ControlledOpenSelect(props) {
   const [option, setOption] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [label, setLabel] = React.useState("");
-  // console.log(props);
+
   const options = props.options.map((el, i) => {
     return (
       <MenuItem key={i} value={el}>
@@ -36,11 +36,8 @@ export default function ControlledOpenSelect(props) {
   //on load get values from local storage database
 
   useEffect(() => {
-    console.log("drop down loaded");
-
-    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
+    ipcRenderer.send("load-data", console.log());
     ipcRenderer.on("data-reply", (event, arg) => {
-      console.log(arg);
       if (options[0].props.value === "Regular Hacker Mode") {
         let cut = arg.theme.split(" ");
         setLabel(cut[0]);
@@ -48,17 +45,17 @@ export default function ControlledOpenSelect(props) {
         setLabel(arg.fontSize);
       }
 
-      console.log(label);
+      //console.log(label);
     });
   });
 
   //sends msg to update local storage upon change
   const handleChange = (event) => {
-    console.log(event.target);
+    //console.log(event.target);
     setOption(event.target.value);
 
     ipcRenderer.on("asynchronous-reply", (event, arg) => {
-      console.log(arg); // prints "pong"
+      //console.log("61 ", arg); // prints "pong"
     });
 
     ipcRenderer.send("asynchronous-message", event.target);
@@ -74,7 +71,7 @@ export default function ControlledOpenSelect(props) {
 
   return (
     <div>
-      <FormControl width="auto" className={classes.formControl}>
+      <FormControl width="auto" className={classes.formControl} value={option}>
         <InputLabel id="demo-controlled-open-select-label">{label}</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
