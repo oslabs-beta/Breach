@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer } from "electron";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -21,9 +22,9 @@ function Home() {
 
   useEffect(() => {
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
-    ipcRenderer.on("data-reply", (event, arg) => {
+    ipcRenderer.once("data-reply", (event, arg) => {
       setLabel(arg)
-    });
+    },{label});
   });
   console.log("label", label)
 
@@ -36,6 +37,7 @@ function Home() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
     <div>
       <center>
         <h1>Home</h1>
