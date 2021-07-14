@@ -40,8 +40,10 @@ export default function ControlledOpenSelect(props) {
 
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.on("data-reply", (event, arg) => {
+      console.log(arg);
       if (options[0].props.value === "Regular Hacker Mode") {
-        setLabel(arg.theme);
+        let cut = arg.theme.split(" ");
+        setLabel(cut[0]);
       } else {
         setLabel(arg.fontSize);
       }
@@ -72,7 +74,7 @@ export default function ControlledOpenSelect(props) {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
+      <FormControl width="auto" className={classes.formControl}>
         <InputLabel id="demo-controlled-open-select-label">{label}</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
