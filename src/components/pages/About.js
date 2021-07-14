@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PermanentDrawerLeft from "../material/SideNav";
+
+import React, { useEffect, useState } from "react";
 import { ipcRenderer } from "electron";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
+import PermanentDrawerLeft from "../material/SideNav";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+
 
 function About() {
   const [label, setLabel] = useState({});
@@ -9,54 +12,55 @@ function About() {
   useEffect(() => {
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.once("data-reply", (event, arg) => {
+
       setLabel(arg);
     });
   }, "");
+  console.log("label", label)
 
-  console.log("label", label);
+  let theme
 
-  let theme;
-
-  if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light);
-  if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark);
+  if (label.theme === "Regular Hacker Mode") theme=createTheme(label.light)
+  if (label.theme === "Dark XSS Mode") theme=createTheme(label.dark)
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        <center>
-          <h1>About</h1>
-        </center>
+    <CssBaseline />
+    <div>
+      <center>
+        <h1>About</h1>
+      </center>
 
-        <ul>
-          <li>
-            <h3>Version</h3>
+      <ul>
+        <li>
+          <h3>Version</h3>
 
-            <p>1.0</p>
-          </li>
-          <li>
-            <h3>How it Works?</h3>
+          <p>1.0</p>
+        </li>
+        <li>
+          <h3>How it Works?</h3>
 
-            <p>
-              Place a URL on the home page and watch the security readings once
-              the load finishes
-            </p>
-          </li>
-          <li>
-            <h3>Who it's for?</h3>
+          <p>
+            Place a URL on the home page and watch the security readings once
+            the load finishes
+          </p>
+        </li>
+        <li>
+          <h3>Who it's for?</h3>
 
-            <p>
-              This app is for any developer looking to test their front end
-              application for Cross-Site-Scripting vulnerabilities
-            </p>
-          </li>
-          <li>
-            <h3>Disclaimer</h3>
+          <p>
+            This app is for any developer looking to test their front end
+            application for Cross-Site-Scripting vulnerabilities
+          </p>
+        </li>
+        <li>
+          <h3>Disclaimer</h3>
 
-            <p>Only for use on URLs that you have permission to test XSS</p>
-          </li>
-        </ul>
-        <PermanentDrawerLeft />
-      </div>
+          <p>Only for use on URLs that you have permission to test XSS</p>
+        </li>
+      </ul>
+      <PermanentDrawerLeft />
+    </div>
     </ThemeProvider>
   );
 }

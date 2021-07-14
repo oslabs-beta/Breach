@@ -3,7 +3,11 @@ import PermanentDrawerLeft from "../material/SideNav";
 import ControlledOpenSelect from "../material/OpenSelect";
 import { Button } from "@material-ui/core";
 import { ipcRenderer } from "electron";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Typography from "@material-ui/core/Typography";
+import { CssBaseline } from "@material-ui/core";
+
 
 function Settings() {
   const [label, setLabel] = useState({});
@@ -51,6 +55,7 @@ function Settings() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <div className="settingsDiv">
         <center>
           <h1>Settings</h1>

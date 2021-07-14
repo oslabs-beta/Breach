@@ -114,12 +114,30 @@ function createWindow() {
 
 
   const dark = {
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          // MUI typography elements use REMs, so you can scale the global
+          // font size by setting the font-size on the <html> element.
+          html: {
+            fontSize: store.get("fontSize"),
+          }
+        }}},
     palette: {
       type: 'dark',
     },
   }
 
   const light = {
+    overrides: {
+      MuiCssBaseline: {
+        "@global": {
+          // MUI typography elements use REMs, so you can scale the global
+          // font size by setting the font-size on the <html> element.
+          html: {
+            fontSize: store.get("fontSize"),
+          }
+        }}},
     palette: {
       type: 'light',
     },

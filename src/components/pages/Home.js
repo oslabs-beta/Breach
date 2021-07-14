@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import PermanentDrawerLeft from "../material/SideNav";
 import Button from "@material-ui/core/Button";
 import { ipcRenderer } from "electron";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import { CssBaseline } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -27,6 +29,7 @@ function Home() {
 
   console.log("label", label);
 
+
   let theme;
 
   if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light);
@@ -36,29 +39,29 @@ function Home() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        <center>
-          <h1>Home</h1>
-        </center>
-        <form>
-          <h3>URL</h3>
-          <input type="text" placeholder="URL link to be tested" name="url" />
-          <input type="submit" value="Hack 'Em Up" />
-          <Button
-            variant="contained"
-            size="small"
-            color="primary"
-            className={classes.margin}
-          >
-            Hack Em Up
-          </Button>
-        </form>
-        <br></br>
-        <h3>Ports in Use</h3>
-        <br></br>
-        <h3>Stats</h3>np
-        <PermanentDrawerLeft />
-      </div>
+      <CssBaseline />
+    <div>
+      <center>
+        <h1>Home</h1>
+      </center>
+      <form>
+        <h3>URL</h3>
+        <input type="text" placeholder="URL link to be tested" name="url" />
+        <input type="submit" value="Hack 'Em Up" />
+        <Button variant="contained" size="small" color="primary" className={classes.margin}>
+        Hack Em Up
+      </Button>      
+
+
+
+      </form>
+      <br></br>
+      <h3>Ports in Use</h3>
+      <br></br>
+      <h3>Stats</h3>np
+      <PermanentDrawerLeft />
+    </div>
+
     </ThemeProvider>
   );
 }
