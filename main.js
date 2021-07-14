@@ -99,14 +99,16 @@ function createWindow() {
     } else {
       arg.name = "theme";
     }
-    console.log("102 ", arg);
+    // console.log("102 ", arg);
+    // console.log(parseInt(store.get("fontSize").slice(0, 2)))
+    // console.log("what is store?: ", store.store)
 
     store.set(arg.name, arg.value);
 
     event.reply("asynchronous-reply", "pong");
   });
 
-  console.log("109 ", store.store);
+  // console.log("109 ", store.store);
 
   // console.log(mainWindow.webContents.getURL());
 
@@ -120,7 +122,7 @@ function createWindow() {
           // MUI typography elements use REMs, so you can scale the global
           // font size by setting the font-size on the <html> element.
           html: {
-            fontSize: store.get("fontSize"),
+            fontSize: parseInt(store.get("fontSize").slice(0, 2)),
           }
         }}},
     palette: {
@@ -135,7 +137,7 @@ function createWindow() {
           // MUI typography elements use REMs, so you can scale the global
           // font size by setting the font-size on the <html> element.
           html: {
-            fontSize: store.get("fontSize"),
+            fontSize: parseInt(store.get("fontSize").slice(0, 1)),
           }
         }}},
     palette: {
