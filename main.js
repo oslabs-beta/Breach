@@ -88,6 +88,8 @@ function createWindow() {
   // ipc testing
 
   // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
+  if (!store.get("fontSize")) store.set("fontSize", "16px")
+  // if (!store.get("theme")) store.set('theme', light)
 
   ipcMain.on("asynchronous-message", (event, arg) => {
     //console.log(arg, arg.value); // prints var sent from front end
@@ -113,6 +115,8 @@ function createWindow() {
   // console.log(mainWindow.webContents.getURL());
 
   //themes 
+
+
 
 
   const dark = {
@@ -184,6 +188,9 @@ function createWindow() {
         palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(0, 81, 51, 1)","default":"rgba(35, 138, 112, 1)"},"primary":{"light":"rgba(151, 254, 32, 1)","main":"rgba(21, 87, 63, 1)","dark":"rgba(44, 81, 4, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(85, 255, 196, 1)","main":"rgba(0, 97, 63, 1)","dark":"rgba(0, 95, 63, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(0, 255, 167, 1)","main":"rgba(0, 203, 133, 1)","dark":"rgba(0, 112, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 0.38)","hint":"rgba(255, 255, 255, 0.38)"}}
       }
 
+
+
+
   store.set('purple', purple);
 
   store.set('green', green);
@@ -199,6 +206,11 @@ function createWindow() {
 
 
   ipcMain.on("load-data", function (event, arg) {
+
+    if (store.get("fontSize") === null || store.get("fontSize") === undefined) {
+      dark.overrides.MuiCssBaseline["@global"].html.fontSize = 16;
+      light.overrides.MuiCssBaseline["@global"].html.fontSize = 16;
+    }
 
     const dark = {
       overrides: {

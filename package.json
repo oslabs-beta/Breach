@@ -1,6 +1,6 @@
 {
   "name": "whatthehack",
-  "version": ".0001",
+  "version": "1.0.0",
   "description": "A cyber-sec tool to be used responsibly in identifying XSS vulnerabilities",
   "license": "MIT",
   "private": false,
