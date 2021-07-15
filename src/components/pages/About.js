@@ -1,8 +1,34 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
+import { ipcRenderer } from "electron";
+import { CssBaseline } from "@material-ui/core";
 import PermanentDrawerLeft from "../material/SideNav";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+
 
 function About() {
+  const [label, setLabel] = useState({});
+
+  useEffect(() => {
+    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
+    ipcRenderer.once("data-reply", (event, arg) => {
+
+      setLabel(arg);
+    });
+  }, "");
+  console.log("label", label)
+
+  let theme
+
+  if (label.theme === "Regular Hacker Mode") theme=createTheme(label.light)
+  if (label.theme === "Dark XSS Mode") theme=createTheme(label.dark)
+  if (label.theme === "Blue DOS Mode") theme = createTheme(label.blue);
+  if (label.theme === "Purple SQL Injection Mode") theme = createTheme(label.purple);
+  if (label.theme === "Green Forest Mode") theme = createTheme(label.green);
+
   return (
+    <ThemeProvider theme={theme}>
+    <CssBaseline />
     <div>
       <center>
         <h1>About</h1>
@@ -38,6 +64,7 @@ function About() {
       </ul>
       <PermanentDrawerLeft />
     </div>
+    </ThemeProvider>
   );
 }
 
