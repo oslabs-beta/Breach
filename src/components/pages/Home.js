@@ -35,6 +35,8 @@ function Home() {
   if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light);
   if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark);
   if (label.theme === "Blue DOS Mode") theme = createTheme(label.blue);
+  if (label.theme === "Purple SQL Injection Mode") theme = createTheme(label.purple);
+  if (label.theme === "Green Forest Mode") theme = createTheme(label.green);
 
   const classes = useStyles();
 
