@@ -20,7 +20,7 @@ function Settings() {
         setLabel(arg);
       });
     },
-    { label }
+    []
   );
   console.log("label", label);
 

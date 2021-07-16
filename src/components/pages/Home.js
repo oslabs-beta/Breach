@@ -20,12 +20,14 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const [label, setLabel] = useState({});
 
+  
   useEffect(() => {
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.once("data-reply", (event, arg) => {
       setLabel(arg);
     });
-  }, "");
+
+  }, []);
 
   console.log("label", label);
 

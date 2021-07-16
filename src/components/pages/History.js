@@ -14,7 +14,7 @@ function History() {
 
       setLabel(arg);
     });
-  }, "");
+  }, []);
   console.log("label", label)
 
   let theme
@@ -28,7 +28,7 @@ function History() {
   const pastURLs = ["url1", "url2", "url3", "url4"];
   const pastStats = pastURLs.map((el, i) => {
     return (
-      <li>
+      <li key={i}>
         <h3>{el}</h3>
         <p>Lots of Stats</p>
       </li>
