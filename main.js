@@ -11,6 +11,8 @@ const Store = require("electron-store");
 
 const store = new Store();
 
+const webScrape = require("./puppeteer");
+
 //Attempt at hot reloading
 // if (process.env.NODE_ENV === "development") {
 //   try {
@@ -88,7 +90,7 @@ function createWindow() {
   // ipc testing
 
   // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
-  if (!store.get("fontSize")) store.set("fontSize", "16px")
+  if (!store.get("fontSize")) store.set("fontSize", "16px");
   // if (!store.get("theme")) store.set('theme', light)
 
   ipcMain.on("asynchronous-message", (event, arg) => {
@@ -114,10 +116,7 @@ function createWindow() {
 
   // console.log(mainWindow.webContents.getURL());
 
-  //themes 
-
-
-
+  //themes
 
   const dark = {
     overrides: {
@@ -127,12 +126,14 @@ function createWindow() {
           // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-          }
-        }}},
-    palette: {
-      type: 'dark',
+          },
+        },
+      },
     },
-  }
+    palette: {
+      type: "dark",
+    },
+  };
 
   const light = {
     overrides: {
@@ -142,12 +143,14 @@ function createWindow() {
           // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-          }
-        }}},
-    palette: {
-      type: 'light',
+          },
+        },
+      },
     },
-  }
+    palette: {
+      type: "light",
+    },
+  };
 
   const blue = {
     overrides: {
@@ -157,10 +160,42 @@ function createWindow() {
           // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-          }
-        }}},
-        palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(25, 161, 200, 1)","default":"rgba(42, 132, 157, 1)"},"primary":{"light":"rgba(147, 159, 255, 1)","main":"rgba(52, 72, 205, 1)","dark":"rgba(1, 22, 155, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(129, 182, 244, 1)","main":"rgba(122, 178, 242, 1)","dark":"rgba(0, 50, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(16, 64, 120, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 1)","hint":"rgba(0, 0, 0, 0.38)"}}
-  }
+          },
+        },
+      },
+    },
+    palette: {
+      common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+      background: {
+        paper: "rgba(25, 161, 200, 1)",
+        default: "rgba(42, 132, 157, 1)",
+      },
+      primary: {
+        light: "rgba(147, 159, 255, 1)",
+        main: "rgba(52, 72, 205, 1)",
+        dark: "rgba(1, 22, 155, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      secondary: {
+        light: "rgba(129, 182, 244, 1)",
+        main: "rgba(122, 178, 242, 1)",
+        dark: "rgba(0, 50, 110, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      error: {
+        light: "rgba(135, 188, 251, 1)",
+        main: "rgba(16, 64, 120, 1)",
+        dark: "rgba(22, 45, 73, 1)",
+        contrastText: "#fff",
+      },
+      text: {
+        primary: "rgba(255, 255, 255, 1)",
+        secondary: "rgba(255, 255, 255, 1)",
+        disabled: "rgba(255, 255, 255, 1)",
+        hint: "rgba(0, 0, 0, 0.38)",
+      },
+    },
+  };
 
   const purple = {
     overrides: {
@@ -170,10 +205,42 @@ function createWindow() {
           // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-          }
-        }}},
-        palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(107, 12, 178, 1)","default":"rgba(149, 115, 215, 1)"},"primary":{"light":"rgba(156, 0, 220, 1)","main":"rgba(112, 0, 193, 1)","dark":"rgba(76, 1, 125, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(181, 94, 222, 1)","main":"rgba(72, 0, 150, 1)","dark":"rgba(78, 0, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(174, 98, 244, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 0.38)","hint":"rgba(255, 255, 255, 0.38)"}}
-      }  
+          },
+        },
+      },
+    },
+    palette: {
+      common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+      background: {
+        paper: "rgba(107, 12, 178, 1)",
+        default: "rgba(149, 115, 215, 1)",
+      },
+      primary: {
+        light: "rgba(156, 0, 220, 1)",
+        main: "rgba(112, 0, 193, 1)",
+        dark: "rgba(76, 1, 125, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      secondary: {
+        light: "rgba(181, 94, 222, 1)",
+        main: "rgba(72, 0, 150, 1)",
+        dark: "rgba(78, 0, 110, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      error: {
+        light: "rgba(135, 188, 251, 1)",
+        main: "rgba(174, 98, 244, 1)",
+        dark: "rgba(22, 45, 73, 1)",
+        contrastText: "#fff",
+      },
+      text: {
+        primary: "rgba(255, 255, 255, 1)",
+        secondary: "rgba(255, 255, 255, 1)",
+        disabled: "rgba(255, 255, 255, 0.38)",
+        hint: "rgba(255, 255, 255, 0.38)",
+      },
+    },
+  };
 
   const green = {
     overrides: {
@@ -183,30 +250,56 @@ function createWindow() {
           // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-          }
-        }}},
-        palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(0, 81, 51, 1)","default":"rgba(35, 138, 112, 1)"},"primary":{"light":"rgba(151, 254, 32, 1)","main":"rgba(21, 87, 63, 1)","dark":"rgba(44, 81, 4, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(85, 255, 196, 1)","main":"rgba(0, 97, 63, 1)","dark":"rgba(0, 95, 63, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(0, 255, 167, 1)","main":"rgba(0, 203, 133, 1)","dark":"rgba(0, 112, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 0.38)","hint":"rgba(255, 255, 255, 0.38)"}}
-      }
+          },
+        },
+      },
+    },
+    palette: {
+      common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+      background: {
+        paper: "rgba(0, 81, 51, 1)",
+        default: "rgba(35, 138, 112, 1)",
+      },
+      primary: {
+        light: "rgba(151, 254, 32, 1)",
+        main: "rgba(21, 87, 63, 1)",
+        dark: "rgba(44, 81, 4, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      secondary: {
+        light: "rgba(85, 255, 196, 1)",
+        main: "rgba(0, 97, 63, 1)",
+        dark: "rgba(0, 95, 63, 1)",
+        contrastText: "rgba(255, 255, 255, 1)",
+      },
+      error: {
+        light: "rgba(0, 255, 167, 1)",
+        main: "rgba(0, 203, 133, 1)",
+        dark: "rgba(0, 112, 73, 1)",
+        contrastText: "#fff",
+      },
+      text: {
+        primary: "rgba(255, 255, 255, 1)",
+        secondary: "rgba(255, 255, 255, 1)",
+        disabled: "rgba(255, 255, 255, 0.38)",
+        hint: "rgba(255, 255, 255, 0.38)",
+      },
+    },
+  };
 
+  store.set("purple", purple);
 
+  store.set("green", green);
 
+  store.set("dark", dark);
 
-  store.set('purple', purple);
+  store.set("light", light);
 
-  store.set('green', green);
-
-  store.set('dark', dark);
-
-  store.set('light', light);
-
-  store.set('blue', blue);
+  store.set("blue", blue);
 
   // console.log("light and dark ", store.store)
 
-
-
   ipcMain.on("load-data", function (event, arg) {
-
     if (store.get("fontSize") === null || store.get("fontSize") === undefined) {
       dark.overrides.MuiCssBaseline["@global"].html.fontSize = 16;
       light.overrides.MuiCssBaseline["@global"].html.fontSize = 16;
@@ -220,13 +313,15 @@ function createWindow() {
             // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-            }
-          }}},
-      palette: {
-        type: 'dark',
+            },
+          },
+        },
       },
-    }
-  
+      palette: {
+        type: "dark",
+      },
+    };
+
     const light = {
       overrides: {
         MuiCssBaseline: {
@@ -235,13 +330,15 @@ function createWindow() {
             // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-            }
-          }}},
-      palette: {
-        type: 'light',
+            },
+          },
+        },
       },
-    }
-  
+      palette: {
+        type: "light",
+      },
+    };
+
     const blue = {
       overrides: {
         MuiCssBaseline: {
@@ -250,10 +347,42 @@ function createWindow() {
             // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-            }
-          }}},
-          palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(25, 161, 200, 1)","default":"rgba(42, 132, 157, 1)"},"primary":{"light":"rgba(147, 159, 255, 1)","main":"rgba(52, 72, 205, 1)","dark":"rgba(1, 22, 155, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(129, 182, 244, 1)","main":"rgba(122, 178, 242, 1)","dark":"rgba(0, 50, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(16, 64, 120, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 1)","hint":"rgba(0, 0, 0, 0.38)"}}
-    }
+            },
+          },
+        },
+      },
+      palette: {
+        common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+        background: {
+          paper: "rgba(25, 161, 200, 1)",
+          default: "rgba(42, 132, 157, 1)",
+        },
+        primary: {
+          light: "rgba(147, 159, 255, 1)",
+          main: "rgba(52, 72, 205, 1)",
+          dark: "rgba(1, 22, 155, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        secondary: {
+          light: "rgba(129, 182, 244, 1)",
+          main: "rgba(122, 178, 242, 1)",
+          dark: "rgba(0, 50, 110, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        error: {
+          light: "rgba(135, 188, 251, 1)",
+          main: "rgba(16, 64, 120, 1)",
+          dark: "rgba(22, 45, 73, 1)",
+          contrastText: "#fff",
+        },
+        text: {
+          primary: "rgba(255, 255, 255, 1)",
+          secondary: "rgba(255, 255, 255, 1)",
+          disabled: "rgba(255, 255, 255, 1)",
+          hint: "rgba(0, 0, 0, 0.38)",
+        },
+      },
+    };
 
     const purple = {
       overrides: {
@@ -263,11 +392,43 @@ function createWindow() {
             // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-            }
-          }}},
-          palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(107, 12, 178, 1)","default":"rgba(149, 115, 215, 1)"},"primary":{"light":"rgba(156, 0, 220, 1)","main":"rgba(112, 0, 193, 1)","dark":"rgba(76, 1, 125, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(181, 94, 222, 1)","main":"rgba(72, 0, 150, 1)","dark":"rgba(78, 0, 110, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(135, 188, 251, 1)","main":"rgba(174, 98, 244, 1)","dark":"rgba(22, 45, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 0.38)","hint":"rgba(255, 255, 255, 0.38)"}}
-        }  
-  
+            },
+          },
+        },
+      },
+      palette: {
+        common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+        background: {
+          paper: "rgba(107, 12, 178, 1)",
+          default: "rgba(149, 115, 215, 1)",
+        },
+        primary: {
+          light: "rgba(156, 0, 220, 1)",
+          main: "rgba(112, 0, 193, 1)",
+          dark: "rgba(76, 1, 125, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        secondary: {
+          light: "rgba(181, 94, 222, 1)",
+          main: "rgba(72, 0, 150, 1)",
+          dark: "rgba(78, 0, 110, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        error: {
+          light: "rgba(135, 188, 251, 1)",
+          main: "rgba(174, 98, 244, 1)",
+          dark: "rgba(22, 45, 73, 1)",
+          contrastText: "#fff",
+        },
+        text: {
+          primary: "rgba(255, 255, 255, 1)",
+          secondary: "rgba(255, 255, 255, 1)",
+          disabled: "rgba(255, 255, 255, 0.38)",
+          hint: "rgba(255, 255, 255, 0.38)",
+        },
+      },
+    };
+
     const green = {
       overrides: {
         MuiCssBaseline: {
@@ -276,20 +437,52 @@ function createWindow() {
             // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get("fontSize").slice(0, 2)),
-            }
-          }}},
-          palette:{"common":{"black":"rgba(0, 0, 0, 1)","white":"rgba(255, 255, 255, 1)"},"background":{"paper":"rgba(35, 138, 112, 1)","default":"rgba(35, 138, 112, 1)"},"primary":{"light":"rgba(151, 254, 32, 1)","main":"rgba(21, 87, 63, 1)","dark":"rgba(44, 81, 4, 1)","contrastText":"rgba(255, 255, 255, 1)"},"secondary":{"light":"rgba(85, 255, 196, 1)","main":"rgba(0, 97, 63, 1)","dark":"rgba(0, 95, 63, 1)","contrastText":"rgba(255, 255, 255, 1)"},"error":{"light":"rgba(0, 255, 167, 1)","main":"rgba(0, 203, 133, 1)","dark":"rgba(0, 112, 73, 1)","contrastText":"#fff"},"text":{"primary":"rgba(255, 255, 255, 1)","secondary":"rgba(255, 255, 255, 1)","disabled":"rgba(255, 255, 255, 0.38)","hint":"rgba(255, 255, 255, 0.38)"}}
-        }
-  
-    store.set('purple', purple);
-  
-    store.set('green', green);
-  
-    store.set('dark', dark);
-  
-    store.set('light', light);
-  
-    store.set('blue', blue);
+            },
+          },
+        },
+      },
+      palette: {
+        common: { black: "rgba(0, 0, 0, 1)", white: "rgba(255, 255, 255, 1)" },
+        background: {
+          paper: "rgba(35, 138, 112, 1)",
+          default: "rgba(35, 138, 112, 1)",
+        },
+        primary: {
+          light: "rgba(151, 254, 32, 1)",
+          main: "rgba(21, 87, 63, 1)",
+          dark: "rgba(44, 81, 4, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        secondary: {
+          light: "rgba(85, 255, 196, 1)",
+          main: "rgba(0, 97, 63, 1)",
+          dark: "rgba(0, 95, 63, 1)",
+          contrastText: "rgba(255, 255, 255, 1)",
+        },
+        error: {
+          light: "rgba(0, 255, 167, 1)",
+          main: "rgba(0, 203, 133, 1)",
+          dark: "rgba(0, 112, 73, 1)",
+          contrastText: "#fff",
+        },
+        text: {
+          primary: "rgba(255, 255, 255, 1)",
+          secondary: "rgba(255, 255, 255, 1)",
+          disabled: "rgba(255, 255, 255, 0.38)",
+          hint: "rgba(255, 255, 255, 0.38)",
+        },
+      },
+    };
+
+    store.set("purple", purple);
+
+    store.set("green", green);
+
+    store.set("dark", dark);
+
+    store.set("light", light);
+
+    store.set("blue", blue);
 
     mainWindow.webContents.send("data-reply", store.store);
   });
@@ -342,3 +535,5 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+webScrape.scrape("https://juiceshopwolfpack.herokuapp.com/#/");
