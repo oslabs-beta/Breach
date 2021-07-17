@@ -30,8 +30,15 @@ const webScrape = {
 
     cookiesResult = cookies.map((c) => c.secure);
 
+    console.log(cookiesResult);
+
     console.log(cookiesResult.some((e) => e === false));
 
+    if (cookiesResult.some((e) => e === false)) {
+      console.log("some cookies are insecure");
+    } else {
+      console.log("all cookies secure");
+    }
     // await page.type(
     //   input.type === "text",
     //   `<img src="" onerror='alert("hello")'>`
