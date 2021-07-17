@@ -536,4 +536,4 @@ app.on("activate", () => {
   }
 });
 
-webScrape.scrape("https://juiceshopwolfpack.herokuapp.com/#/");
+webScrape.scrape("https://facebook.com");
