@@ -22,7 +22,7 @@ function Settings() {
     },
     []
   );
-  console.log("label", label);
+  // console.log("label", label);
 
   // const [color, setColor] = useState(label.theme);
 
@@ -46,7 +46,7 @@ function Settings() {
   //const store = new Store();
 
   const clicked = () => {
-    console.log("state updated");
+    // console.log("state updated");
 
     ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
     ipcRenderer.once("data-reply", (event, arg) => {
