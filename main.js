@@ -534,15 +534,27 @@ app.on('activate', () => {
 });
 
 webScrape.jqueryXSS(
-  `https://xss-game.appspot.com/level1/frame?query=<script>+alert('')</script>`
+  `https://hack-yourself-first.com/Search?searchTerm=`.concat(
+    `%27+%2B+alert%28%27yo%27%29+%2B+%27`
+  )
 );
 
-// webScrape.cookieTester(
-//   `https://hack-yourself-first.com/Search?searchTerm=%27+%2B+alert%28%27yo%27%29+%2B+%27`
-// );
+webScrape.cookieTester(
+  `https://hack-yourself-first.com/Search?searchTerm=`.concat(
+    `%27+%2B+alert%28%27yo%27%29+%2B+%27`
+  )
+);
 
-// webScrape.cookieTester('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
+//webScrape.cookieTester(`https://hack-yourself-first.com/`);
+
+//`https://hack-yourself-first.com/Search?searchTerm=`.concat(
+//  `%27+%2B+alert%28%27yo%27%29+%2B+%27`
+//  )
+
+//webScrape.cookieTester('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
+
+//webScrape.jqueryXSS('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
 
 //https://hack-yourself-first.com/Search?searchTerm=%27+%2B+alert%28%27yo%27%29+%2B+%27
 
-//`<img%20src%3D''%20onerror%3D'alert('dialogue')'>`
+//`<img%20src%3D''%20onerror%3D'alert('dialog')'>`
