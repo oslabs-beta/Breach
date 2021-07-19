@@ -539,11 +539,11 @@ webScrape.jqueryXSS(
   )
 );
 
-webScrape.cookieTester(
-  `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-    `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-  )
-);
+// webScrape.cookieTester(
+//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
+//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
+//   )
+// );
 
 //webScrape.cookieTester(`https://hack-yourself-first.com/`);
 

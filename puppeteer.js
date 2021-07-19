@@ -67,27 +67,32 @@ const webScrape = {
     await pie.initialize(app);
     const browser = await pie.connect(app, puppeteer);
     const window = new BrowserWindow();
-
-    const page = await pie.getPage(browser, window);
     let alertHappened = false;
+    try {
+      const page = await pie.getPage(browser, window);
 
-    // const client = await page.target().createCDPSession();
-    // await client.send('Network.clearBrowserCookies');
-    // await client.send('Network.clearBrowserCache');
+      // const client = await page.target().createCDPSession();
+      // await client.send('Network.clearBrowserCookies');
+      // await client.send('Network.clearBrowserCache');
 
-    page.on('dialog', async (dialog) => {
-      alertHappened = true;
-      console.log('here ', dialog._message);
+      page.on('dialog', async (dialog) => {
+        alertHappened = true;
+        console.log('here ', dialog._message);
+        await window.destroy();
+      });
+
+      await page.goto(url, {
+        waitUntil: 'networkidle2',
+      });
+
+      //await window.destroy();
+    } catch (e) {
+      console.log(e);
+      //await window.destroy();
+    } finally {
+      console.log(alertHappened);
       await window.destroy();
-    });
-
-    await page.goto(url, {
-      waitUntil: 'networkidle2',
-    });
-
-    console.log(alertHappened);
-
-    await window.destroy();
+    }
   },
 };
 
