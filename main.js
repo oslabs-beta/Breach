@@ -533,12 +533,17 @@ app.on('activate', () => {
   }
 });
 
-webScrape.jqueryXSS(
-  `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-    `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-  )
-);
+// webScrape.jqueryXSS(
+//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
+//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
+//   )
+// );
 
+webScrape.jqueryXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
+
+webScrape.javascriptXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
+
+//webScrape.cookieTester(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
 // webScrape.cookieTester(
 //   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
 //     `%27+%2B+alert%28%27yo%27%29+%2B+%27`

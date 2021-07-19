@@ -6,7 +6,6 @@ const { JSDOM } = require('jsdom');
 const webScrape = {
   cookieTester: async (url) => {
     try {
-      url = url.replace('alert', '');
       console.log(url);
       await pie.initialize(app);
       const browser = await pie.connect(app, puppeteer);
@@ -63,12 +62,49 @@ const webScrape = {
       await window.destroy();
     }
   },
+
+  javascriptXSS: async (url) => {
+    await pie.initialize(app);
+    const browser = await pie.connect(app, puppeteer);
+    const window = new BrowserWindow();
+    let alertHappened = false;
+    try {
+      url = url.concat(`<img%20src%3D''%20onerror%3D'alert(0)'>`);
+      const page = await pie.getPage(browser, window);
+
+      // const client = await page.target().createCDPSession();
+      // await client.send('Network.clearBrowserCookies');
+      // await client.send('Network.clearBrowserCache');
+
+      page.on('dialog', async (dialog) => {
+        alertHappened = true;
+        console.log('here ', dialog._message);
+        await window.destroy();
+      });
+
+      await page.goto(url, {
+        waitUntil: 'networkidle2',
+      });
+
+      console.log(url);
+
+      //await window.destroy();
+    } catch (e) {
+      console.log(e);
+      //await window.destroy();
+    } finally {
+      console.log('javascriptXSS ', alertHappened);
+      await window.destroy();
+    }
+  },
+
   jqueryXSS: async (url) => {
     await pie.initialize(app);
     const browser = await pie.connect(app, puppeteer);
     const window = new BrowserWindow();
     let alertHappened = false;
     try {
+      url = url.concat(`%27+%2B+alert%28%27yo%27%29+%2B+%27`);
       const page = await pie.getPage(browser, window);
 
       // const client = await page.target().createCDPSession();
@@ -90,7 +126,7 @@ const webScrape = {
       console.log(e);
       //await window.destroy();
     } finally {
-      console.log(alertHappened);
+      console.log('jqueryXSS ', alertHappened);
       await window.destroy();
     }
   },
