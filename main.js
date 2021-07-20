@@ -121,6 +121,8 @@ function createWindow() {
   if (!store.get('fontSize') || typeof store.get('fontSize') !== 'string')
     store.set('fontSize', '16px');
   console.log('line 123', store.get('fontSize'));
+  if (!store.get('history')) store.set('history', []);
+  if (!store.get('historyLength')) store.set('historyLength', 3);
   const dark = {
     overrides: {
       MuiCssBaseline: {
