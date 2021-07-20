@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
 
-import { ipcRenderer } from "electron";
+import { ipcRenderer } from 'electron';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    display: "block",
+    display: 'block',
     marginTop: theme.spacing(2),
   },
   formControl: {
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ControlledOpenSelect(props) {
   const classes = useStyles();
-  const [option, setOption] = React.useState("");
+  const [option, setOption] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [label, setLabel] = React.useState("");
+  const [label, setLabel] = React.useState('');
 
   const options = props.options.map((el, i) => {
     return (
@@ -36,10 +36,10 @@ export default function ControlledOpenSelect(props) {
   //on load get values from local storage database
 
   useEffect(() => {
-    ipcRenderer.send("load-data", console.log());
-    ipcRenderer.on("data-reply", (event, arg) => {
-      if (options[0].props.value === "Regular Hacker Mode") {
-        let cut = arg.theme.split(" ");
+    ipcRenderer.send('load-data', console.log());
+    ipcRenderer.on('data-reply', (event, arg) => {
+      if (options[0].props.value === 'Regular Hacker Mode') {
+        let cut = arg.theme.split(' ');
         setLabel(cut[0]);
       } else {
         setLabel(arg.fontSize);
@@ -54,11 +54,11 @@ export default function ControlledOpenSelect(props) {
     //console.log(event.target);
     setOption(event.target.value);
 
-    ipcRenderer.on("asynchronous-reply", (event, arg) => {
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
       //console.log("61 ", arg); // prints "pong"
     });
 
-    ipcRenderer.send("asynchronous-message", event.target);
+    ipcRenderer.send('asynchronous-message', event.target);
   };
 
   const handleClose = () => {
@@ -71,18 +71,18 @@ export default function ControlledOpenSelect(props) {
 
   return (
     <div>
-      <FormControl width="auto" className={classes.formControl} value={option}>
-        <InputLabel id="demo-controlled-open-select-label">{label}</InputLabel>
+      <FormControl width='auto' className={classes.formControl} value={option}>
+        <InputLabel id='demo-controlled-open-select-label'>{label}</InputLabel>
         <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
+          labelId='demo-controlled-open-select-label'
+          id='demo-controlled-open-select'
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
           value={option}
           onChange={handleChange}
         >
-          <MenuItem value="">
+          <MenuItem value=''>
             <em>None</em>
           </MenuItem>
           {options}
