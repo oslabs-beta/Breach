@@ -1,73 +1,134 @@
-const { BrowserWindow, app } = require("electron");
-const pie = require("puppeteer-in-electron");
-const puppeteer = require("puppeteer-core");
-const { JSDOM } = require("jsdom");
-
-// const main = async () => {
-//   await pie.initialize(app);
-//   const browser = await pie.connect(app, puppeteer);
-
-//   const window = new BrowserWindow();
-//   const url = "https://example.com/";
-//   await window.loadURL(url);
-
-//   const page = await pie.getPage(browser, window);
-//   console.log(page.url());
-//   window.destroy();
-// };
+const { BrowserWindow, app } = require('electron');
+const pie = require('puppeteer-in-electron');
+const puppeteer = require('puppeteer-core');
+const { JSDOM } = require('jsdom');
 
 const webScrape = {
-  scrape: async (url) => {
+  cookieTester: async (url) => {
+    try {
+      console.log(url);
+      await pie.initialize(app);
+      const browser = await pie.connect(app, puppeteer);
+      const window = new BrowserWindow();
+
+      const page = await pie.getPage(browser, window);
+
+      const client = await page.target().createCDPSession();
+      await client.send('Network.clearBrowserCookies');
+      await client.send('Network.clearBrowserCache');
+
+      // //const content = await page.content();
+
+      await page.goto(url, { waitUntil: 'networkidle2' });
+
+      await page.evaluate((_) => {
+        function xcc_contains(selector, text) {
+          var elements = document.querySelectorAll(selector);
+          return Array.prototype.filter.call(elements, function (element) {
+            return RegExp(text, 'i').test(element.textContent.trim());
+          });
+        }
+        var _xcc;
+        _xcc = xcc_contains(
+          '[id*=cookie] a, [class*=cookie] a, [id*=cookie] button, [class*=cookie] button',
+          '^(Alle akzeptieren|Akzeptieren|Verstanden|Zustimmen|Okay|OK)$'
+        );
+        if (_xcc != null && _xcc.length != 0) {
+          _xcc[0].click();
+        }
+      });
+
+      var content = await page._client.send('Network.getAllCookies');
+
+      console.log(content);
+
+      const safety = content.cookies.map((c) => {
+        return c.httpOnly;
+      });
+
+      if (safety.every((e) => e === false)) {
+        console.log('This website does not have httpSecure cookies!');
+      } else if (safety.some((e) => e === false)) {
+        console.log('some cookies do not use httpOnly');
+      } else if (safety.length === 0) {
+        console.log('No cookies recieved');
+      } else {
+        console.log('cookies secure');
+      }
+      console.log('here');
+      await window.destroy();
+    } catch (e) {
+      console.log(e);
+      await window.destroy();
+    }
+  },
+
+  javascriptXSS: async (url) => {
     await pie.initialize(app);
     const browser = await pie.connect(app, puppeteer);
     const window = new BrowserWindow();
-    const page = await pie.getPage(browser, window);
-    await page.goto(url, { waitUntil: "networkidle2" });
+    let alertHappened = false;
+    try {
+      url = url.concat(`<img%20src%3D''%20onerror%3D'alert(0)'>`);
+      const page = await pie.getPage(browser, window);
 
-    const content = await page.content();
+      // const client = await page.target().createCDPSession();
+      // await client.send('Network.clearBrowserCookies');
+      // await client.send('Network.clearBrowserCache');
 
-    const cookies = await page.cookies();
+      page.on('dialog', async (dialog) => {
+        alertHappened = true;
+        console.log('here ', dialog._message);
+        await window.destroy();
+      });
 
-    cookiesResult = cookies.map((c) => c.secure);
+      await page.goto(url, {
+        waitUntil: 'networkidle2',
+      });
 
-    console.log(cookiesResult.some((e) => e === false));
+      console.log(url);
 
-    // await page.type(
-    //   input.type === "text",
-    //   `<img src="" onerror='alert("hello")'>`
-    // );
-    // await page.keyboard.press("Enter");
+      //await window.destroy();
+    } catch (e) {
+      console.log(e);
+      //await window.destroy();
+    } finally {
+      console.log('javascriptXSS ', alertHappened);
+      await window.destroy();
+    }
+  },
 
-    // page.on("dialog", async (dialog) => {
-    //   console.log(dialog.message());
-    //   //await dialog.dismiss();
-    // });
+  jqueryXSS: async (url) => {
+    await pie.initialize(app);
+    const browser = await pie.connect(app, puppeteer);
+    const window = new BrowserWindow();
+    let alertHappened = false;
+    try {
+      url = url.concat(`%27+%2B+alert%28%27yo%27%29+%2B+%27`);
+      const page = await pie.getPage(browser, window);
 
-    // await page.keyboard.press("Enter");
+      // const client = await page.target().createCDPSession();
+      // await client.send('Network.clearBrowserCookies');
+      // await client.send('Network.clearBrowserCache');
 
-    await window.destroy();
+      page.on('dialog', async (dialog) => {
+        alertHappened = true;
+        console.log('here ', dialog._message);
+        await window.destroy();
+      });
 
-    // page.on('requestfailed', console.error.bind(console, 'REQUEST_FAILED:')
+      await page.goto(url, {
+        waitUntil: 'networkidle2',
+      });
 
-    // await page.$$eval("input", (el) => (el[value] = "test@example.com"));
-
-    // const html = await page.content();
-
-    // console.log(html);
-
-    // const dom = new JSDOM(html);
-
-    // console.log(dom.window.document.querySelectorAll("input").value);
-
-    // await page.type("input", "Value");
-
-    // const list = await page.evaluateHandle(() => {
-    //   return Array.from(document.getElementsByTagName("input")).map((a) => {
-    //     return a.value;
-    //   });
-    // });
-
-    // console.log("55 ", list);
+      //await window.destroy();
+    } catch (e) {
+      console.log(e);
+      //await window.destroy();
+    } finally {
+      console.log('jqueryXSS ', alertHappened);
+      await window.destroy();
+    }
   },
 };
 

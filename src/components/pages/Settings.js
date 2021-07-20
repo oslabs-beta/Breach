@@ -1,55 +1,51 @@
-import React, { useEffect, useState } from "react";
-import PermanentDrawerLeft from "../material/SideNav";
-import ControlledOpenSelect from "../material/OpenSelect";
-import { Button } from "@material-ui/core";
-import { ipcRenderer } from "electron";
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import Typography from "@material-ui/core/Typography";
-import { CssBaseline } from "@material-ui/core";
-
+import React, { useEffect, useState } from 'react';
+import PermanentDrawerLeft from '../material/SideNav';
+import ControlledOpenSelect from '../material/OpenSelect';
+import { Button } from '@material-ui/core';
+import { ipcRenderer } from 'electron';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { CssBaseline } from '@material-ui/core';
 
 function Settings() {
   const [label, setLabel] = useState({});
   const [dummyState, setDummy] = useState(0);
 
-  useEffect(
-    () => {
-      ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
-      ipcRenderer.once("data-reply", (event, arg) => {
-        setLabel(arg);
-      });
-    },
-    []
-  );
-  console.log("label", label);
+  useEffect(() => {
+    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.once('data-reply', (event, arg) => {
+      setLabel(arg);
+    });
+  }, []);
+  console.log('label', label);
 
   // const [color, setColor] = useState(label.theme);
 
   let theme;
 
-  if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light); //setColor(createTheme(label.light))
-  if (label.theme === "Dark XSS Mode") theme = createTheme(label.dark); //setColor(createTheme(label.dark))
-  if (label.theme === "Blue DOS Mode") theme = createTheme(label.blue);
-  if (label.theme === "Purple SQL Injection Mode") theme = createTheme(label.purple);
-  if (label.theme === "Green Forest Mode") theme = createTheme(label.green);
+  if (label.theme === 'Regular Hacker Mode') theme = createTheme(label.light); //setColor(createTheme(label.light))
+  if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark); //setColor(createTheme(label.dark))
+  if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
+  if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
+  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
 
   const modes = [
-    "Regular Hacker Mode",
-    "Dark XSS Mode",
-    "Blue DOS Mode",
-    "Purple SQL Injection Mode",
-    "Green Forest Mode"
+    'Regular Hacker Mode',
+    'Dark XSS Mode',
+    'Blue DOS Mode',
+    'Purple SQL Injection Mode',
+    'Green Forest Mode',
   ];
-  const fontSizes = ["12px", "16px", "20px", "24px"];
+  const fontSizes = ['12px', '16px', '20px', '24px'];
 
   //const store = new Store();
 
   const clicked = () => {
-    console.log("state updated");
+    console.log('state updated');
 
-    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
-    ipcRenderer.once("data-reply", (event, arg) => {
+    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
     });
 
@@ -59,7 +55,7 @@ function Settings() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className="settingsDiv">
+      <div className='settingsDiv'>
         <center>
           <h1>Settings</h1>
         </center>
@@ -74,7 +70,7 @@ function Settings() {
           <input type="submit" value="Change Font Size" />
         </form> */}
         <br></br>
-        <Button variant="contained" color="primary" onClick={clicked}>
+        <Button variant='contained' color='primary' onClick={clicked}>
           Save Changes
         </Button>
         <br></br>
@@ -84,6 +80,10 @@ function Settings() {
       </div>
     </ThemeProvider>
   );
+}
+
+{
+  /* <img src='' onerror='alert(`dialogue`)'> */
 }
 
 export default Settings;
