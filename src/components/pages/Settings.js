@@ -70,7 +70,7 @@ function Settings() {
           <input type="submit" value="Change Font Size" />
         </form> */}
         <br></br>
-        <Button variant='contained' color='primary' onClick={clicked}>
+        <Button variant='contained' size="small" color='primary' onClick={clicked}>
           Save Changes
         </Button>
         <br></br>

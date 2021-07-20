@@ -293,23 +293,6 @@ function createWindow() {
 
   // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
   if (!store.get("fontSize")) store.set("fontSize", "16px")
-  // if (!store.get("theme")) store.set('theme', light)
-
-  ipcMain.on("asynchronous-message", (event, arg) => {
-
-    const regex = /\d/g;
-
-    if (regex.test(arg.value)) {
-      arg.name = "fontSize";
-    } else {
-      arg.name = "theme";
-    }
-
-    store.set(arg.name, arg.value);
-
-    event.reply("asynchronous-reply", "pong");
-  });
-
 
 
   ipcMain.on('load-data', function (event, arg) {
@@ -586,6 +569,10 @@ ipcMain.on('clearItem', function (event, arg) {
   newHistory.splice(arg, 1)
   store.set('history', newHistory)
   mainWindow.webContents.send('itemCleared', store.get('history'))
+})
+
+ipcMain.on('getHistoryLength', function (event, arg) {
+  mainWindow.webContents.send('length', store.get('historyLength'))
 })
 
 // webScrape.jqueryXSS(

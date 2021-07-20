@@ -56,7 +56,7 @@ function History() {
       setHistory(arg)
     });
   }
-
+  console.log(history)
   const pastStats = history.slice(0, historyLength).map((el, i) => {
     return (
       <li key={i}>
@@ -81,6 +81,15 @@ function History() {
 
   const historyLengths = [1, 2, 3, 4, 5, 6]
 
+  const clicked = () => {
+    ipcRenderer.send('getHistoryLength');
+    ipcRenderer.once('length', (event, arg) => {
+      console.log(`arg: ${arg}`)
+      setHistoryLength(arg);
+      console.log(`historyLength: ${historyLength}`)
+    });
+  };
+
   return (
     <ThemeProvider theme={theme}>
 
@@ -90,12 +99,15 @@ function History() {
         <h1>History</h1>
       </center>
       <ControlledOpenSelect options={historyLengths} />
-      <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={clearHistory}>
-          Clear History
-        </Button>      
+      <Button variant='contained' color='primary' size="small" onClick={clicked}>
+          Change Length
+        </Button>
       <ul>
         {pastStats}
       </ul>
+      <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={clearHistory}>
+          Clear History
+        </Button>      
        <PermanentDrawerLeft />
     </div>
     </ThemeProvider>
