@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
   const [label, setLabel] = useState({});
+  const [testResults, setTestResults] = useState('...Awaiting test results...')
 
   
   useEffect(() => {
@@ -28,9 +29,6 @@ function Home() {
     });
 
   }, []);
-
-  console.log("label", label);
-
 
   let theme;
 
@@ -42,6 +40,24 @@ function Home() {
 
   const classes = useStyles();
 
+  const sendURL = () => {
+    let link = document.getElementsByName("url")[0].value
+    ipcRenderer.send("url", link)
+    ipcRenderer.once("testOutput", (event, arg) => {
+      console.log(arg)
+      setTestResults(
+        <div>
+          <h5>URL Tested</h5>
+          <p>{arg.url}</p>
+          <h5>Cookie Test Results</h5>
+          <p>{arg.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</p>
+          <h5>Jquery XSS results</h5>
+          <p>{arg.JqueryTest? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}</p>
+        </div>
+      )
+    });
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -52,18 +68,15 @@ function Home() {
       <form>
         <h3>URL</h3>
         <input type="text" placeholder="URL link to be tested" name="url" />
-        <input type="submit" value="Hack 'Em Up" />
-        <Button variant="contained" size="small" color="primary" className={classes.margin}>
-        Hack Em Up
-      </Button>      
-
-
-
+        <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={sendURL}>
+          Hack Em Up
+        </Button>      
       </form>
       <br></br>
       <h3>Ports in Use</h3>
       <br></br>
-      <h3>Stats</h3>np
+      <h3>Results</h3>
+      {testResults}
       <PermanentDrawerLeft />
     </div>
 
