@@ -36,9 +36,14 @@ export default function ControlledOpenSelect(props) {
   //on load get values from local storage database
 
   useEffect(() => {
-    ipcRenderer.send("load-data", console.log());
-    ipcRenderer.on("data-reply", (event, arg) => {
-      if (options[0].props.value === "Regular Hacker Mode") {
+    ipcRenderer.send("load-data", props);
+    ipcRenderer.once("data-reply", (event, arg) => {
+      
+      if (typeof options[0].props.value === 'number' && options[0].props.value.toString().length === 1) {
+        console.log(options[0].props.value)
+        setLabel(arg.historyLength)
+      }
+      else if (options[0].props.value === "Regular Hacker Mode") {
         let cut = arg.theme.split(" ");
         setLabel(cut[0]);
       } else {

@@ -16,7 +16,7 @@ function About() {
       setLabel(arg);
     });
   }, []);
-  console.log("label", label)
+  // console.log("label", label)
 
   let theme
 

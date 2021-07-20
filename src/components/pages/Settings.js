@@ -18,7 +18,7 @@ function Settings() {
       setLabel(arg);
     });
   }, []);
-  console.log('label', label);
+  // console.log('label', label);
 
   // const [color, setColor] = useState(label.theme);
 
