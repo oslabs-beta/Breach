@@ -1,29 +1,12 @@
 'use strict';
-
 // Import parts of electron to use
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-
 const { ipcMain } = require('electron');
-
 const Store = require('electron-store');
-
 const store = new Store();
-
 const webScrape = require('./puppeteer');
-
-//Attempt at hot reloading
-// if (process.env.NODE_ENV === "development") {
-//   try {
-//     require("electron-reloader")(module, {
-//       debug: true,
-//       watchRenderer: true,
-//     });
-//   } catch (_) {
-//     console.log("Error");
-//   }
-// }
 
 //local storage working
 
@@ -33,11 +16,6 @@ let mainWindow;
 
 // Keep a reference for dev mode
 let dev = false;
-
-// Broken:
-// if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)) {
-//   dev = true
-// }
 
 if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV === 'development') {
   dev = true;
@@ -81,18 +59,13 @@ function createWindow() {
     });
   }
 
-  // setTimeout(() => mainWindow.loadURL(indexPath), 10000);
   mainWindow.loadURL(indexPath);
 
-  // ipc testing
-
-  // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
-  if (!store.get('fontSize')) store.set('fontSize', '16px');
-  // if (!store.get("theme")) store.set('theme', light)
-
   ipcMain.on('asynchronous-message', (event, arg) => {
-    //console.log(arg, arg.value); // prints var sent from front end
-
+    if (typeof arg.value === 'number' && arg.value.toString().length === 1) {
+      arg.name = 'historyLength'
+    }
+    else{
     const regex = /\d/g;
 
     if (regex.test(arg.value)) {
@@ -100,21 +73,14 @@ function createWindow() {
     } else {
       arg.name = 'theme';
     }
-    // console.log("102 ", arg);
-    // console.log(parseInt(store.get("fontSize").slice(0, 2)))
-    // console.log("what is store?: ", store.store)
-
+  }
     store.set(arg.name, arg.value);
-
     event.reply('asynchronous-reply', 'pong');
   });
 
-  // console.log("109 ", store.store);
-
-  // console.log(mainWindow.webContents.getURL());
-
-  //themes
-
+  if (!store.get('fontSize') || typeof store.get('fontSize') !== 'string') store.set('fontSize', '16px');
+  if (!store.get('history')) store.set('history', []);
+  if (!store.get('historyLength')) store.set('historyLength', 3);
   const dark = {
     overrides: {
       MuiCssBaseline: {
@@ -131,13 +97,10 @@ function createWindow() {
       type: 'dark',
     },
   };
-
   const light = {
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          // MUI typography elements use REMs, so you can scale the global
-          // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get('fontSize').slice(0, 2)),
           },
@@ -148,13 +111,10 @@ function createWindow() {
       type: 'light',
     },
   };
-
   const blue = {
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          // MUI typography elements use REMs, so you can scale the global
-          // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get('fontSize').slice(0, 2)),
           },
@@ -193,13 +153,10 @@ function createWindow() {
       },
     },
   };
-
   const purple = {
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          // MUI typography elements use REMs, so you can scale the global
-          // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get('fontSize').slice(0, 2)),
           },
@@ -238,13 +195,10 @@ function createWindow() {
       },
     },
   };
-
   const green = {
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          // MUI typography elements use REMs, so you can scale the global
-          // font size by setting the font-size on the <html> element.
           html: {
             fontSize: parseInt(store.get('fontSize').slice(0, 2)),
           },
@@ -284,30 +238,22 @@ function createWindow() {
     },
   };
 
-  store.set('purple', purple);
+  if (!store.get("fontSize")) store.set("fontSize", "16px")
 
-  store.set('green', green);
-
-  store.set('dark', dark);
-
-  store.set('light', light);
-
-  store.set('blue', blue);
-
-  // console.log("light and dark ", store.store)
 
   ipcMain.on('load-data', function (event, arg) {
+    if (arg && typeof arg.options[0] === 'number') {
+      mainWindow.webContents.send('data-reply', store.store);
+    }
+    else{
     if (store.get('fontSize') === null || store.get('fontSize') === undefined) {
       dark.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
       light.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
     }
-
     const dark = {
       overrides: {
         MuiCssBaseline: {
           '@global': {
-            // MUI typography elements use REMs, so you can scale the global
-            // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get('fontSize').slice(0, 2)),
             },
@@ -318,13 +264,10 @@ function createWindow() {
         type: 'dark',
       },
     };
-
     const light = {
       overrides: {
         MuiCssBaseline: {
           '@global': {
-            // MUI typography elements use REMs, so you can scale the global
-            // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get('fontSize').slice(0, 2)),
             },
@@ -335,13 +278,10 @@ function createWindow() {
         type: 'light',
       },
     };
-
     const blue = {
       overrides: {
         MuiCssBaseline: {
           '@global': {
-            // MUI typography elements use REMs, so you can scale the global
-            // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get('fontSize').slice(0, 2)),
             },
@@ -380,13 +320,10 @@ function createWindow() {
         },
       },
     };
-
     const purple = {
       overrides: {
         MuiCssBaseline: {
           '@global': {
-            // MUI typography elements use REMs, so you can scale the global
-            // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get('fontSize').slice(0, 2)),
             },
@@ -425,13 +362,10 @@ function createWindow() {
         },
       },
     };
-
     const green = {
       overrides: {
         MuiCssBaseline: {
           '@global': {
-            // MUI typography elements use REMs, so you can scale the global
-            // font size by setting the font-size on the <html> element.
             html: {
               fontSize: parseInt(store.get('fontSize').slice(0, 2)),
             },
@@ -482,6 +416,7 @@ function createWindow() {
     store.set('blue', blue);
 
     mainWindow.webContents.send('data-reply', store.store);
+  }
   });
 
   // Don't show until we are ready and loaded
@@ -533,33 +468,32 @@ app.on('activate', () => {
   }
 });
 
-// webScrape.jqueryXSS(
-//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//   )
-// );
+ipcMain.on('url', function (event, arg) {
+  let test = {
+    url: arg,
+    cookieTest: false,
+    JqueryTest: true
+  }
+  let history
+  store.get('history') ? history = store.get('history') : history = []
+  history.unshift(test)
+  history.length >= 25 ? history.pop() : history
+  store.set('history', history)
+  mainWindow.webContents.send('testOutput', test);
+});
 
-webScrape.jqueryXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
+ipcMain.on('clearHistory', function (event, arg) {
+  store.set('history', [])
+  mainWindow.webContents.send('historyCleared', store.get('history'))
+})
 
-webScrape.javascriptXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
+ipcMain.on('clearItem', function (event, arg) {
+  let newHistory = store.get('history')
+  newHistory.splice(arg, 1)
+  store.set('history', newHistory)
+  mainWindow.webContents.send('itemCleared', store.get('history'))
+})
 
-//webScrape.cookieTester(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
-// webScrape.cookieTester(
-//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//   )
-// );
-
-//webScrape.cookieTester(`https://hack-yourself-first.com/`);
-
-//`https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//  `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//  )
-
-//webScrape.cookieTester('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
-
-//webScrape.jqueryXSS('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
-
-//https://hack-yourself-first.com/Search?searchTerm=%27+%2B+alert%28%27yo%27%29+%2B+%27
-
-//`<img%20src%3D''%20onerror%3D'alert('dialog')'>`
+ipcMain.on('getHistoryLength', function (event, arg) {
+  mainWindow.webContents.send('length', store.get('historyLength'))
+})

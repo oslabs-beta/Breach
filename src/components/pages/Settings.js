@@ -18,14 +18,11 @@ function Settings() {
       setLabel(arg);
     });
   }, []);
-  console.log('label', label);
-
-  // const [color, setColor] = useState(label.theme);
 
   let theme;
 
-  if (label.theme === 'Regular Hacker Mode') theme = createTheme(label.light); //setColor(createTheme(label.light))
-  if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark); //setColor(createTheme(label.dark))
+  if (label.theme === 'Regular Hacker Mode') theme = createTheme(label.light);
+  if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
   if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
@@ -38,8 +35,6 @@ function Settings() {
     'Green Forest Mode',
   ];
   const fontSizes = ['12px', '16px', '20px', '24px'];
-
-  //const store = new Store();
 
   const clicked = () => {
     console.log('state updated');
@@ -65,12 +60,8 @@ function Settings() {
         <h3>Change Text Size</h3>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
-        {/* <form>
-          <input type="text" placeholder="Font Size" name="size" />
-          <input type="submit" value="Change Font Size" />
-        </form> */}
         <br></br>
-        <Button variant='contained' color='primary' onClick={clicked}>
+        <Button variant='contained' size="small" color='primary' onClick={clicked}>
           Save Changes
         </Button>
         <br></br>
