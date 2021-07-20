@@ -31,13 +31,7 @@ function History() {
       setHistory(arg.history)
       if (arg.historyLength) setHistoryLength(arg.historyLength)
     });
-    // ipcRenderer.send('history')
-    // ipcRenderer.once('historyOutput', (event, arg) => {
-    //   // console.log(arg)
-
-    // })
   }, []);
-  // console.log("label", label)
 
   const classes = useStyles();
 
@@ -84,9 +78,7 @@ function History() {
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
     ipcRenderer.once('length', (event, arg) => {
-      console.log(`arg: ${arg}`)
       setHistoryLength(arg);
-      console.log(`historyLength: ${historyLength}`)
     });
   };
 

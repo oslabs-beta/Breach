@@ -30,9 +30,6 @@ function Home() {
 
   }, []);
 
-  // console.log("label", label);
-
-
   let theme;
 
   if (label.theme === "Regular Hacker Mode") theme = createTheme(label.light);
@@ -61,7 +58,6 @@ function Home() {
     });
   }
 
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -75,9 +71,6 @@ function Home() {
         <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={sendURL}>
           Hack Em Up
         </Button>      
-
-
-
       </form>
       <br></br>
       <h3>Ports in Use</h3>
