@@ -87,12 +87,16 @@ function createWindow() {
   // ipc testing
 
   // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
-  if (!store.get('fontSize')) store.set('fontSize', '16px');
+
   // if (!store.get("theme")) store.set('theme', light)
 
   ipcMain.on('asynchronous-message', (event, arg) => {
-    //console.log(arg, arg.value); // prints var sent from front end
 
+    // console.log(arg, arg.value); // prints var sent from front end
+    if (typeof arg.value === 'number' && arg.value.toString().length === 1) {
+      arg.name = 'historyLength'
+    }
+    else{
     const regex = /\d/g;
 
     if (regex.test(arg.value)) {
@@ -100,6 +104,8 @@ function createWindow() {
     } else {
       arg.name = 'theme';
     }
+  }
+    console.log(store.store)
     // console.log("102 ", arg);
     // console.log(parseInt(store.get("fontSize").slice(0, 2)))
     // console.log("what is store?: ", store.store)
@@ -114,7 +120,8 @@ function createWindow() {
   // console.log(mainWindow.webContents.getURL());
 
   //themes
-
+  if (!store.get('fontSize') || typeof store.get('fontSize') !== 'string') store.set('fontSize', '16px');
+  console.log('line 123', store.get('fontSize'))
   const dark = {
     overrides: {
       MuiCssBaseline: {
@@ -306,11 +313,17 @@ function createWindow() {
 
 
   ipcMain.on('load-data', function (event, arg) {
+    // console.log('arg passed to load-data', arg.options[0])
+    if (arg && typeof arg.options[0] === 'number') {
+      mainWindow.webContents.send('data-reply', store.store);
+      console.log('inside if statement')
+    }
+    else{
+      console.log('inside else statement')
     if (store.get('fontSize') === null || store.get('fontSize') === undefined) {
       dark.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
       light.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
     }
-
     const dark = {
       overrides: {
         MuiCssBaseline: {
@@ -491,6 +504,7 @@ function createWindow() {
     store.set('blue', blue);
 
     mainWindow.webContents.send('data-reply', store.store);
+  }
   });
 
   // Don't show until we are ready and loaded
@@ -548,8 +562,31 @@ ipcMain.on('url', function (event, arg) {
     cookieTest: false,
     JqueryTest: true
   }
+  let history
+  store.get('history') ? history = store.get('history') : history = []
+  history.unshift(test)
+  history.length >= 25 ? history.pop() : history
+  // console.log(history)
+  store.set('history', history)
   mainWindow.webContents.send('testOutput', test);
 });
+
+// ipcMain.on('history', function (event, arg) {
+//   // console.log(store.get('history'))
+//   mainWindow.webContents.send('historyOutput', store.get('history'))
+// })
+
+ipcMain.on('clearHistory', function (event, arg) {
+  store.set('history', [])
+  mainWindow.webContents.send('historyCleared', store.get('history'))
+})
+
+ipcMain.on('clearItem', function (event, arg) {
+  let newHistory = store.get('history')
+  newHistory.splice(arg, 1)
+  store.set('history', newHistory)
+  mainWindow.webContents.send('itemCleared', store.get('history'))
+})
 
 // webScrape.jqueryXSS(
 //   `https://xss-game.appspot.com/level1/frame?query=<script>+alert('')</script>`
