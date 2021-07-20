@@ -292,21 +292,6 @@ function createWindow() {
 
   // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
   if (!store.get('fontSize')) store.set('fontSize', '16px');
-  // if (!store.get("theme")) store.set('theme', light)
-
-  ipcMain.on('asynchronous-message', (event, arg) => {
-    const regex = /\d/g;
-
-    if (regex.test(arg.value)) {
-      arg.name = 'fontSize';
-    } else {
-      arg.name = 'theme';
-    }
-
-    store.set(arg.name, arg.value);
-
-    event.reply('asynchronous-reply', 'pong');
-  });
 
   ipcMain.on('load-data', function (event, arg) {
     // console.log('arg passed to load-data', arg.options[0])
@@ -549,6 +534,42 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('url', function (event, arg) {
+  let test = {
+    url: arg,
+    cookieTest: false,
+    JqueryTest: true,
+  };
+  let history;
+  store.get('history') ? (history = store.get('history')) : (history = []);
+  history.unshift(test);
+  history.length >= 25 ? history.pop() : history;
+  // console.log(history)
+  store.set('history', history);
+  mainWindow.webContents.send('testOutput', test);
+});
+
+// ipcMain.on('history', function (event, arg) {
+//   // console.log(store.get('history'))
+//   mainWindow.webContents.send('historyOutput', store.get('history'))
+// })
+
+ipcMain.on('clearHistory', function (event, arg) {
+  store.set('history', []);
+  mainWindow.webContents.send('historyCleared', store.get('history'));
+});
+
+ipcMain.on('clearItem', function (event, arg) {
+  let newHistory = store.get('history');
+  newHistory.splice(arg, 1);
+  store.set('history', newHistory);
+  mainWindow.webContents.send('itemCleared', store.get('history'));
+});
+
+ipcMain.on('getHistoryLength', function (event, arg) {
+  mainWindow.webContents.send('length', store.get('historyLength'));
 });
 
 // webScrape.jqueryXSS(

@@ -59,7 +59,7 @@ export default function ControlledOpenSelect(props) {
     //console.log(event.target);
     setOption(event.target.value);
 
-    ipcRenderer.on("asynchronous-reply", (event, arg) => {
+    ipcRenderer.once("asynchronous-reply", (event, arg) => {
       //console.log("61 ", arg); // prints "pong"
     });
 
