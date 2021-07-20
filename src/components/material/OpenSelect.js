@@ -36,27 +36,27 @@ export default function ControlledOpenSelect(props) {
   //on load get values from local storage database
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log());
-    ipcRenderer.on('data-reply', (event, arg) => {
-      if (options[0].props.value === 'Regular Hacker Mode') {
+    ipcRenderer.send('load-data', props);
+    ipcRenderer.once('data-reply', (event, arg) => {
+      if (
+        typeof options[0].props.value === 'number' &&
+        options[0].props.value.toString().length === 1
+      ) {
+        setLabel(arg.historyLength);
+      } else if (options[0].props.value === 'Regular Hacker Mode') {
         let cut = arg.theme.split(' ');
         setLabel(cut[0]);
       } else {
         setLabel(arg.fontSize);
       }
-
-      //console.log(label);
     });
   });
 
   //sends msg to update local storage upon change
   const handleChange = (event) => {
-    //console.log(event.target);
     setOption(event.target.value);
 
-    ipcRenderer.on('asynchronous-reply', (event, arg) => {
-      //console.log("61 ", arg); // prints "pong"
-    });
+    ipcRenderer.once('asynchronous-reply', (event, arg) => {});
 
     ipcRenderer.send('asynchronous-message', event.target);
   };
