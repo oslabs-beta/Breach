@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { CssBaseline } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -39,22 +40,54 @@ function Home() {
 
   const sendURL = () => {
     let link = document.getElementsByName('url')[0].value;
-    ipcRenderer.send('url', link);
-    ipcRenderer.once('testOutput', (event, arg) => {
-      console.log(arg);
-      setTestResults(
-        <div>
-          <h5>URL Tested</h5>
-          <p>{arg.url}</p>
-          <h5>Cookie Test Results</h5>
-          <p>{arg.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</p>
-          <h5>Jquery XSS results</h5>
-          <p>
-            {arg.JqueryTest ? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}
-          </p>
-        </div>
-      );
-    });
+
+    let userObject = {
+      url: link,
+    };
+
+    axios
+      .post('https://whatthehackserver.herokuapp.com/javascriptXSS', userObject)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // ipcRenderer.send('url', link);
+    // ipcRenderer.once('testOutput', (event, arg) => {
+    //   console.log(arg);
+    //   setTestResults(
+    //     <div>
+    //       <h5>URL Tested</h5>
+    //       <p>{arg.url}</p>
+    //       <h5>Cookie Test Results</h5>
+    //       <p>{arg.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</p>
+    //       <h5>Jquery XSS results</h5>
+    //       <p>
+    //         {arg.JqueryTest ? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}
+    //       </p>
+    //     </div>
+    //   );
+    // });
   };
 
   return (
