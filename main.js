@@ -469,9 +469,15 @@ app.on('activate', () => {
 ipcMain.on('url', function (event, arg) {
   let test = {
     url: arg,
-    cookieTest: false,
-    JqueryTest: true,
+    cookieTest: '',
+    jqueryTest: false,
+    jsXSS: false,
   };
+
+  webScrape.cookieTester(test.url, test.cookieTest);
+  webScrape.javascriptXSS(test.url, test.jsXSS);
+  webScrape.jqueryXSS(test.url, test.cookieTest);
+
   let history;
   store.get('history') ? (history = store.get('history')) : (history = []);
   history.unshift(test);

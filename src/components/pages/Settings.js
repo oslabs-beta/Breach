@@ -13,10 +13,18 @@ function Settings() {
   const [dummyState, setDummy] = useState(0);
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
-    ipcRenderer.once('data-reply', (event, arg) => {
-      setLabel(arg);
-    });
+    let isFetched = true;
+    try {
+      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.on('data-reply', (event, arg) => {
+        if (isFetched) setLabel(arg);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    // cancel async otherwise to prevent memory leak
+    return () => (isFetched = false);
   }, []);
 
   let theme;
@@ -61,7 +69,7 @@ function Settings() {
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>
-        <Button variant='contained' size="small" color='primary' onClick={clicked}>
+        <Button variant='contained' size='small' color='primary' onClick={clicked}>
           Save Changes
         </Button>
         <br></br>

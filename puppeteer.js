@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer-core');
 const { JSDOM } = require('jsdom');
 
 const webScrape = {
-  cookieTester: async (url) => {
+  cookieTester: async (url, result) => {
     try {
       console.log(url);
       await pie.initialize(app);
@@ -48,12 +48,16 @@ const webScrape = {
 
       if (safety.every((e) => e === false)) {
         console.log('This website does not have httpSecure cookies!');
+        result = 'This website does not have httpSecure cookies!';
       } else if (safety.some((e) => e === false)) {
         console.log('some cookies do not use httpOnly');
+        result = 'some cookies do not use httpOnly';
       } else if (safety.length === 0) {
         console.log('No cookies recieved');
+        result = 'No cookies recieved';
       } else {
         console.log('cookies secure');
+        result = 'cookies secure';
       }
       console.log('here');
       await window.destroy();
@@ -63,7 +67,7 @@ const webScrape = {
     }
   },
 
-  javascriptXSS: async (url) => {
+  javascriptXSS: async (url, boolean) => {
     await pie.initialize(app);
     const browser = await pie.connect(app, puppeteer);
     const window = new BrowserWindow();
@@ -78,6 +82,7 @@ const webScrape = {
 
       page.on('dialog', async (dialog) => {
         alertHappened = true;
+        boolean = true;
         console.log('here ', dialog._message);
         await window.destroy();
       });
@@ -98,7 +103,7 @@ const webScrape = {
     }
   },
 
-  jqueryXSS: async (url) => {
+  jqueryXSS: async (url, boolean) => {
     await pie.initialize(app);
     const browser = await pie.connect(app, puppeteer);
     const window = new BrowserWindow();
@@ -113,6 +118,7 @@ const webScrape = {
 
       page.on('dialog', async (dialog) => {
         alertHappened = true;
+        boolean = true;
         console.log('here ', dialog._message);
         await window.destroy();
       });

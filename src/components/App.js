@@ -1,45 +1,41 @@
-import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
-import "../assets/css/App.css";
-import PermanentDrawerLeft from "./material/SideNav";
-import About from "./pages/About";
-import History from "./pages/History";
-import Home from "./pages/Home";
-import Settings from "./pages/Settings";
+import '../assets/css/App.css';
+import PermanentDrawerLeft from './material/SideNav';
+import About from './pages/About';
+import History from './pages/History';
+import Home from './pages/Home';
+import Settings from './pages/Settings';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const RedirectToHome = () => {
-      return <Redirect to="/home" />;
-    };
+function App() {
+  let location = useLocation();
 
-    return (
-      <div className="router">
-        <PermanentDrawerLeft />
+  const RedirectToHome = () => {
+    return <Redirect to='/home' />;
+  };
 
-        <Switch>
-          {/* <Route render={() => <Redirect to="/" />} /> */}
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/history" component={History} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/about" component={About} />
+  return (
+    <div className='router'>
+      <PermanentDrawerLeft />
+      {/* <TransitionGroup>
+        <CSSTransition timeout={0} classNames='fade' key={location.key}> */}
+      {/* <div> */}
+      <Switch location={location}>
+        {/* <Route render={() => <Redirect to="/" />} /> */}
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/history' component={History} />
+        <Route exact path='/settings' component={Settings} />
+        <Route exact path='/about' component={About} />
 
-          <Route path="/index.html" component={RedirectToHome} />
-        </Switch>
-
-        {/* <h1>Hello, Electron!</h1>
-
-        <p>
-          I hope you enjoy using basic-electron-react-boilerplate to start your
-          dev off right!
-        </p>*/}
-      </div>
-    );
-  }
+        <Route path='/index.html' component={RedirectToHome} />
+      </Switch>
+      {/* </div> */}
+      {/* </CSSTransition>
+      </TransitionGroup> */}
+    </div>
+  );
 }
 
 export default App;
