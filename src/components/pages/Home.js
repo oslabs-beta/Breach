@@ -47,75 +47,118 @@ function Home() {
       url: link,
     };
 
-    let testStats = {url: link}
+    let testStats = { url: link };
 
+    const fetches = () => {
       axios
         .post('https://whatthehackserver.herokuapp.com/javascriptXSS', userObject)
         .then((res) => {
           console.log(res.data);
-          testStats.jsXSS = res.data
+          testStats.jsXSS = res.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        // .catch((error) => {
+        //   console.log(error);
+        // });
 
-      axios
-        .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
-        .then((res) => {
-          console.log(res.data);
-          testStats.cookieTest = res.data
+        .then(() => {
+          axios
+            .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.cookieTest = res.data;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
-        .catch((error) => {
-          console.log(error);
-        });
 
-      axios
-        .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
-        .then((res) => {
-          console.log(res.data);
-          testStats.jqueryTest = res.data
+        .then(() => {
+          axios
+            .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.jqueryTest = res.data;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
-        .catch((error) => {
-          console.log(error);
-        });
 
-      ipcRenderer.send('url', testStats);
-      ipcRenderer.once('testOutput', (event, arg) => {
-        console.log(arg);
-        setTestResults(
-        <div>
-        <h2 color='primary'>URL Tested</h2>
-        <Typography variant='body2' color='secondary'>{arg.url}</Typography>
-        <Typography variant='h5' color='primary'>Cookie Test Results</Typography>
-        <Typography variant='body2' color='secondary'>{arg.cookieTest}</Typography>
-        <Typography variant='h5' color='primary'>Jquery XSS results</Typography>
-        <Typography variant='body2' color='secondary'>{arg.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'}</Typography>
-        <Typography variant='h5' color='primary'>Javascript XSS results</Typography>
-        <Typography variant='body2' color='secondary'>{arg.jsXSS ? 'Not safe from XSS in javascript' : 'Safe from XSS in javascript'}</Typography>
-      </div>
-        );
-      });
+        .then(() => {
+          ipcRenderer.send('url', testStats);
+          ipcRenderer.once('testOutput', (event, arg) => {
+            console.log(arg);
+            setTestResults(
+              <div>
+                <h2 color='primary'>URL Tested</h2>
+                <Typography variant='body2' color='secondary'>
+                  {arg.url}
+                </Typography>
+                <Typography variant='h5' color='primary'>
+                  Cookie Test Results
+                </Typography>
+                <Typography variant='body2' color='secondary'>
+                  {arg.cookieTest}
+                </Typography>
+                <Typography variant='h5' color='primary'>
+                  Jquery XSS results
+                </Typography>
+                <Typography variant='body2' color='secondary'>
+                  {arg.jqueryTest
+                    ? 'Not safe from XSS in jQuery'
+                    : 'Safe from XSS in jQuery'}
+                </Typography>
+                <Typography variant='h5' color='primary'>
+                  Javascript XSS results
+                </Typography>
+                <Typography variant='body2' color='secondary'>
+                  {arg.jsXSS
+                    ? 'Not safe from XSS in javascript'
+                    : 'Safe from XSS in javascript'}
+                </Typography>
+              </div>
+            );
+          });
+        });
+    };
+
+    fetches();
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-    <div>
-      <center>
-        <Typography variant='h4' color='textPrimary'>Home</Typography>
-      </center>
-      <form>
-      <TextField color='primary' id="filled-basic" name='url' label="Input URL here" variant="filled" />
-        <Button variant="contained" size="medium" color="primary" className={classes.margin} onClick={sendURL}>
-          Hack 'Em Up
-        </Button>      
-      </form>
-      <br></br>
-      <Typography variant='h5' color='textSecondary'>Results</Typography>
-      {testResults}
-      <PermanentDrawerLeft />
-    </div>
-
+      <div>
+        <center>
+          <Typography variant='h4' color='textPrimary'>
+            Home
+          </Typography>
+        </center>
+        <form>
+          <TextField
+            color='primary'
+            id='filled-basic'
+            name='url'
+            label='Input URL here'
+            variant='filled'
+          />
+          <Button
+            variant='contained'
+            size='medium'
+            color='primary'
+            className={classes.margin}
+            onClick={sendURL}
+          >
+            Hack 'Em Up
+          </Button>
+        </form>
+        <br></br>
+        <Typography variant='h5' color='textSecondary'>
+          Results
+        </Typography>
+        {testResults}
+        <PermanentDrawerLeft />
+      </div>
     </ThemeProvider>
   );
 }
