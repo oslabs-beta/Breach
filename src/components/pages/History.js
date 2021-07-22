@@ -1,11 +1,10 @@
-
-import React, { useEffect, useState } from "react";
-import { ipcRenderer } from "electron";
-import { CssBaseline } from "@material-ui/core";
-import PermanentDrawerLeft from "../material/SideNav";
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from 'react';
+import { ipcRenderer } from 'electron';
+import { CssBaseline } from '@material-ui/core';
+import PermanentDrawerLeft from '../material/SideNav';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 
@@ -18,49 +17,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function History() {
   const [label, setLabel] = useState({});
-  const [history, setHistory] = useState([])
-  const [historyLength, setHistoryLength] = useState(3)
+  const [history, setHistory] = useState([]);
+  const [historyLength, setHistoryLength] = useState(3);
 
   useEffect(() => {
-    ipcRenderer.send("load-data", console.log("40, OpenSelect.js"));
-    ipcRenderer.once("data-reply", (event, arg) => {
-      console.log(arg)
-      setLabel(arg);
-      setHistory(arg.history)
-      if (arg.historyLength) setHistoryLength(arg.historyLength)
-    });
+    let isFetched = true;
+    try {
+      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.once('data-reply', (event, arg) => {
+        console.log(arg);
+        setLabel(arg);
+        if (isFetched) setHistory(arg.history);
+        if (arg.historyLength) setHistoryLength(arg.historyLength);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    // cancel async otherwise to prevent memory leak
+    return () => (isFetched = false);
   }, []);
 
   const classes = useStyles();
 
-  let theme
+  let theme;
 
-  if (label.theme === "Regular Hacker Mode") theme=createTheme(label.light)
-  if (label.theme === "Dark XSS Mode") theme=createTheme(label.dark)
-  if (label.theme === "Blue DOS Mode") theme = createTheme(label.blue);
-  if (label.theme === "Purple SQL Injection Mode") theme = createTheme(label.purple);
-  if (label.theme === "Green Forest Mode") theme = createTheme(label.green);
-
+  if (label.theme === 'Regular Hacker Mode') theme = createTheme(label.light);
+  if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
+  if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
+  if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
+  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
 
   const clearItem = (index) => {
-    ipcRenderer.send("clearItem", index)
-    ipcRenderer.once("itemCleared", (event, arg) => {
-      setHistory(arg)
+    ipcRenderer.send('clearItem', index);
+    ipcRenderer.once('itemCleared', (event, arg) => {
+      setHistory(arg);
     });
-  }
-  console.log(history)
+  };
+  //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
     return (
       <li key={i}>
-        <Typography variant='h5'>URL Tested:</Typography>
-        <Typography variant='body2'> {el.url} </Typography>
-        <Typography variant='h5'>Cookie Test Results</Typography>
-        <Typography variant='body2'>{el.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</Typography>
-        <Typography variant='h5'>Jquery XSS results</Typography>
-        <Typography variant='body2'>{el.JqueryTest ? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}</Typography>
+        <h2 color='primary'>URL Tested</h2>
+        <Typography variant='body2' color='secondary'>{el.url}</Typography>
+        <Typography variant='h5' color='primary'>Cookie Test Results</Typography>
+        <Typography variant='body2' color='secondary'>{el.cookieTest}</Typography>
+        <Typography variant='h5' color='primary'>Jquery XSS results</Typography>
+        <Typography variant='body2' color='secondary'>{el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'}</Typography>
+        <Typography variant='h5' color='primary'>Javascript XSS results</Typography>
+        <Typography variant='body2' color='secondary'>{el.jsXSS ? 'Not safe from XSS in javascript' : 'Safe from XSS in javascript'}</Typography>
         <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={() => clearItem(i)}>
           Clear Item
         </Button>
@@ -69,13 +76,13 @@ function History() {
   });
 
   const clearHistory = () => {
-    ipcRenderer.send("clearHistory")
-    ipcRenderer.once("historyCleared", (event, arg) => {
-      setHistory(arg)
+    ipcRenderer.send('clearHistory');
+    ipcRenderer.once('historyCleared', (event, arg) => {
+      setHistory(arg);
     });
-  }
+  };
 
-  const historyLengths = [1, 2, 3, 4, 5, 6]
+  const historyLengths = [1, 2, 3, 4, 5, 6];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -96,14 +103,18 @@ function History() {
       <Button variant='contained' color='primary' size="small" onClick={clicked}>
           Change Length
         </Button>
-      <ul>
-        {pastStats}
-      </ul>
-      <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={clearHistory}>
+        <ul>{pastStats}</ul>
+        <Button
+          variant='contained'
+          size='small'
+          color='primary'
+          className={classes.margin}
+          onClick={clearHistory}
+        >
           Clear History
-        </Button>      
-       <PermanentDrawerLeft />
-    </div>
+        </Button>
+        <PermanentDrawerLeft />
+      </div>
     </ThemeProvider>
   );
 }
