@@ -52,12 +52,13 @@ function Settings() {
       <CssBaseline />
       <div className='settingsDiv'>
         <center>
-          <h1>Settings</h1>
+        <Typography variant='h3'>Settings</Typography>
         </center>
-        <h3>Color Themes</h3>
+
+        <Typography variant='h5'>Color Themes</Typography>
         <ControlledOpenSelect options={modes} />
         <br></br>
-        <h3>Change Text Size</h3>
+        <Typography variant='h5'>Change Text Size</Typography>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>

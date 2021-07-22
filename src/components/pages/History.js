@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import ControlledOpenSelect from '../material/OpenSelect';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -54,11 +55,12 @@ function History() {
   const pastStats = history.slice(0, historyLength).map((el, i) => {
     return (
       <li key={i}>
-        <h5>URL Tested: {el.url}</h5>
-        <h6>Cookie Test Results</h6>
-        <p>{el.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</p>
-        <h6>Jquery XSS results</h6>
-        <p>{el.JqueryTest ? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}</p>
+        <Typography variant='h5'>URL Tested:</Typography>
+        <Typography variant='body2'> {el.url} </Typography>
+        <Typography variant='h5'>Cookie Test Results</Typography>
+        <Typography variant='body2'>{el.cookieTest ? 'Cookies are secure' : 'Cookies are not secure'}</Typography>
+        <Typography variant='h5'>Jquery XSS results</Typography>
+        <Typography variant='body2'>{el.JqueryTest ? 'Safe from XSS in jQuery' : 'Not safe from XSS in jQuery'}</Typography>
         <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={() => clearItem(i)}>
           Clear Item
         </Button>
@@ -88,7 +90,7 @@ function History() {
     <CssBaseline />
     <div className="historyDiv">
       <center>
-        <h1>History</h1>
+      <Typography variant='h3'>History</Typography>
       </center>
       <ControlledOpenSelect options={historyLengths} />
       <Button variant='contained' color='primary' size="small" onClick={clicked}>

@@ -45,7 +45,10 @@
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
+    "@material/textfield": "^11.0.0",
+    "axios-electron-adapter": "^1.0.2",
     "concurrently": "^6.2.0",
+    "electron-fetch": "^1.7.3",
     "electron-storage": "^1.0.7",
     "electron-store": "^8.0.0",
     "jsdom": "^16.6.0",

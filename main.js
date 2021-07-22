@@ -7,6 +7,11 @@ const { ipcMain } = require('electron');
 const Store = require('electron-store');
 const store = new Store();
 const webScrape = require('./puppeteer');
+// const fetch = require('electron-fetch').default;
+
+// const electron = require('electron');
+
+// const net = electron.remote.net;
 
 //local storage working
 
@@ -134,10 +139,10 @@ function createWindow() {
         contrastText: 'rgba(255, 255, 255, 1)',
       },
       secondary: {
-        light: 'rgba(129, 182, 244, 1)',
-        main: 'rgba(122, 178, 242, 1)',
-        dark: 'rgba(0, 50, 110, 1)',
-        contrastText: 'rgba(255, 255, 255, 1)',
+        light: 'rgba(167, 255, 255, 1)',
+        main: 'rgba(167, 255, 255, 1)',
+        dark: 'rgba(167, 255, 255, 1)',
+        contrastText: 'rgba(167, 255, 255, 1)',
       },
       error: {
         light: 'rgba(135, 188, 251, 1)',
@@ -146,7 +151,7 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgba(255, 255, 255, 1)',
+        primary: 'rgba(0, 0, 0, 1)',
         secondary: 'rgba(255, 255, 255, 1)',
         disabled: 'rgba(255, 255, 255, 1)',
         hint: 'rgba(0, 0, 0, 0.38)',
@@ -204,7 +209,7 @@ function createWindow() {
           },
         },
       },
-    },
+
     palette: {
       common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
       background: {
@@ -215,13 +220,13 @@ function createWindow() {
         light: 'rgba(151, 254, 32, 1)',
         main: 'rgba(21, 87, 63, 1)',
         dark: 'rgba(44, 81, 4, 1)',
-        contrastText: 'rgba(255, 255, 255, 1)',
+        contrastText: 'rgba(0, 0, 0, 1)',
       },
       secondary: {
         light: 'rgba(85, 255, 196, 1)',
         main: 'rgba(0, 97, 63, 1)',
         dark: 'rgba(0, 95, 63, 1)',
-        contrastText: 'rgba(255, 255, 255, 1)',
+        contrastText: 'rgba(0, 0, 0, 1)',
       },
       error: {
         light: 'rgba(0, 255, 167, 1)',
@@ -230,12 +235,13 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgba(255, 255, 255, 1)',
-        secondary: 'rgba(255, 255, 255, 1)',
-        disabled: 'rgba(255, 255, 255, 0.38)',
-        hint: 'rgba(255, 255, 255, 0.38)',
+        primary: 'rgba(0, 0, 0, 1)',
+        secondary: 'rgba(0, 0, 0, 1)',
+        disabled: 'rgba(0, 0, 0, 0.38)',
+        hint: 'rgba(0, 0, 0, 0.38)',
       },
     },
+  },
   };
 
   if (!store.get("fontSize")) store.set("fontSize", "16px")
@@ -469,6 +475,35 @@ app.on('activate', () => {
 });
 
 ipcMain.on('url', function (event, arg) {
+//   fetch(arg, { 
+// 	method: 'GET',
+// 	body:    JSON.stringify({'url': arg}),
+// 	headers: { 'Content-Type': 'application/json' },
+// })
+// 	.then(res => res.json())
+// 	.then(json => console.log(json))
+
+  const request = net.request({
+    method: 'GET',
+    URL: arg,
+    path: '/get',
+    redirect: 'follow'
+});
+  const body = JSON.stringify({ 'url': arg });
+  request.on('response', (response) => {
+    console.log(`STATUS: ${response.statusCode}`);
+    console.log(`HEADERS: ${JSON.stringify(response.headers)}`);
+
+    response.on('data', (chunk) => {
+        console.log(`BODY: ${chunk}`)
+    });
+});
+  request.on('finish', () => {
+    console.log('Request is Finished')
+});
+  request.setHeader('Content-Type', 'application/json');
+  request.write(body, 'utf-8');
+
   let test = {
     url: arg,
     cookieTest: false,
