@@ -318,8 +318,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgba(255, 255, 255, 1)',
-            secondary: 'rgba(255, 255, 255, 1)',
+            primary: 'rgba(0, 0, 0, 1)',
+            secondary: 'rgba(0, 0, 0, 1)',
             disabled: 'rgba(255, 255, 255, 1)',
             hint: 'rgba(0, 0, 0, 0.38)',
           },
@@ -338,7 +338,7 @@ function createWindow() {
         palette: {
           common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
           background: {
-            paper: 'rgba(107, 12, 178, 1)',
+            paper: 'rgb(172, 130, 234, 1)',
             default: 'rgba(149, 115, 215, 1)',
           },
           primary: {
@@ -380,7 +380,7 @@ function createWindow() {
         palette: {
           common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
           background: {
-            paper: 'rgba(35, 138, 112, 1)',
+            paper: 'rgba(55, 158, 132, 1)',
             default: 'rgba(35, 138, 112, 1)',
           },
           primary: {

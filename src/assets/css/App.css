@@ -22,3 +22,49 @@
   opacity: 1;
   transition: opacity 5ms ease-in;
 }
+
+.MuiPaper-elevation3 {
+  margin: 2.5% 3%;
+  padding: 2%;
+  display: flex;
+  /* flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center; */
+}
+
+.inside-paper {
+  width: 75%;
+  height: 15vh;
+  margin: 0% 1% 0% 5%;  
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  /* padding: 1%; */
+}
+
+.inside-paper-bottom {
+  margin: 0% 0% 2% 5%;
+  height: 42vh !important;
+  width: 60%;
+}
+
+.MuiPaper-root {
+
+}
+
+.top-home {
+  width: 50vw;
+}
+
+.MuiInputBase-input {
+  width: 45vw !important;
+}
+
+.mainContainer {
+  height: 100%;
+  width: 100%;
+}
