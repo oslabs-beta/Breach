@@ -129,11 +129,22 @@ function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div>
+      {/* <center>
+          <Typography variant='h3' color='textPrimary'>
+            Home Page
+          </Typography>
+        </center> */}
+      <Paper elevation={3} square>
+
+        <div className="mainContainer">
         <center>
           <Typography variant='h4' color='textPrimary'>
-            Home
+            Scan Link
           </Typography>
         </center>
+        <br></br>
+        <center>
+        <Paper elevation={2} variant="outlined" className="inside-paper">
         <form>
           <TextField
             color='primary'
@@ -152,11 +163,22 @@ function Home() {
             Hack 'Em Up
           </Button>
         </form>
+        </Paper>
+        </center>
         <br></br>
-        <Typography variant='h5' color='textSecondary'>
+        <center>
+        <Typography variant='h4' color='textSecondary'>
           Results
         </Typography>
+        </center>
+        <center>
+        <Paper elevation={2} variant="outlined" className="inside-paper inside-paper-bottom">
+
         {testResults}
+        </Paper>
+        </center>
+        </div>
+        </Paper>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>
