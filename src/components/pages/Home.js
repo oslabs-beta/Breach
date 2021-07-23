@@ -9,6 +9,7 @@ import { CssBaseline } from '@material-ui/core';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from '@material-ui/core';
+import Card from '../material/Card';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -47,82 +48,104 @@ function Home() {
       url: link,
     };
 
-    let testStats = { url: link };
-
-    const fetches = () => {
-      axios
-        .post('https://whatthehackserver.herokuapp.com/javascriptXSS', userObject)
-        .then((res) => {
-          console.log(res.data);
-          testStats.jsXSS = res.data;
-        })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
-
-        .then(() => {
-          axios
-            .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
-            .then((res) => {
-              console.log(res.data);
-              testStats.cookieTest = res.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-
-        .then(() => {
-          axios
-            .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
-            .then((res) => {
-              console.log(res.data);
-              testStats.jqueryTest = res.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-
-        .then(() => {
-          ipcRenderer.send('url', testStats);
-          ipcRenderer.once('testOutput', (event, arg) => {
-            console.log(arg);
-            setTestResults(
-              <div>
-                <h2 color='primary'>URL Tested</h2>
-                <Typography variant='body2' color='secondary'>
-                  {arg.url}
-                </Typography>
-                <Typography variant='h5' color='primary'>
-                  Cookie Test Results
-                </Typography>
-                <Typography variant='body2' color='secondary'>
-                  {arg.cookieTest}
-                </Typography>
-                <Typography variant='h5' color='primary'>
-                  Jquery XSS results
-                </Typography>
-                <Typography variant='body2' color='secondary'>
-                  {arg.jqueryTest
-                    ? 'Not safe from XSS in jQuery'
-                    : 'Safe from XSS in jQuery'}
-                </Typography>
-                <Typography variant='h5' color='primary'>
-                  Javascript XSS results
-                </Typography>
-                <Typography variant='body2' color='secondary'>
-                  {arg.jsXSS
-                    ? 'Not safe from XSS in javascript'
-                    : 'Safe from XSS in javascript'}
-                </Typography>
-              </div>
-            );
-          });
-        });
+    const cookieExample = {
+      secure: false,
+      httpHeader: 'none',
+      lang: 'english',
     };
 
-    fetches();
+    const jsXSS = true;
+    const jqueryTest = false;
+
+    let testStats = { url: link };
+
+    const a = Object.entries(cookieExample);
+
+    setTestResults(
+      <Card
+        style={{ width: '50%' }}
+        url={link}
+        jsXSS={jsXSS ? 'Not safe from XSS in javascript' : 'Safe from XSS in javascript'}
+        jqueryXSS={jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'}
+        cookieExample={JSON.stringify(cookieExample).replace(/[{}]/gi, '')}
+      />
+    );
+
+    // const fetches = () => {
+    //   axios
+    //     .post('https://whatthehackserver.herokuapp.com/javascriptXSS', userObject)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       testStats.jsXSS = res.data;
+    //     })
+    //     // .catch((error) => {
+    //     //   console.log(error);
+    //     // });
+
+    //     .then(() => {
+    //       axios
+    //         .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
+    //         .then((res) => {
+    //           console.log(res.data);
+    //           testStats.cookieTest = res.data;
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         });
+    //     })
+
+    //     .then(() => {
+    //       axios
+    //         .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
+    //         .then((res) => {
+    //           console.log(res.data);
+    //           testStats.jqueryTest = res.data;
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         });
+    //     })
+
+    //     .then(() => {
+    //       ipcRenderer.send('url', testStats);
+    //       ipcRenderer.once('testOutput', (event, arg) => {
+    //         console.log(arg);
+    //         setTestResults(
+    //           <div>
+    //             <h2 color='primary'>URL Tested</h2>
+    //             <Typography variant='body2' color='secondary'>
+    //               {arg.url}
+    //             </Typography>
+    //             <Typography variant='h5' color='primary'>
+    //               Cookie Test Results
+    //             </Typography>
+    //             <Typography variant='body2' color='secondary'>
+    //               {arg.cookieTest}
+    //             </Typography>
+    //             <Typography variant='h5' color='primary'>
+    //               Jquery XSS results
+    //             </Typography>
+    //             <Typography variant='body2' color='secondary'>
+    //               {arg.jqueryTest
+    //                 ? 'Not safe from XSS in jQuery'
+    //                 : 'Safe from XSS in jQuery'}
+    //             </Typography>
+    //             <Typography variant='h5' color='primary'>
+    //               Javascript XSS results
+    //             </Typography>
+    //             <Typography variant='body2' color='secondary'>
+    //               {arg.jsXSS
+    //                 ? 'Not safe from XSS in javascript'
+    //                 : 'Safe from XSS in javascript'}
+    //             </Typography>
+    //           </div>
+
+    //         );
+    //       });
+    //     });
+    // };
+
+    // fetches();
   };
 
   return (
@@ -136,6 +159,7 @@ function Home() {
         </center>
         <form>
           <TextField
+            style={{ width: '75%' }}
             color='primary'
             id='filled-basic'
             name='url'
@@ -149,7 +173,7 @@ function Home() {
             className={classes.margin}
             onClick={sendURL}
           >
-            Hack 'Em Up
+            XSS/Cookies Test
           </Button>
         </form>
         <br></br>
