@@ -112,6 +112,12 @@ function createWindow() {
           },
         },
       },
+      text: {
+        primary: 'rgba(0, 0, 0, 1)',
+        secondary: 'rgba(255, 255, 255, 1)',
+        disabled: 'rgba(255, 255, 255, 1)',
+        hint: 'rgba(0, 0, 0, 0.38)',
+      },
     },
     palette: {
       type: 'light',

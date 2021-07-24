@@ -90,28 +90,28 @@ function Home() {
             console.log(arg);
             setTestResults(
               <div>
-                <h2 color='primary'>URL Tested</h2>
-                <Typography variant='body2' color='secondary'>
+                <Typography variant='h5' color='textSecondary'>URL Tested</Typography>
+                <Typography variant='body2' color='textPrimary'>
                   {arg.url}
                 </Typography>
-                <Typography variant='h5' color='primary'>
+                <Typography variant='h5' color='textSecondary'>
                   Cookie Test Results
                 </Typography>
-                <Typography variant='body2' color='secondary'>
+                <Typography variant='body2' color='textPrimary'>
                   {arg.cookieTest}
                 </Typography>
-                <Typography variant='h5' color='primary'>
+                <Typography variant='h5' color='textSecondary'>
                   Jquery XSS results
                 </Typography>
-                <Typography variant='body2' color='secondary'>
+                <Typography variant='body2' color='textPrimary'>
                   {arg.jqueryTest
                     ? 'Not safe from XSS in jQuery'
                     : 'Safe from XSS in jQuery'}
                 </Typography>
-                <Typography variant='h5' color='primary'>
+                <Typography variant='h5' color='textSecondary'>
                   Javascript XSS results
                 </Typography>
-                <Typography variant='body2' color='secondary'>
+                <Typography variant='body2' color='textPrimary'>
                   {arg.jsXSS
                     ? 'Not safe from XSS in javascript'
                     : 'Safe from XSS in javascript'}
@@ -138,7 +138,7 @@ function Home() {
 
         <div className="mainContainer">
         <center>
-          <Typography variant='h4' color='textPrimary'>
+          <Typography variant='h4' color='textSecondary'>
             Scan Link
           </Typography>
         </center>
@@ -147,7 +147,7 @@ function Home() {
         <Paper elevation={2} variant="outlined" className="inside-paper">
         <form>
           <TextField
-            color='primary'
+            color='textPrimary'
             id='filled-basic'
             name='url'
             label='Input URL here'

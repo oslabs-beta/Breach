@@ -1,5 +1,5 @@
 /* Example stylesheet */
-/* @media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
+@media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
   Light theme
   body{
     color: #000;
@@ -13,7 +13,7 @@
     color: #fff;
     background-color: #000;
   }
-} */
+}
 
 h1 {
   font-family: Helvetica, Arial, sans-serif;
