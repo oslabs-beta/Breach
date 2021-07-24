@@ -68,19 +68,10 @@ function createWindow() {
   mainWindow.loadURL(indexPath);
 
   ipcMain.on('asynchronous-message', (event, arg) => {
+    if (typeof arg.value === 'number' && arg.value.toString().length === 1) {
       arg.name = 'historyLength';
+    } else {
       const regex = /\d/g;
-
-      if (regex.test(arg.value)) {
-        arg.name = 'fontSize';
-      } else {
-        arg.name = 'theme';
-      }
-    }
-    console.log(store.store);
-    // console.log("102 ", arg);
-    // console.log(parseInt(store.get("fontSize").slice(0, 2)))
-    // console.log("what is store?: ", store.store)
 
       if (regex.test(arg.value)) {
         arg.name = 'fontSize';
@@ -92,14 +83,8 @@ function createWindow() {
     event.reply('asynchronous-reply', 'pong');
   });
 
-  // console.log("109 ", store.store);
-
-  // console.log(mainWindow.webContents.getURL());
-
-  //themes
   if (!store.get('fontSize') || typeof store.get('fontSize') !== 'string')
     store.set('fontSize', '16px');
-  console.log('line 123', store.get('fontSize'));
   if (!store.get('history')) store.set('history', []);
   if (!store.get('historyLength')) store.set('historyLength', 3);
   const dark = {
@@ -226,49 +211,46 @@ function createWindow() {
         },
       },
 
-    palette: {
-      common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
-      background: {
-        paper: 'rgba(0, 81, 51, 1)',
-        default: 'rgba(35, 138, 112, 1)',
-      },
-      primary: {
-        light: 'rgba(151, 254, 32, 1)',
-        main: 'rgba(21, 87, 63, 1)',
-        dark: 'rgba(44, 81, 4, 1)',
-        contrastText: 'rgba(0, 0, 0, 1)',
-      },
-      secondary: {
-        light: 'rgba(85, 255, 196, 1)',
-        main: 'rgba(0, 97, 63, 1)',
-        dark: 'rgba(0, 95, 63, 1)',
-        contrastText: 'rgba(0, 0, 0, 1)',
-      },
-      error: {
-        light: 'rgba(0, 255, 167, 1)',
-        main: 'rgba(0, 203, 133, 1)',
-        dark: 'rgba(0, 112, 73, 1)',
-        contrastText: '#fff',
-      },
-      text: {
-        primary: 'rgba(0, 0, 0, 1)',
-        secondary: 'rgba(0, 0, 0, 1)',
-        disabled: 'rgba(0, 0, 0, 0.38)',
-        hint: 'rgba(0, 0, 0, 0.38)',
+      palette: {
+        common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
+        background: {
+          paper: 'rgba(0, 81, 51, 1)',
+          default: 'rgba(35, 138, 112, 1)',
+        },
+        primary: {
+          light: 'rgba(151, 254, 32, 1)',
+          main: 'rgba(21, 87, 63, 1)',
+          dark: 'rgba(44, 81, 4, 1)',
+          contrastText: 'rgba(0, 0, 0, 1)',
+        },
+        secondary: {
+          light: 'rgba(85, 255, 196, 1)',
+          main: 'rgba(0, 97, 63, 1)',
+          dark: 'rgba(0, 95, 63, 1)',
+          contrastText: 'rgba(0, 0, 0, 1)',
+        },
+        error: {
+          light: 'rgba(0, 255, 167, 1)',
+          main: 'rgba(0, 203, 133, 1)',
+          dark: 'rgba(0, 112, 73, 1)',
+          contrastText: '#fff',
+        },
+        text: {
+          primary: 'rgba(0, 0, 0, 1)',
+          secondary: 'rgba(0, 0, 0, 1)',
+          disabled: 'rgba(0, 0, 0, 0.38)',
+          hint: 'rgba(0, 0, 0, 0.38)',
+        },
       },
     },
-  },
   };
 
-  // recieves an arg obj from OpenSelect.js, tests it for digits in the arg. If none then it's given the name theme, else it's named fontSize
   if (!store.get('fontSize')) store.set('fontSize', '16px');
 
   ipcMain.on('load-data', function (event, arg) {
     if (arg && typeof arg.options[0] === 'number') {
       mainWindow.webContents.send('data-reply', store.store);
-      console.log('inside if statement');
     } else {
-      console.log('inside else statement');
       if (store.get('fontSize') === null || store.get('fontSize') === undefined) {
         dark.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
         light.overrides.MuiCssBaseline['@global'].html.fontSize = 16;
@@ -277,8 +259,6 @@ function createWindow() {
         overrides: {
           MuiCssBaseline: {
             '@global': {
-              // MUI typography elements use REMs, so you can scale the global
-              // font size by setting the font-size on the <html> element.
               html: {
                 fontSize: parseInt(store.get('fontSize').slice(0, 2)),
               },
@@ -293,8 +273,6 @@ function createWindow() {
         overrides: {
           MuiCssBaseline: {
             '@global': {
-              // MUI typography elements use REMs, so you can scale the global
-              // font size by setting the font-size on the <html> element.
               html: {
                 fontSize: parseInt(store.get('fontSize').slice(0, 2)),
               },
@@ -309,8 +287,6 @@ function createWindow() {
         overrides: {
           MuiCssBaseline: {
             '@global': {
-              // MUI typography elements use REMs, so you can scale the global
-              // font size by setting the font-size on the <html> element.
               html: {
                 fontSize: parseInt(store.get('fontSize').slice(0, 2)),
               },
@@ -342,8 +318,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgba(255, 255, 255, 1)',
-            secondary: 'rgba(255, 255, 255, 1)',
+            primary: 'rgba(0, 0, 0, 1)',
+            secondary: 'rgba(0, 0, 0, 1)',
             disabled: 'rgba(255, 255, 255, 1)',
             hint: 'rgba(0, 0, 0, 0.38)',
           },
@@ -353,8 +329,6 @@ function createWindow() {
         overrides: {
           MuiCssBaseline: {
             '@global': {
-              // MUI typography elements use REMs, so you can scale the global
-              // font size by setting the font-size on the <html> element.
               html: {
                 fontSize: parseInt(store.get('fontSize').slice(0, 2)),
               },
@@ -364,7 +338,7 @@ function createWindow() {
         palette: {
           common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
           background: {
-            paper: 'rgba(107, 12, 178, 1)',
+            paper: 'rgb(172, 130, 234, 1)',
             default: 'rgba(149, 115, 215, 1)',
           },
           primary: {
@@ -397,8 +371,6 @@ function createWindow() {
         overrides: {
           MuiCssBaseline: {
             '@global': {
-              // MUI typography elements use REMs, so you can scale the global
-              // font size by setting the font-size on the <html> element.
               html: {
                 fontSize: parseInt(store.get('fontSize').slice(0, 2)),
               },
@@ -408,7 +380,7 @@ function createWindow() {
         palette: {
           common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
           background: {
-            paper: 'rgba(35, 138, 112, 1)',
+            paper: 'rgba(55, 158, 132, 1)',
             default: 'rgba(35, 138, 112, 1)',
           },
           primary: {
@@ -502,20 +474,6 @@ app.on('activate', () => {
 });
 
 ipcMain.on('url', function (event, arg) {
-  let test = {
-    url: arg,
-    cookieTest: false,
-    JqueryTest: true,
-  };
-  let history;
-  store.get('history') ? (history = store.get('history')) : (history = []);
-  history.unshift(test);
-  history.length >= 25 ? history.pop() : history;
-  // console.log(history)
-  store.set('history', history);
-  mainWindow.webContents.send('testOutput', test);
-});
-
   // let test = {
   //   url: arg,
   //   cookieTest: '',
@@ -544,36 +502,6 @@ ipcMain.on('clearItem', function (event, arg) {
 });
 
 ipcMain.on('getHistoryLength', function (event, arg) {
+  if (!store.get('historyLength')) store.set('historyLength', 3);
   mainWindow.webContents.send('length', store.get('historyLength'));
 });
-
-// webScrape.jqueryXSS(
-//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//   )
-// );
-
-// webScrape.jqueryXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
-
-// webScrape.javascriptXSS(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
-
-//webScrape.cookieTester(`https://juiceshopwolfpack.herokuapp.com/#/search?q=`);
-// webScrape.cookieTester(
-//   `https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//     `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//   )
-// );
-
-//webScrape.cookieTester(`https://hack-yourself-first.com/`);
-
-//`https://hack-yourself-first.com/Search?searchTerm=`.concat(
-//  `%27+%2B+alert%28%27yo%27%29+%2B+%27`
-//  )
-
-//webScrape.cookieTester('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
-
-//webScrape.jqueryXSS('https://juiceshopwolfpack.herokuapp.com/#/search?q=juice');
-
-//https://hack-yourself-first.com/Search?searchTerm=%27+%2B+alert%28%27yo%27%29+%2B+%27
-
-//`<img%20src%3D''%20onerror%3D'alert('dialog')'>`

@@ -41,7 +41,9 @@ export default function SimpleCard(props) {
           {props.jqueryXSS}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
-          <h6>Cookie Security</h6>
+          Cookie Security
+        </Typography>
+        <Typography className={classes.pos} color='textSecondary'>
           {props.cookieExample}
         </Typography>
       </CardContent>
