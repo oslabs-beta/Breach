@@ -48,104 +48,79 @@ function Home() {
       url: link,
     };
 
-    const cookieExample = {
-      secure: false,
-      httpHeader: 'none',
-      lang: 'english',
+    let jsXssResult, jqueryResult, cookieResult;
+
+    let testStats = {
+      url: link,
+      jsXSS: null,
+      jqueryTest: null,
+      cookieTest: null,
     };
 
-    const jsXSS = true;
-    const jqueryTest = false;
+    const fetches = () => {
+      axios
+        .post('http://localhost:5000/javascriptXSS', userObject)
+        .then((res) => {
+          console.log(res.data);
+          testStats.jsXSS = res.data;
+          jsXssResult = res.data;
+        })
 
-    let testStats = { url: link };
+        .then(() => {
+          axios
+            .post('http://localhost:5000/cookieTester', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.cookieTest = res.data;
+              cookieResult = res.data;
+            })
+            .then(() => {
+              ipcRenderer.send('url', testStats);
+              ipcRenderer.once('testOutput', (event, arg) => {
+                console.log(arg);
+                setTestResults(
+                  <Card
+                    style={{ width: '50%' }}
+                    url={link}
+                    jsXSS={
+                      testStats.jsXSS
+                        ? 'Not safe from XSS in javascript'
+                        : 'Safe from XSS in javascript'
+                    }
+                    jqueryXSS={
+                      testStats.jqueryTest
+                        ? 'Not safe from XSS in jQuery'
+                        : 'Safe from XSS in jQuery'
+                    }
+                    cookieExample={JSON.stringify(testStats.cookieTest[0]).replace(
+                      /[{}]/gi,
+                      ''
+                    )}
+                  />
+                );
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
 
-    const a = Object.entries(cookieExample);
+        .then(() => {
+          axios
+            .post('http://localhost:5000/jqueryXSS', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.jqueryTest = res.data;
+              jqueryResult = res.data;
+            })
 
-    setTestResults(
-      <Card
-        style={{ width: '50%' }}
-        url={link}
-        jsXSS={jsXSS ? 'Not safe from XSS in javascript' : 'Safe from XSS in javascript'}
-        jqueryXSS={jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'}
-        cookieExample={JSON.stringify(cookieExample).replace(/[{}]/gi, '')}
-      />
-    );
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+    };
 
-    // const fetches = () => {
-    //   axios
-    //     .post('https://whatthehackserver.herokuapp.com/javascriptXSS', userObject)
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       testStats.jsXSS = res.data;
-    //     })
-    //     // .catch((error) => {
-    //     //   console.log(error);
-    //     // });
-
-    //     .then(() => {
-    //       axios
-    //         .post('https://whatthehackserver.herokuapp.com/cookieTester', userObject)
-    //         .then((res) => {
-    //           console.log(res.data);
-    //           testStats.cookieTest = res.data;
-    //         })
-    //         .catch((error) => {
-    //           console.log(error);
-    //         });
-    //     })
-
-    //     .then(() => {
-    //       axios
-    //         .post('https://whatthehackserver.herokuapp.com/jqueryXSS', userObject)
-    //         .then((res) => {
-    //           console.log(res.data);
-    //           testStats.jqueryTest = res.data;
-    //         })
-    //         .catch((error) => {
-    //           console.log(error);
-    //         });
-    //     })
-
-    //     .then(() => {
-    //       ipcRenderer.send('url', testStats);
-    //       ipcRenderer.once('testOutput', (event, arg) => {
-    //         console.log(arg);
-    //         setTestResults(
-    //           <div>
-    //             <h2 color='primary'>URL Tested</h2>
-    //             <Typography variant='body2' color='secondary'>
-    //               {arg.url}
-    //             </Typography>
-    //             <Typography variant='h5' color='primary'>
-    //               Cookie Test Results
-    //             </Typography>
-    //             <Typography variant='body2' color='secondary'>
-    //               {arg.cookieTest}
-    //             </Typography>
-    //             <Typography variant='h5' color='primary'>
-    //               Jquery XSS results
-    //             </Typography>
-    //             <Typography variant='body2' color='secondary'>
-    //               {arg.jqueryTest
-    //                 ? 'Not safe from XSS in jQuery'
-    //                 : 'Safe from XSS in jQuery'}
-    //             </Typography>
-    //             <Typography variant='h5' color='primary'>
-    //               Javascript XSS results
-    //             </Typography>
-    //             <Typography variant='body2' color='secondary'>
-    //               {arg.jsXSS
-    //                 ? 'Not safe from XSS in javascript'
-    //                 : 'Safe from XSS in javascript'}
-    //             </Typography>
-    //           </div>
-
-    //         );
-    //       });
-    //     });
-    // };
-
-    // fetches();
+    fetches();
   };
 
   return (
@@ -160,7 +135,7 @@ function Home() {
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>
-              <Typography variant='h4' color='textPrimary'>
+              <Typography variant='h4' color='textSecondary'>
                 Scan Link
               </Typography>
             </center>
@@ -169,22 +144,20 @@ function Home() {
               <Paper elevation={2} variant='outlined' className='inside-paper'>
                 <form>
                   <TextField
-                    style={{ width: '45vw' }}
-                    color='primary'
+                    color='textPrimary'
                     id='filled-basic'
                     name='url'
                     label='Input URL here'
                     variant='filled'
                   />
                   <Button
-                    style={{ width: '5vw' }}
                     variant='contained'
                     size='medium'
                     color='primary'
                     className={classes.margin}
                     onClick={sendURL}
                   >
-                    XSS
+                    Hack 'Em Up
                   </Button>
                 </form>
               </Paper>
@@ -196,13 +169,13 @@ function Home() {
               </Typography>
             </center>
             <center>
-              {/* <Paper
+              <Paper
                 elevation={2}
                 variant='outlined'
                 className='inside-paper inside-paper-bottom'
-              > */}
-              {testResults}
-              {/* </Paper> */}
+              >
+                {testResults}
+              </Paper>
             </center>
           </div>
         </Paper>

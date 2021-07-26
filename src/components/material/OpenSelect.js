@@ -34,7 +34,6 @@ export default function ControlledOpenSelect(props) {
   });
 
   //on load get values from local storage database
-
   useEffect(() => {
     ipcRenderer.send('load-data', props);
     ipcRenderer.once('data-reply', (event, arg) => {
@@ -50,7 +49,7 @@ export default function ControlledOpenSelect(props) {
         setLabel(arg.fontSize);
       }
     });
-  });
+  }, []);
 
   //sends msg to update local storage upon change
   const handleChange = (event) => {
