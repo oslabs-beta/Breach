@@ -4,6 +4,7 @@ import { ipcRenderer } from "electron";
 import { CssBaseline } from "@material-ui/core";
 import PermanentDrawerLeft from "../material/SideNav";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core';
 
 
 function About() {
@@ -30,30 +31,30 @@ function About() {
     <CssBaseline />
     <div>
       <center>
-        <h1>About</h1>
+        <Typography variant='h3'>About</Typography>
       </center>
       <ul>
         <li>
-          <h3>Version</h3>
-          <p>1.0</p>
+        <Typography variant='h4'>Version</Typography>
+        <Typography variant='body2'>1.0</Typography>
         </li>
         <li>
-          <h3>How it Works?</h3>
-          <p>
+        <Typography variant='h4'>How it Works?</Typography>
+        <Typography variant='body2'>
             Place a URL on the home page and watch the security readings once
             the load finishes
-          </p>
+          </Typography>
         </li>
         <li>
-          <h3>Who it's for?</h3>
-          <p>
+        <Typography variant='h4'>Who it's for?</Typography>
+        <Typography variant='body2'>
             This app is for any developer looking to test their front end
             application for Cross-Site-Scripting vulnerabilities
-          </p>
+          </Typography>
         </li>
         <li>
-          <h3>Disclaimer</h3>
-          <p>Only for use on URLs that you have permission to test XSS</p>
+        <Typography variant='h4'>Disclaimer</Typography>
+        <Typography variant='body2'>Only for use on URLs that you have permission to test XSS</Typography>
         </li>
       </ul>
       <PermanentDrawerLeft />

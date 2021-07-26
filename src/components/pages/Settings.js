@@ -13,10 +13,18 @@ function Settings() {
   const [dummyState, setDummy] = useState(0);
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
-    ipcRenderer.once('data-reply', (event, arg) => {
-      setLabel(arg);
-    });
+    let isFetched = true;
+    try {
+      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.on('data-reply', (event, arg) => {
+        if (isFetched) setLabel(arg);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    // cancel async otherwise to prevent memory leak
+    return () => (isFetched = false);
   }, []);
 
   let theme;
@@ -52,16 +60,17 @@ function Settings() {
       <CssBaseline />
       <div className='settingsDiv'>
         <center>
-          <h1>Settings</h1>
+        <Typography variant='h3'>Settings</Typography>
         </center>
-        <h3>Color Themes</h3>
+
+        <Typography variant='h5'>Color Themes</Typography>
         <ControlledOpenSelect options={modes} />
         <br></br>
-        <h3>Change Text Size</h3>
+        <Typography variant='h5'>Change Text Size</Typography>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>
-        <Button variant='contained' size="small" color='primary' onClick={clicked}>
+        <Button variant='contained' size='small' color='primary' onClick={clicked}>
           Save Changes
         </Button>
         <br></br>

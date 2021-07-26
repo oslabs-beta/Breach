@@ -45,7 +45,10 @@
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
+    "@types/react-transition-group": "^4.4.2",
+    "axios": "^0.21.1",
     "concurrently": "^6.2.0",
+    "electron-fetch": "^1.7.3",
     "electron-storage": "^1.0.7",
     "electron-store": "^8.0.0",
     "jsdom": "^16.6.0",
@@ -54,6 +57,7 @@
     "puppeteer-core": "^10.1.0",
     "puppeteer-in-electron": "^3.0.5",
     "react": "^17.0.1",
+    "react-axios": "^2.0.5",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
