@@ -9,6 +9,8 @@ import NestedList from './List';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    fontSize: 10,
+    height: '30vw',
   },
   bullet: {
     display: 'inline-block',
@@ -16,22 +18,27 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 12,
   },
   pos: {
     marginBottom: 12,
   },
+  height: '300px',
+  overflowY: 'scroll',
 });
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color='textSecondary' gutterBottom>
           Results for {props.url}
+        </Typography>
+
+        <Typography className={classes.pos} color='textSecondary'>
+          Timestamp: {props.currentTime}
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>

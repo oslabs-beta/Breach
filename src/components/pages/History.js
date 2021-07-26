@@ -66,6 +66,7 @@ function History() {
         <Card
           style={{ width: '50%' }}
           url={el.url}
+          currentTime={el.currentTime}
           jsXSS={
             el.cookieTest
               ? 'Not safe from XSS in javascript'

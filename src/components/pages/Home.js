@@ -50,11 +50,14 @@ function Home() {
 
     let jsXssResult, jqueryResult, cookieResult;
 
+    const date = new Date();
+
     let testStats = {
       url: link,
       jsXSS: null,
       jqueryTest: null,
       cookieTest: null,
+      currentTime: date.toUTCString(),
     };
 
     const fetches = () => {
@@ -82,6 +85,7 @@ function Home() {
                   <Card
                     style={{ width: '50%' }}
                     url={link}
+                    currentTime={arg.currentTime}
                     jsXSS={
                       testStats.jsXSS
                         ? 'Not safe from XSS in javascript'
@@ -92,10 +96,7 @@ function Home() {
                         ? 'Not safe from XSS in jQuery'
                         : 'Safe from XSS in jQuery'
                     }
-                    cookieExample={JSON.stringify(testStats.cookieTest[0]).replace(
-                      /[{}]/gi,
-                      ''
-                    )}
+                    cookieExample={arg.cookieTest[0]}
                   />
                 );
               });
@@ -126,7 +127,7 @@ function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div>
+      <div className='homeDiv'>
         {/* <center>
           <Typography variant='h3' color='textPrimary'>
             Home Page
