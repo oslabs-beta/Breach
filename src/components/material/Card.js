@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     fontSize: 10,
-    height: '38vw',
+    height: '18rem',
   },
   bullet: {
     display: 'inline-block',
