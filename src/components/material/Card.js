@@ -10,7 +10,8 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     fontSize: 10,
-    height: '18rem',
+    height: '100%',
+    width: '100%',
   },
   bullet: {
     display: 'inline-block',
@@ -18,13 +19,11 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 12,
+    fontSize: '0.8rem',
   },
   pos: {
     marginBottom: 12,
   },
-  height: '300px',
-  overflowY: 'scroll',
 });
 
 export default function SimpleCard(props) {
@@ -33,7 +32,7 @@ export default function SimpleCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color='textSecondary' gutterBottom>
+        <Typography className={classes.title} color='textPrimary' gutterBottom>
           Results for {props.url}
         </Typography>
 

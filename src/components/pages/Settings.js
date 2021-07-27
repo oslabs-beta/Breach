@@ -60,22 +60,26 @@ function Settings() {
       <CssBaseline />
       <div className='settingsDiv'>
         <center>
-        <Typography variant='h3'>Settings</Typography>
+        <Typography variant='h4' color='textSecondary'>Settings</Typography>
         </center>
-
-        <Typography variant='h5'>Color Themes</Typography>
+      <Paper elevation={3} className='settings-paper'>
+        <Typography variant='h5' color='textPrimary'>Color Themes</Typography>
         <ControlledOpenSelect options={modes} />
         <br></br>
-        <Typography variant='h5'>Change Text Size</Typography>
+        <Typography variant='h5' color='textPrimary'>Change Text Size</Typography>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>
         <Button variant='contained' size='small' color='primary' onClick={clicked}>
           Save Changes
         </Button>
-        <br></br>
-        <br></br>
-        <button>Export Data</button>
+      </Paper>
+      <center>
+        {/* <button id='export-button'>Export Data</button> */}
+        <Button variant='contained' size='small' color='secondary' id='export-button'>
+          Export Data
+        </Button>
+      </center>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>

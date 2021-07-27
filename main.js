@@ -37,8 +37,8 @@ if (process.platform === 'win32') {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: 1200,
+    height: 1000,
     show: false,
     webPreferences: {
       nodeIntegration: true,
@@ -146,10 +146,10 @@ function createWindow() {
         contrastText: 'rgba(255, 255, 255, 1)',
       },
       secondary: {
-        light: 'rgba(167, 255, 255, 1)',
-        main: 'rgba(167, 255, 255, 1)',
-        dark: 'rgba(167, 255, 255, 1)',
-        contrastText: 'rgba(167, 255, 255, 1)',
+        light: 'rgba(129, 182, 244, 1)',
+        main: 'rgba(122, 178, 242, 1)',
+        dark: 'rgba(0, 50, 110, 1)',
+        contrastText: 'rgba(255, 255, 255, 1)',
       },
       error: {
         light: 'rgba(135, 188, 251, 1)',
@@ -158,8 +158,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgba(0, 0, 0, 1)',
-        secondary: 'rgba(255, 255, 255, 1)',
+        primary: 'rgba(0, 0, 0, .85)',
+        secondary: 'rgba(0, 0, 0, .54)',
         disabled: 'rgba(255, 255, 255, 1)',
         hint: 'rgba(0, 0, 0, 0.38)',
       },
@@ -178,7 +178,7 @@ function createWindow() {
     palette: {
       common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
       background: {
-        paper: 'rgba(107, 12, 178, 1)',
+        paper: 'rgb(172, 130, 234, 1)',
         default: 'rgba(149, 115, 215, 1)',
       },
       primary: {
@@ -200,8 +200,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgba(255, 255, 255, 1)',
-        secondary: 'rgba(255, 255, 255, 1)',
+        primary: 'rgba(0, 0, 0, .85)',
+        secondary: 'rgba(0, 0, 0, .54)',
         disabled: 'rgba(255, 255, 255, 0.38)',
         hint: 'rgba(255, 255, 255, 0.38)',
       },
@@ -216,37 +216,36 @@ function createWindow() {
           },
         },
       },
-
-      palette: {
-        common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
-        background: {
-          paper: 'rgba(0, 81, 51, 1)',
-          default: 'rgba(35, 138, 112, 1)',
-        },
-        primary: {
-          light: 'rgba(151, 254, 32, 1)',
-          main: 'rgba(21, 87, 63, 1)',
-          dark: 'rgba(44, 81, 4, 1)',
-          contrastText: 'rgba(0, 0, 0, 1)',
-        },
-        secondary: {
-          light: 'rgba(85, 255, 196, 1)',
-          main: 'rgba(0, 97, 63, 1)',
-          dark: 'rgba(0, 95, 63, 1)',
-          contrastText: 'rgba(0, 0, 0, 1)',
-        },
-        error: {
-          light: 'rgba(0, 255, 167, 1)',
-          main: 'rgba(0, 203, 133, 1)',
-          dark: 'rgba(0, 112, 73, 1)',
-          contrastText: '#fff',
-        },
-        text: {
-          primary: 'rgba(0, 0, 0, 1)',
-          secondary: 'rgba(0, 0, 0, 1)',
-          disabled: 'rgba(0, 0, 0, 0.38)',
-          hint: 'rgba(0, 0, 0, 0.38)',
-        },
+    },
+    palette: {
+      common: { black: 'rgba(0, 0, 0, 1)', white: 'rgba(255, 255, 255, 1)' },
+      background: {
+        paper: 'rgba(55, 158, 132, 1)',
+        default: 'rgba(35, 138, 112, 1)',
+      },
+      primary: {
+        light: 'rgba(151, 254, 32, 1)',
+        main: 'rgba(21, 87, 63, 1)',
+        dark: 'rgba(44, 81, 4, 1)',
+        contrastText: 'rgba(255, 255, 255, 1)',
+      },
+      secondary: {
+        light: 'rgba(85, 255, 196, 1)',
+        main: 'rgba(0, 97, 63, 1)',
+        dark: 'rgba(0, 95, 63, 1)',
+        contrastText: 'rgba(255, 255, 255, 1)',
+      },
+      error: {
+        light: 'rgba(0, 255, 167, 1)',
+        main: 'rgba(0, 203, 133, 1)',
+        dark: 'rgba(0, 112, 73, 1)',
+        contrastText: '#fff',
+      },
+      text: {
+        primary: 'rgba(0, 0, 0, .85)',
+        secondary: 'rgba(0, 0, 0, .54)',
+        disabled: 'rgba(255, 255, 255, 0.38)',
+        hint: 'rgba(255, 255, 255, 0.38)',
       },
     },
   };
@@ -324,8 +323,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgba(0, 0, 0, 1)',
-            secondary: 'rgba(0, 0, 0, 1)',
+            primary: 'rgba(0, 0, 0, .85)',
+            secondary: 'rgba(0, 0, 0, .54)',
             disabled: 'rgba(255, 255, 255, 1)',
             hint: 'rgba(0, 0, 0, 0.38)',
           },
@@ -366,8 +365,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgba(255, 255, 255, 1)',
-            secondary: 'rgba(255, 255, 255, 1)',
+            primary: 'rgba(0, 0, 0, .85)',
+            secondary: 'rgba(0, 0, 0, .54)',
             disabled: 'rgba(255, 255, 255, 0.38)',
             hint: 'rgba(255, 255, 255, 0.38)',
           },
@@ -408,8 +407,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgba(255, 255, 255, 1)',
-            secondary: 'rgba(255, 255, 255, 1)',
+            primary: 'rgba(0, 0, 0, .85)',
+            secondary: 'rgba(0, 0, 0, .54)',
             disabled: 'rgba(255, 255, 255, 0.38)',
             hint: 'rgba(255, 255, 255, 0.38)',
           },

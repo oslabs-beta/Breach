@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ipcRenderer } from 'electron';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Paper } from '@material-ui/core';
 import PermanentDrawerLeft from '../material/SideNav';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -32,34 +32,41 @@ function About() {
       <CssBaseline />
       <div>
         <center>
-          <Typography variant='h3'>About</Typography>
+          <Typography variant='h4' color='textSecondary'>
+            About
+          </Typography>
         </center>
-        <ul style={styles}>
-          <li>
-            <Typography variant='h4'>Version</Typography>
-            <Typography variant='body2'>1.0</Typography>
-          </li>
-          <li>
-            <Typography variant='h4'>How it Works?</Typography>
-            <Typography variant='body2'>
-              Place a URL on the home page and watch the security readings once the load
-              finishes
-            </Typography>
-          </li>
-          <li>
-            <Typography variant='h4'>Who it's for?</Typography>
-            <Typography variant='body2'>
-              This app is for any developer looking to test their front end application
-              for Cross-Site-Scripting vulnerabilities
-            </Typography>
-          </li>
-          <li>
-            <Typography variant='h4'>Disclaimer</Typography>
-            <Typography variant='body2'>
-              Only for use on URLs that you have permission to test XSS
-            </Typography>
-          </li>
-        </ul>
+        <Paper elevation={3} className='about-paper'>
+          <Typography variant='h5' color='textPrimary'>
+            Version
+          </Typography>
+          <Typography variant='body1' color='textPrimary'>
+            1.0
+          </Typography>
+          <br></br>
+          <Typography variant='h5' color='textPrimary'>
+            How it Works?
+          </Typography>
+          <Typography variant='body1' color='textPrimary'>
+            Place a URL on the home page and watch the security readings once the load
+            finishes
+          </Typography>
+          <br></br>
+          <Typography variant='h5' color='textPrimary'>
+            Who it's for?
+          </Typography>
+          <Typography variant='body1' color='textPrimary'>
+            This app is for any developer looking to test their front end application for
+            Cross-Site-Scripting vulnerabilities
+          </Typography>
+          <br></br>
+          <Typography variant='h5' color='textPrimary'>
+            Disclaimer
+          </Typography>
+          <Typography variant='body1' color='textPrimary'>
+            Only for use on URLs that you have permission to test XSS
+          </Typography>
+        </Paper>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>

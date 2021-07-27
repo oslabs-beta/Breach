@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ipcRenderer } from 'electron';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Paper } from '@material-ui/core';
 import PermanentDrawerLeft from '../material/SideNav';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -61,8 +61,7 @@ function History() {
   const pastStats = history.slice(0, historyLength).map((el, i) => {
     console.log('32 ', el.cookieTest[0]);
     return (
-      <li key={i}>
-        <h2 color='primary'>URL Tested</h2>
+      <div key={i} className='historyCard'>
         <Card
           style={{ width: '50%' }}
           url={el.url}
@@ -86,7 +85,7 @@ function History() {
         >
           Clear Item
         </Button>
-      </li>
+      </div>
     );
   });
 
@@ -97,7 +96,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 2, 3, 4, 5, 6];
+  const historyLengths = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -109,25 +108,51 @@ function History() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className='historyDiv'>
+      {/*</ThemeProvider> <div className='historyDiv'>
+         <center>
+           <Typography variant='h3'>History</Typography>
+         </center>
+         <ControlledOpenSelect options={historyLengths} />
+         <Button variant='contained' color='primary' size='small' onClick={clicked}>
+           Change Length
+         </Button>
+         <ul>{pastStats}</ul>
+         <Button
+           variant='contained'
+           size='small'
+           color='primary'
+           className={classes.margin}
+           onClick={clearHistory}
+         >
+           Clear History
+         </Button>
+         <PermanentDrawerLeft /> </div>*/}
+      <div id='historyDiv'>
         <center>
-          <Typography variant='h3'>History</Typography>
+          <Typography variant='h4' color='textSecondary' className='history-title-margin'>
+            History
+          </Typography>
         </center>
-        <ControlledOpenSelect options={historyLengths} />
-        <Button variant='contained' color='primary' size='small' onClick={clicked}>
-          Change Length
-        </Button>
-        <ul>{pastStats}</ul>
-        <Button
-          variant='contained'
-          size='small'
-          color='primary'
-          className={classes.margin}
-          onClick={clearHistory}
-        >
-          Clear History
-        </Button>
-        <PermanentDrawerLeft />
+        <ul className='history-grid'>{pastStats}</ul>
+        <center>
+          <Paper elevation={3} className='history-bottom'>
+            <ControlledOpenSelect options={historyLengths} className='history-input' />
+            <Button variant='contained' color='primary' size='small' onClick={clicked}>
+              Change Length
+            </Button>
+
+            <Button
+              variant='contained'
+              size='small'
+              color='primary'
+              className={classes.margin}
+              onClick={clearHistory}
+            >
+              Clear History
+            </Button>
+            <PermanentDrawerLeft />
+          </Paper>
+        </center>
       </div>
     </ThemeProvider>
   );
