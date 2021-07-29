@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ipcRenderer } from 'electron';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Paper } from '@material-ui/core';
 import PermanentDrawerLeft from '../material/SideNav';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
+import Card from '../material/Card';
+import CustomizedDialogs from '../material/dialog';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -27,8 +29,8 @@ function History() {
     try {
       ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
       ipcRenderer.once('data-reply', (event, arg) => {
-        console.log(arg);
         setLabel(arg);
+
         if (isFetched) setHistory(arg.history);
         if (arg.historyLength) setHistoryLength(arg.historyLength);
       });
@@ -59,19 +61,32 @@ function History() {
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
     return (
-      <li key={i}>
-        <h2 color='primary'>URL Tested</h2>
-        <Typography variant='body2' color='secondary'>{el.url}</Typography>
-        <Typography variant='h5' color='primary'>Cookie Test Results</Typography>
-        <Typography variant='body2' color='secondary'>{el.cookieTest}</Typography>
-        <Typography variant='h5' color='primary'>Jquery XSS results</Typography>
-        <Typography variant='body2' color='secondary'>{el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'}</Typography>
-        <Typography variant='h5' color='primary'>Javascript XSS results</Typography>
-        <Typography variant='body2' color='secondary'>{el.jsXSS ? 'Not safe from XSS in javascript' : 'Safe from XSS in javascript'}</Typography>
-        <Button variant="contained" size="small" color="primary" className={classes.margin} onClick={() => clearItem(i)}>
+      <div key={i} className='historyCard'>
+        <Card
+          style={{ width: '50%' }}
+          url={el.url}
+          currentTime={el.currentTime}
+          // jsXSS={
+          //   el.cookieTest
+          //     ? 'Not safe from XSS in javascript'
+          //     : 'Safe from XSS in javascript'
+          // }
+          jqueryXSS={
+            el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
+          }
+          // cookieExample={el.cookieTest[0]}
+        />
+        <CustomizedDialogs props={el}/>
+        <Button
+          variant='contained'
+          size='small'
+          color='primary'
+          className={classes.margin}
+          onClick={() => clearItem(i)}
+        >
           Clear Item
         </Button>
-      </li>
+      </div>
     );
   });
 
@@ -82,7 +97,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 2, 3, 4, 5, 6];
+  const historyLengths = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -93,27 +108,52 @@ function History() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {/*</ThemeProvider> <div className='historyDiv'>
+         <center>
+           <Typography variant='h3'>History</Typography>
+         </center>
+         <ControlledOpenSelect options={historyLengths} />
+         <Button variant='contained' color='primary' size='small' onClick={clicked}>
+           Change Length
+         </Button>
+         <ul>{pastStats}</ul>
+         <Button
+           variant='contained'
+           size='small'
+           color='primary'
+           className={classes.margin}
+           onClick={clearHistory}
+         >
+           Clear History
+         </Button>
+         <PermanentDrawerLeft /> </div>*/}
+      <div id='historyDiv'>
+        <center>
+          <Typography variant='h4' color='textSecondary' className='history-title-margin'>
+            History
+          </Typography>
+        </center>
+        <ul className='history-grid'>{pastStats}</ul>
+        <center>
+          <Paper elevation={3} className='history-bottom'>
+            <ControlledOpenSelect options={historyLengths} className='history-input' />
+            <Button variant='contained' color='primary' size='small' onClick={clicked}>
+              Change Length
+            </Button>
 
-    <CssBaseline />
-    <div className="historyDiv">
-      <center>
-      <Typography variant='h3'>History</Typography>
-      </center>
-      <ControlledOpenSelect options={historyLengths} />
-      <Button variant='contained' color='primary' size="small" onClick={clicked}>
-          Change Length
-        </Button>
-        <ul>{pastStats}</ul>
-        <Button
-          variant='contained'
-          size='small'
-          color='primary'
-          className={classes.margin}
-          onClick={clearHistory}
-        >
-          Clear History
-        </Button>
-        <PermanentDrawerLeft />
+            <Button
+              variant='contained'
+              size='small'
+              color='primary'
+              className={classes.margin}
+              onClick={clearHistory}
+            >
+              Clear History
+            </Button>
+            <PermanentDrawerLeft />
+          </Paper>
+        </center>
       </div>
     </ThemeProvider>
   );
