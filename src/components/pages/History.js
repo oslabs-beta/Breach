@@ -106,7 +106,7 @@ function History() {
             <ControlledOpenSelect options={historyLengths} className='history-input'/>
             <Button variant='contained' color='primary' size="small" onClick={clicked}>
                 Change Length
-              </Button>
+            </Button>
 
               <Button
                 variant='contained'
