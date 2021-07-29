@@ -39,16 +39,20 @@ body {
   align-items: center;
 }
 
- /* if results in history dont fit well, make this a flex-box with set width and height and give it a flex wrap */
+/* if results in history dont fit well, make this a flex-box with set width and height and give it a flex wrap */
 .results-grid-history {
   padding: 1%;
   margin: 1%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: .5% 0%;
+  gap: 0.5% 0%;
   justify-items: left;
   align-items: center;
+}
+
+.historyCard {
+  height: 80%;
 }
 
 .history-grid {
@@ -70,7 +74,7 @@ body {
 }
 
 .settings-paper {
-  display:flex;
+  display: flex;
   flex-direction: column;
   padding: 3%;
   margin: 4% 7%;
@@ -102,7 +106,7 @@ body {
   padding: 15px;
   width: 75%;
   /* height: 15vh; */
-  margin: 0% 1% 0% 5%;  
+  margin: 0% 1% 0% 5%;
   display: flex;
   align-items: center;
   align-content: center;
@@ -112,15 +116,14 @@ body {
 }
 
 .inside-paper-bottom {
-  margin: 0% 0% .5% 5%;
+  margin: 0% 0% 0.5% 5%;
   height: 45vh !important;
   display: flex;
-  align-items:stretch;
+  align-items: stretch;
   /* width: 70%; */
 }
 
 .MuiPaper-root {
-
 }
 
 .top-home {
@@ -135,7 +138,6 @@ body {
   height: 100%;
   width: 100%;
 }
-
 
 .top-div {
   display: flex;

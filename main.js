@@ -112,6 +112,12 @@ function createWindow() {
           },
         },
       },
+      text: {
+        primary: 'rgba(0, 0, 0, 1)',
+        secondary: 'rgba(255, 255, 255, 1)',
+        disabled: 'rgba(255, 255, 255, 1)',
+        hint: 'rgba(0, 0, 0, 0.38)',
+      },
     },
     palette: {
       type: 'light',
@@ -247,6 +253,7 @@ function createWindow() {
   if (!store.get('fontSize')) store.set('fontSize', '16px');
 
   ipcMain.on('load-data', function (event, arg) {
+    // console.log(store.store)
     if (arg && typeof arg.options[0] === 'number') {
       mainWindow.webContents.send('data-reply', store.store);
     } else {
@@ -473,7 +480,6 @@ app.on('activate', () => {
 });
 
 ipcMain.on('url', function (event, arg) {
-
   // let test = {
   //   url: arg,
   //   cookieTest: '',
