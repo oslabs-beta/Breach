@@ -253,6 +253,7 @@ function createWindow() {
   if (!store.get('fontSize')) store.set('fontSize', '16px');
 
   ipcMain.on('load-data', function (event, arg) {
+    // console.log(store.store)
     if (arg && typeof arg.options[0] === 'number') {
       mainWindow.webContents.send('data-reply', store.store);
     } else {

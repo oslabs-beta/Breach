@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
+import CustomizedDialogs from '../material/dialog';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -59,23 +60,23 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-    console.log('32 ', el.cookieTest[0]);
     return (
       <div key={i} className='historyCard'>
         <Card
           style={{ width: '50%' }}
           url={el.url}
           currentTime={el.currentTime}
-          jsXSS={
-            el.cookieTest
-              ? 'Not safe from XSS in javascript'
-              : 'Safe from XSS in javascript'
-          }
+          // jsXSS={
+          //   el.cookieTest
+          //     ? 'Not safe from XSS in javascript'
+          //     : 'Safe from XSS in javascript'
+          // }
           jqueryXSS={
             el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
           }
-          cookieExample={el.cookieTest[0]}
+          // cookieExample={el.cookieTest[0]}
         />
+        <CustomizedDialogs props={el}/>
         <Button
           variant='contained'
           size='small'

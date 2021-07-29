@@ -52,11 +52,11 @@ export default function SimpleCard(props) {
           className={classes.pos}
           color='textSecondary'
         >
-          <NestedList primary={props.cookieExample} />
+          {(props.cookieExample) ? <NestedList primary={props.cookieExample} /> : <Typography variant='body2'>No Cookies Available</Typography>}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Learn More</Button>
+        <Button size='small'>How to Protect</Button>
       </CardActions>
     </Card>
   );

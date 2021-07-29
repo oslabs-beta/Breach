@@ -37,34 +37,33 @@ function About() {
           </Typography>
         </center>
         <Paper elevation={3} className='about-paper'>
-          <Typography variant='h5' color='textPrimary'>
+          <Typography variant='h5' color='textSecondary'>
             Version
           </Typography>
           <Typography variant='body1' color='textPrimary'>
-            1.0
+            1.0.0
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textPrimary'>
+          <Typography variant='h5' color='textSecondary'>
             How it Works?
           </Typography>
           <Typography variant='body1' color='textPrimary'>
-            Place a URL on the home page and watch the security readings once the load
-            finishes
+            Input a URL on the home page and see security readings once the test has loaded.
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textPrimary'>
+          <Typography variant='h5' color='textSecondary'>
             Who it's for?
           </Typography>
           <Typography variant='body1' color='textPrimary'>
             This app is for any developer looking to test their front end application for
-            Cross-Site-Scripting vulnerabilities
+            Cross-Site-Scripting or Cookie vulnerabilities.
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textPrimary'>
+          <Typography variant='h5' color='textSecondary'>
             Disclaimer
           </Typography>
           <Typography variant='body1' color='textPrimary'>
-            Only for use on URLs that you have permission to test XSS
+            Although the tests are non-invasive, it is suggested to only input URLs that the user is authorized to pentest.
           </Typography>
         </Paper>
         <PermanentDrawerLeft />
