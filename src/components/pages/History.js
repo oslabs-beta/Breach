@@ -74,9 +74,9 @@ function History() {
           jqueryXSS={
             el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
           }
-          // cookieExample={el.cookieTest[0]}
+          cookieExample={el.cookieTest[0]}
         />
-        <CustomizedDialogs props={el}/>
+        <CustomizedDialogs props={el} />
         <Button
           variant='contained'
           size='small'

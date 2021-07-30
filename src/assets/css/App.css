@@ -147,6 +147,10 @@ body {
   width: fit-content;
 }
 
+.spin {
+  padding-top: 10%;
+}
+
 /* @media screen and (max-width: 650px), (max-height: 820px) {
   body {
     overflow: auto !important;
