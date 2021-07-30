@@ -60,32 +60,41 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
+    console.log(el)
     return (
-      <div key={i} className='historyCard'>
-        <Card
-          style={{ width: '50%' }}
-          url={el.url}
-          currentTime={el.currentTime}
-          // jsXSS={
-          //   el.cookieTest
-          //     ? 'Not safe from XSS in javascript'
-          //     : 'Safe from XSS in javascript'
-          // }
-          jqueryXSS={
-            el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
-          }
-          // cookieExample={el.cookieTest[0]}
-        />
-        <CustomizedDialogs props={el}/>
-        <Button
-          variant='contained'
-          size='small'
-          color='primary'
-          className={classes.margin}
-          onClick={() => clearItem(i)}
-        >
-          Clear Item
-        </Button>
+      <div className='whole-cards'>
+        <div key={i} className='historyCard'>
+          <Card
+            // className='results-grid-history'
+            style={{ width: '50%' }}
+            url={el.url}
+            currentTime={el.currentTime}
+            innerHTML={el.innerHTMLtest}
+            jsXSS={
+              el.cookieTest
+                ? 'Not safe from XSS in javascript'
+                : 'Safe from XSS in javascript'
+            }
+            jqueryXSS={
+              el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
+            }
+            cookieExample={el.cookieTest[0]}
+          />
+        </div>
+        <div className='history-flex'>
+          <CustomizedDialogs className='history-button-margin' info={el} text='Expand'/>
+          <CustomizedDialogs className='history-button-margin' info={el} text='Defend'/>
+          <Button
+              variant='outlined'
+              size='small'
+              color='primary'
+              // className='history-button-margin'
+              // className={classes.margin}
+              onClick={() => clearItem(i)}
+              >
+              Clear
+          </Button>
+        </div>
       </div>
     );
   });
@@ -97,7 +106,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 2, 3, 4, 5, 6, 7, 8];
+  const historyLengths = [1, 3, 6, 9, 12];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -130,11 +139,10 @@ function History() {
          <PermanentDrawerLeft /> </div>*/}
       <div id='historyDiv'>
         <center>
-          <Typography variant='h4' color='textSecondary' className='history-title-margin'>
+          <Typography variant='h3' color='textSecondary' className='history-title-margin'>
             History
           </Typography>
         </center>
-        <ul className='history-grid'>{pastStats}</ul>
         <center>
           <Paper elevation={3} className='history-bottom'>
             <ControlledOpenSelect options={historyLengths} className='history-input' />
@@ -154,6 +162,8 @@ function History() {
             <PermanentDrawerLeft />
           </Paper>
         </center>
+        <ul className='history-grid'>{pastStats}</ul>
+        
       </div>
     </ThemeProvider>
   );

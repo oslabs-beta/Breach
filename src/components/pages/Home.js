@@ -46,6 +46,8 @@ function Home() {
   const sendURL = () => {
     let link = document.getElementsByName('url')[0].value;
 
+    setTestResults('');
+
     let userObject = {
       url: link,
     };
@@ -59,8 +61,11 @@ function Home() {
       jsXSS: null,
       jqueryTest: null,
       cookieTest: null,
+      innerHTMLtest: null,
       currentTime: date.toUTCString(),
     };
+
+    testStats.innerHTMLtest = null;
 
     const fetches = () => {
       trackPromise(
@@ -81,29 +86,43 @@ function Home() {
                 cookieResult = res.data;
               })
               .then(() => {
-                ipcRenderer.send('url', testStats);
-                ipcRenderer.once('testOutput', (event, arg) => {
-                  console.log(arg);
-                  setTestResults(
-                    <Card
-                      style={{ width: '50%' }}
-                      url={link}
-                      currentTime={arg.currentTime}
-                      jsXSS={
-                        testStats.jsXSS
-                          ? 'Not safe from XSS in javascript'
-                          : 'Safe from XSS in javascript'
-                      }
-                      jqueryXSS={
-                        testStats.jqueryTest
-                          ? 'Not safe from XSS in jQuery'
-                          : 'Safe from XSS in jQuery'
-                      }
-                      cookieExample={arg.cookieTest[0]}
-                    />
-                  );
-                });
+                axios
+                  .post('http://localhost:5000/innerHTML', userObject)
+                  .then((res) => {
+                    console.log(res.data);
+                    testStats.innerHTMLtest = res.data;
+                  })
+                  .then(() => {
+                    ipcRenderer.send('url', testStats);
+                    ipcRenderer.once('testOutput', (event, arg) => {
+                      console.log(arg);
+                      setTestResults(
+                        <Card
+                          style={{ width: '50%' }}
+                          url={link}
+                          currentTime={arg.currentTime}
+                          innerHTML={arg.innerHTMLtest}
+                          jsXSS={
+                            testStats.jsXSS
+                              ? 'Not safe from XSS in javascript'
+                              : 'Safe from XSS in javascript'
+                          }
+                          jqueryXSS={
+                            testStats.jqueryTest
+                              ? 'Not safe from XSS in jQuery'
+                              : 'Safe from XSS in jQuery'
+                          }
+                          cookieExample={arg.cookieTest[0]}
+                        />
+                      );
+                    });
+                  })
+
+                  .catch((error) => {
+                    console.log(error);
+                  });
               })
+
               .catch((error) => {
                 console.log(error);
               });
@@ -129,6 +148,10 @@ function Home() {
     fetches();
   };
 
+  const disclaimer = () => {
+    return document.getElementsByName('url')[0].value.includes('q=') ? '' : 'For XSS testing please input a url containg a q= query'
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -141,7 +164,7 @@ function Home() {
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>
-              <Typography variant='h4' color='textSecondary'>
+              <Typography variant='h3' color='textSecondary'>
                 Scan Link
               </Typography>
             </center>
@@ -163,14 +186,15 @@ function Home() {
                     className={classes.margin}
                     onClick={sendURL}
                   >
-                    Hack 'Em Up
+                    Test
                   </Button>
+                  {disclaimer}
                 </form>
               </Paper>
             </center>
             <br></br>
             <center>
-              <Typography variant='h4' color='textSecondary'>
+              <Typography variant='h3' color='textSecondary'>
                 Results
               </Typography>
             </center>
@@ -181,6 +205,7 @@ function Home() {
                 className='inside-paper inside-paper-bottom'
               >
                 {testResults}
+
                 <Spinner />
               </Paper>
             </center>

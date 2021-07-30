@@ -2,6 +2,8 @@
 
 @import '_example/example.css';
 
+
+
 .settingsDiv {
   margin-left: 30px;
 }
@@ -58,8 +60,23 @@ body {
 .history-grid {
   padding: 0% 0% 5% 0px;
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 1% 2%;
+  grid-template-columns: 33% 33% 33%;
+  gap: 2% 2%;
+}
+
+.history-flex {
+  display: flex;
+  margin: 15px 10px;
+  /* height: 22%; */
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  justify-items: baseline;
+}
+
+.history-button-margin {
+  margin: 5px;
 }
 
 .history-bottom {
@@ -89,6 +106,7 @@ body {
 .MuiPaper-elevation3 {
   /* margin: 2.5% 6%; */
   padding: 2%;
+  margin: 20px 0px;
   display: flex;
   /* flex-direction: column;
   justify-content: center;
@@ -117,7 +135,7 @@ body {
 
 .inside-paper-bottom {
   margin: 0% 0% 0.5% 5%;
-  height: 45vh !important;
+  height: fit-content !important;
   display: flex;
   align-items: stretch;
   /* width: 70%; */
@@ -139,12 +157,21 @@ body {
   width: 100%;
 }
 
+.whole-cards {
+  height: fit-content;
+  
+}
+
 .top-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: fit-content;
+}
+
+.spin {
+  padding-top: 10%;
 }
 
 /* @media screen and (max-width: 650px), (max-height: 820px) {

@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    height: 200,
-    overflowY: 'scroll',
+    // height: 200,
+    overflowY: 'hidden',
   },
   nested: {
     paddingLeft: theme.spacing(4),
