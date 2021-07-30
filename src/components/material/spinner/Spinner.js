@@ -9,7 +9,13 @@ export default function Spinner(props) {
   return (
     promiseInProgress && (
       <div className='spinner'>
-        <Loader type='TailSpin' color='#808080' height='100' width='100' />
+        <Loader
+          type='TailSpin'
+          color='#808080'
+          height='100'
+          width='100'
+          visible={props.visible}
+        />
       </div>
     )
   );

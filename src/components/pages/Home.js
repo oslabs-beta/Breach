@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const [label, setLabel] = useState({});
   const [testResults, setTestResults] = useState('');
+  const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
     ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
@@ -68,84 +69,85 @@ function Home() {
     testStats.innerHTMLtest = null;
 
     const fetches = () => {
-      trackPromise(
-        axios
-          .post('http://localhost:5000/javascriptXSS', userObject)
-          .then((res) => {
-            console.log(res.data);
-            testStats.jsXSS = res.data;
-            jsXssResult = res.data;
-          })
+      setVisible(true);
+      axios
+        .post('http://localhost:5000/javascriptXSS', userObject)
+        .then((res) => {
+          console.log(res.data);
+          testStats.jsXSS = res.data;
+          jsXssResult = res.data;
+        })
 
-          .then(() => {
-            axios
-              .post('http://localhost:5000/cookieTester', userObject)
-              .then((res) => {
-                console.log(res.data);
-                testStats.cookieTest = res.data;
-                cookieResult = res.data;
-              })
-              .then(() => {
-                axios
-                  .post('http://localhost:5000/innerHTML', userObject)
-                  .then((res) => {
-                    // console.log(res.data);
-                    testStats.innerHTMLtest = res.data;
-                  })
-                  .then(() => {
-                    ipcRenderer.send('url', testStats);
-                    ipcRenderer.once('testOutput', (event, arg) => {
-                      // console.log(arg);
-                      setTestResults(
-                        <Card
-                          style={{ width: '50%' }}
-                          url={link}
-                          currentTime={arg.currentTime}
-                          innerHTML={arg.innerHTMLtest}
-                          jsXSS={
-                            testStats.jsXSS
-                              ? 'Not safe from XSS in javascript'
-                              : 'Safe from XSS in javascript'
-                          }
-                          jqueryXSS={
-                            testStats.jqueryTest
-                              ? 'Not safe from XSS in jQuery'
-                              : 'Safe from XSS in jQuery'
-                          }
-                          cookieExample={arg.cookieTest[0]}
-                        />
-                      );
-                    });
-                  })
-
-                  .catch((error) => {
-                    console.log(error);
+        .then(() => {
+          axios
+            .post('http://localhost:5000/cookieTester', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.cookieTest = res.data;
+              cookieResult = res.data;
+            })
+            .then(() => {
+              axios
+                .post('http://localhost:5000/innerHTML', userObject)
+                .then((res) => {
+                  console.log(res.data);
+                  testStats.innerHTMLtest = res.data;
+                })
+                .then(() => {
+                  ipcRenderer.send('url', testStats);
+                  ipcRenderer.once('testOutput', (event, arg) => {
+                    console.log(arg);
+                    setVisible(false);
+                    setTestResults(
+                      <Card
+                        style={{ width: '50%' }}
+                        url={link}
+                        currentTime={arg.currentTime}
+                        innerHTML={arg.innerHTMLtest}
+                        jsXSS={
+                          testStats.jsXSS
+                            ? 'Not safe from XSS in javascript'
+                            : 'Safe from XSS in javascript'
+                        }
+                        jqueryXSS={
+                          testStats.jqueryTest
+                            ? 'Not safe from XSS in jQuery'
+                            : 'Safe from XSS in jQuery'
+                        }
+                        cookieExample={arg.cookieTest[0]}
+                      />
+                    );
                   });
-              })
+                })
 
-              .catch((error) => {
-                console.log(error);
-              });
-          })
+                .catch((error) => {
+                  console.log(error);
+                });
+            })
 
-          .then(() => {
-            axios
-              .post('http://localhost:5000/jqueryXSS', userObject)
-              .then((res) => {
-                console.log(res.data);
-                testStats.jqueryTest = res.data;
-                jqueryResult = res.data;
-              })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
 
-              .catch((error) => {
-                console.log(error);
-              });
-          })
-      );
+        .then(() => {
+          axios
+            .post('http://localhost:5000/jqueryXSS', userObject)
+            .then((res) => {
+              console.log(res.data);
+              testStats.jqueryTest = res.data;
+              jqueryResult = res.data;
+            })
+
+            .catch((error) => {
+              console.log(error);
+            });
+        });
     };
 
     //track promise, invoke spinner
-    fetches();
+    trackPromise(fetches());
+    //fetches();
   };
 
   const disclaimer = () => {
@@ -205,8 +207,7 @@ function Home() {
                 className='inside-paper inside-paper-bottom'
               >
                 {testResults}
-
-                <Spinner />
+                <Spinner visible={isVisible} />
               </Paper>
             </center>
           </div>
