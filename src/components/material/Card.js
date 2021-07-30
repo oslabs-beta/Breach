@@ -30,7 +30,8 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-
+  // console.log(props)
+  // console.log(props.innerHTMLtest)
   return (
     <Card className={classes.root}>
       <CardContent>
