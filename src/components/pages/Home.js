@@ -184,6 +184,7 @@ function Home() {
                   >
                     Hack 'Em Up
                   </Button>
+                  {document.getElementsByName('url')[0].value.includes('q=') ? '' : 'For XSS testing please input a url containg a q= query'}
                 </form>
               </Paper>
             </center>

@@ -60,17 +60,19 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
+    console.log(el)
     return (
       <div key={i} className='historyCard'>
         <Card
           style={{ width: '50%' }}
           url={el.url}
           currentTime={el.currentTime}
-          // jsXSS={
-          //   el.cookieTest
-          //     ? 'Not safe from XSS in javascript'
-          //     : 'Safe from XSS in javascript'
-          // }
+          innerHTML={arg.innerHTMLtest}
+          jsXSS={
+            el.cookieTest
+              ? 'Not safe from XSS in javascript'
+              : 'Safe from XSS in javascript'
+          }
           jqueryXSS={
             el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
           }
