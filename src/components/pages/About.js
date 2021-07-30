@@ -32,37 +32,37 @@ function About() {
       <CssBaseline />
       <div>
         <center>
-          <Typography variant='h4' color='textSecondary'>
+          <Typography variant='h3' color='textSecondary'>
             About
           </Typography>
         </center>
         <Paper elevation={3} className='about-paper'>
-          <Typography variant='h5' color='textSecondary'>
+          <Typography variant='h4' color='textSecondary'>
             Version
           </Typography>
-          <Typography variant='body1' color='textPrimary'>
+          <Typography variant='h6' color='textPrimary'>
             1.0.0
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textSecondary'>
+          <Typography variant='h4' color='textSecondary'>
             How it Works?
           </Typography>
-          <Typography variant='body1' color='textPrimary'>
+          <Typography variant='h6' color='textPrimary'>
             Input a URL on the home page and see security readings once the test has loaded.
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textSecondary'>
+          <Typography variant='h4' color='textSecondary'>
             Who it's for?
           </Typography>
-          <Typography variant='body1' color='textPrimary'>
+          <Typography variant='h6' color='textPrimary'>
             This app is for any developer looking to test their front end application for
             Cross-Site-Scripting or Cookie vulnerabilities.
           </Typography>
           <br></br>
-          <Typography variant='h5' color='textSecondary'>
+          <Typography variant='h4' color='textSecondary'>
             Disclaimer
           </Typography>
-          <Typography variant='body1' color='textPrimary'>
+          <Typography variant='h6' color='textPrimary'>
             Although the tests are non-invasive, it is suggested to only input URLs that the user is authorized to pentest.
           </Typography>
         </Paper>

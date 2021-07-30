@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
+import CustomizedDialogs from './dialog';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -55,9 +56,9 @@ export default function SimpleCard(props) {
           {(props.cookieExample) ? <NestedList primary={props.cookieExample} /> : <Typography variant='body2'>No Cookies Available</Typography>}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size='small'>How to Protect</Button>
-      </CardActions>
+      {/* <CardActions>
+        <CustomizedDialogs info={props}/>
+      </CardActions> */}
     </Card>
   );
 }

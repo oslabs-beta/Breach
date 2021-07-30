@@ -141,7 +141,7 @@ function Home() {
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>
-              <Typography variant='h4' color='textSecondary'>
+              <Typography variant='h3' color='textSecondary'>
                 Scan Link
               </Typography>
             </center>
@@ -163,14 +163,14 @@ function Home() {
                     className={classes.margin}
                     onClick={sendURL}
                   >
-                    Hack 'Em Up
+                    Test
                   </Button>
                 </form>
               </Paper>
             </center>
             <br></br>
             <center>
-              <Typography variant='h4' color='textSecondary'>
+              <Typography variant='h3' color='textSecondary'>
                 Results
               </Typography>
             </center>

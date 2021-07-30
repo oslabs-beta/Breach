@@ -60,13 +60,13 @@ function Settings() {
       <CssBaseline />
       <div className='settingsDiv'>
         <center>
-        <Typography variant='h4' color='textSecondary'>Settings</Typography>
+        <Typography variant='h3' color='textSecondary'>Settings</Typography>
         </center>
       <Paper elevation={3} className='settings-paper'>
-        <Typography variant='h5' color='textPrimary'>Color Themes</Typography>
+        <Typography variant='h4' color='textPrimary'>Color Themes</Typography>
         <ControlledOpenSelect options={modes} />
         <br></br>
-        <Typography variant='h5' color='textPrimary'>Change Text Size</Typography>
+        <Typography variant='h4' color='textPrimary'>Text Size</Typography>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>

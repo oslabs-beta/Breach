@@ -2,6 +2,8 @@
 
 @import '_example/example.css';
 
+
+
 .settingsDiv {
   margin-left: 30px;
 }
@@ -58,8 +60,22 @@ body {
 .history-grid {
   padding: 0% 0% 5% 0px;
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 1% 2%;
+  grid-template-columns: auto auto auto;
+  gap: 5% 2%;
+}
+
+.history-flex {
+  display: flex;
+  /* height: 22%; */
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  justify-items: baseline;
+}
+
+.history-button-margin {
+  margin: 5px;
 }
 
 .history-bottom {
