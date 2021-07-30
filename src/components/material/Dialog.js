@@ -23,7 +23,6 @@ const styles = (theme) => ({
 });
 
 const DialogTitle = withStyles(styles)((props) => {
-  console.log(props)
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
@@ -50,7 +49,8 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs() {
+export default function CustomizedDialogs(props) {
+  console.log(props, props.info)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -63,7 +63,7 @@ export default function CustomizedDialogs() {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Expand Info
+        {(props.text ==='Defend') ? 'Defend' : 'Expanded'}
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
