@@ -89,13 +89,13 @@ function Home() {
                 axios
                   .post('http://localhost:5000/innerHTML', userObject)
                   .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     testStats.innerHTMLtest = res.data;
                   })
                   .then(() => {
                     ipcRenderer.send('url', testStats);
                     ipcRenderer.once('testOutput', (event, arg) => {
-                      console.log(arg);
+                      // console.log(arg);
                       setTestResults(
                         <Card
                           style={{ width: '50%' }}

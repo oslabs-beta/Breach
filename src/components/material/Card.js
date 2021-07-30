@@ -30,7 +30,8 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-
+  // console.log(props)
+  // console.log(props.innerHTMLtest)
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -49,7 +50,7 @@ export default function SimpleCard(props) {
           {props.jqueryXSS}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
-          Instances of InnerHTML in scripts: {toString(props.innerHTMLtest)}
+          {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
         </Typography>
 
         <Typography
