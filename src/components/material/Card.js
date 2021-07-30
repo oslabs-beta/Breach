@@ -49,7 +49,7 @@ export default function SimpleCard(props) {
           {props.jqueryXSS}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
-          Instances of InnerHTML in scripts: {toString(props.innerHTMLtest)}
+          {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
         </Typography>
 
         <Typography
