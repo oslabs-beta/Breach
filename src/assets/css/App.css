@@ -2,6 +2,8 @@
 
 @import '_example/example.css';
 
+
+
 .settingsDiv {
   margin-left: 30px;
 }
@@ -10,8 +12,9 @@
   margin-left: 1%;
 }
 
-.historyDiv {
-  margin-left: 30px;
+#historyDiv {
+  /* margin-left: 30px; */
+  overflow: visible !important;
 }
 
 .fade-enter {
@@ -22,3 +25,237 @@
   opacity: 1;
   transition: opacity 5ms ease-in;
 }
+
+body {
+  margin: 2% 5% 0% 5% !important;
+}
+
+.results-grid-home {
+  padding: 1%;
+  margin: 1%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 10% 0%;
+  justify-items: left;
+  align-items: center;
+}
+
+/* if results in history dont fit well, make this a flex-box with set width and height and give it a flex wrap */
+.results-grid-history {
+  padding: 1%;
+  margin: 1%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 0.5% 0%;
+  justify-items: left;
+  align-items: center;
+}
+
+.historyCard {
+  height: 80%;
+}
+
+.history-grid {
+  padding: 0% 0% 5% 0px;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  gap: 2% 2%;
+}
+
+.history-flex {
+  display: flex;
+  margin: 15px 10px;
+  /* height: 22%; */
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  justify-items: baseline;
+}
+
+.history-button-margin {
+  margin: 5px;
+}
+
+.history-bottom {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#filled-basic {
+  width: 50vw !important;
+}
+
+.settings-paper {
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  margin: 4% 7%;
+}
+
+.about-paper {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+}
+
+.MuiPaper-elevation3 {
+  /* margin: 2.5% 6%; */
+  padding: 2%;
+  margin: 20px 0px;
+  display: flex;
+  /* flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center; */
+}
+
+.lmargin-home {
+  margin: 4% 6%;
+  overflow: hidden;
+}
+
+.inside-paper {
+  padding: 15px;
+  width: 75%;
+  /* height: 15vh; */
+  margin: 0% 1% 0% 5%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  /* padding: 1%; */
+}
+
+.inside-paper-bottom {
+  margin: 0% 0% 0.5% 5%;
+  height: fit-content !important;
+  display: flex;
+  align-items: stretch;
+  /* width: 70%; */
+}
+
+.MuiPaper-root {
+}
+
+.top-home {
+  width: 50vw;
+}
+
+.MuiInputBase-input {
+  width: 55vw;
+}
+
+.mainContainer {
+  height: 100%;
+  width: 100%;
+}
+
+.whole-cards {
+  height: fit-content;
+  
+}
+
+.top-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+.spin {
+  padding-top: 10%;
+}
+
+/* @media screen and (max-width: 650px), (max-height: 820px) {
+  body {
+    overflow: auto !important;
+    margin: 0% !important;
+  }
+
+  .MuiPaper-elevation3 {
+    margin: 1% 0%;
+
+    display: flex;
+  }
+
+  .lmargin-home {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .inside-paper {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+
+  }
+  
+  .inside-paper-bottom {
+
+    height: 60vh !important;
+    display: flex;
+    align-items:stretch;
+
+  }
+
+  .results-grid {
+    padding: 1%;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10% 0%;
+    justify-items: center;
+    align-items: center;
+  }
+
+} */
+/* @media screen and (max-width: 300px) and (max-height: 740px) {
+  body {
+    overflow: auto;
+  }
+  .MuiPaper-elevation3 {
+    margin: 5% 5%;
+    padding: 3%;
+    display: flex;
+    height: 900px;
+    width: auto;
+  }
+
+  .inside-paper {
+    width: auto;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+  }
+  
+  .inside-paper-bottom {
+    height: 500px !important;
+    display: flex;
+    align-items:stretch;
+  }
+
+  .results-grid {
+    padding: 1%;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10% 0%;
+    justify-items: center;
+    align-items: center;
+  }
+} */
