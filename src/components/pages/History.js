@@ -68,15 +68,15 @@ function History() {
             style={{ width: '50%' }}
             url={el.url}
             currentTime={el.currentTime}
-            // jsXSS={
-            //   el.cookieTest
-            //     ? 'Not safe from XSS in javascript'
-            //     : 'Safe from XSS in javascript'
-            // }
+            jsXSS={
+              el.cookieTest
+                ? 'Not safe from XSS in javascript'
+                : 'Safe from XSS in javascript'
+            }
             jqueryXSS={
               el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
             }
-            // cookieExample={el.cookieTest[0]}
+            cookieExample={el.cookieTest[0]}
           />
         </div>
         <div className='history-flex'>

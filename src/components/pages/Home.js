@@ -46,6 +46,8 @@ function Home() {
   const sendURL = () => {
     let link = document.getElementsByName('url')[0].value;
 
+    setTestResults('');
+
     let userObject = {
       url: link,
     };
@@ -59,8 +61,11 @@ function Home() {
       jsXSS: null,
       jqueryTest: null,
       cookieTest: null,
+      innerHTMLtest: null,
       currentTime: date.toUTCString(),
     };
+
+    testStats.innerHTMLtest = null;
 
     const fetches = () => {
       trackPromise(
@@ -79,6 +84,18 @@ function Home() {
                 console.log(res.data);
                 testStats.cookieTest = res.data;
                 cookieResult = res.data;
+              })
+              .then(() => {
+                axios
+                  .post('http://localhost:5000/innerHTML', userObject)
+                  .then((res) => {
+                    console.log(res.data);
+                    testStats.innerHTMLtest = res.data;
+                  })
+
+                  .catch((error) => {
+                    console.log(error);
+                  });
               })
               .then(() => {
                 ipcRenderer.send('url', testStats);
@@ -181,7 +198,7 @@ function Home() {
                 className='inside-paper inside-paper-bottom'
               >
                 {testResults}
-                <Spinner />
+                <Spinner className='spin' />
               </Paper>
             </center>
           </div>
