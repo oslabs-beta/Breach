@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     fontSize: 10,
     height: '100%',
     width: '100%',
+    // overflow: 'hidden'
   },
   bullet: {
     display: 'inline-block',
@@ -46,6 +47,9 @@ export default function SimpleCard(props) {
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
           {props.jqueryXSS}
+        </Typography>
+        <Typography className={classes.pos} color='textSecondary'>
+          Instances of InnerHTML in scripts: {toString(props.innerHTMLtest)}
         </Typography>
 
         <Typography

@@ -60,12 +60,13 @@ body {
 .history-grid {
   padding: 0% 0% 5% 0px;
   display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 5% 2%;
+  grid-template-columns: 33% 33% 33%;
+  gap: 2% 2%;
 }
 
 .history-flex {
   display: flex;
+  margin: 15px 10px;
   /* height: 22%; */
   flex-direction: row;
   align-items: center;
@@ -105,6 +106,7 @@ body {
 .MuiPaper-elevation3 {
   /* margin: 2.5% 6%; */
   padding: 2%;
+  margin: 20px 0px;
   display: flex;
   /* flex-direction: column;
   justify-content: center;
@@ -133,7 +135,7 @@ body {
 
 .inside-paper-bottom {
   margin: 0% 0% 0.5% 5%;
-  height: 45vh !important;
+  height: fit-content !important;
   display: flex;
   align-items: stretch;
   /* width: 70%; */
@@ -153,6 +155,11 @@ body {
 .mainContainer {
   height: 100%;
   width: 100%;
+}
+
+.whole-cards {
+  height: fit-content;
+  
 }
 
 .top-div {

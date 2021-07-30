@@ -62,8 +62,8 @@ export default function CustomizedDialogs(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {(props.text ==='Defend') ? 'Defend' : 'Expanded'}
+      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+        {(props.text ==='Defend') ? 'Defend' : 'Expand'}
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>

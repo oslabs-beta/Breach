@@ -158,8 +158,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgb(255, 255, 255, .9)',
-        secondary: 'rgb(255, 255, 255, .6)',
+        primary: 'rgb(255, 255, 255, .7)',
+        secondary: 'rgb(255, 255, 255, .9)',
         disabled: 'rgba(255, 255, 255, 1)',
         hint: 'rgba(0, 0, 0, 0.38)',
       },
@@ -242,8 +242,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgb(255, 255, 255, .9)',
-        secondary: 'rgb(255, 255, 255, .6)',
+        primary: 'rgb(255, 255, 255, .7)',
+        secondary: 'rgb(255, 255, 255, .9)',
         disabled: 'rgba(255, 255, 255, 0.38)',
         hint: 'rgba(255, 255, 255, 0.38)',
       },
@@ -324,8 +324,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgb(255, 255, 255, .9)',
-            secondary: 'rgb(255, 255, 255, .6)',
+            primary: 'rgb(255, 255, 255, .7)',
+            secondary: 'rgb(255, 255, 255, .9)',
             disabled: 'rgba(255, 255, 255, 1)',
             hint: 'rgba(0, 0, 0, 0.38)',
           },
@@ -408,8 +408,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgb(255, 255, 255, .9)',
-            secondary: 'rgb(255, 255, 255, .6)',
+            primary: 'rgb(255, 255, 255, .7)',
+            secondary: 'rgb(255, 255, 255, .9)',
             disabled: 'rgba(255, 255, 255, 0.38)',
             hint: 'rgba(255, 255, 255, 0.38)',
           },

@@ -60,6 +60,7 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
+    console.log(el)
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
@@ -68,6 +69,7 @@ function History() {
             style={{ width: '50%' }}
             url={el.url}
             currentTime={el.currentTime}
+            innerHTML={el.innerHTMLtest}
             jsXSS={
               el.cookieTest
                 ? 'Not safe from XSS in javascript'
@@ -86,7 +88,7 @@ function History() {
               variant='outlined'
               size='small'
               color='primary'
-              className='history-button-margin'
+              // className='history-button-margin'
               // className={classes.margin}
               onClick={() => clearItem(i)}
               >
@@ -104,7 +106,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 3, 6, 9, 12, 15];
+  const historyLengths = [1, 3, 6, 9, 12];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -141,7 +143,6 @@ function History() {
             History
           </Typography>
         </center>
-        <ul className='history-grid'>{pastStats}</ul>
         <center>
           <Paper elevation={3} className='history-bottom'>
             <ControlledOpenSelect options={historyLengths} className='history-input' />
@@ -161,6 +162,8 @@ function History() {
             <PermanentDrawerLeft />
           </Paper>
         </center>
+        <ul className='history-grid'>{pastStats}</ul>
+        
       </div>
     </ThemeProvider>
   );

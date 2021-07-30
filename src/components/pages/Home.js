@@ -92,35 +92,37 @@ function Home() {
                     console.log(res.data);
                     testStats.innerHTMLtest = res.data;
                   })
+                  .then(() => {
+                    ipcRenderer.send('url', testStats);
+                    ipcRenderer.once('testOutput', (event, arg) => {
+                      console.log(arg);
+                      setTestResults(
+                        <Card
+                          style={{ width: '50%' }}
+                          url={link}
+                          currentTime={arg.currentTime}
+                          innerHTML={arg.innerHTMLtest}
+                          jsXSS={
+                            testStats.jsXSS
+                              ? 'Not safe from XSS in javascript'
+                              : 'Safe from XSS in javascript'
+                          }
+                          jqueryXSS={
+                            testStats.jqueryTest
+                              ? 'Not safe from XSS in jQuery'
+                              : 'Safe from XSS in jQuery'
+                          }
+                          cookieExample={arg.cookieTest[0]}
+                        />
+                      );
+                    });
+                  })
 
                   .catch((error) => {
                     console.log(error);
                   });
               })
-              .then(() => {
-                ipcRenderer.send('url', testStats);
-                ipcRenderer.once('testOutput', (event, arg) => {
-                  console.log(arg);
-                  setTestResults(
-                    <Card
-                      style={{ width: '50%' }}
-                      url={link}
-                      currentTime={arg.currentTime}
-                      jsXSS={
-                        testStats.jsXSS
-                          ? 'Not safe from XSS in javascript'
-                          : 'Safe from XSS in javascript'
-                      }
-                      jqueryXSS={
-                        testStats.jqueryTest
-                          ? 'Not safe from XSS in jQuery'
-                          : 'Safe from XSS in jQuery'
-                      }
-                      cookieExample={arg.cookieTest[0]}
-                    />
-                  );
-                });
-              })
+
               .catch((error) => {
                 console.log(error);
               });
@@ -145,6 +147,10 @@ function Home() {
     //track promise, invoke spinner
     fetches();
   };
+
+  const disclaimer = () => {
+    return document.getElementsByName('url')[0].value.includes('q=') ? '' : 'For XSS testing please input a url containg a q= query'
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -182,6 +188,7 @@ function Home() {
                   >
                     Test
                   </Button>
+                  {disclaimer}
                 </form>
               </Paper>
             </center>
@@ -198,7 +205,8 @@ function Home() {
                 className='inside-paper inside-paper-bottom'
               >
                 {testResults}
-                <Spinner className='spin' />
+
+                <Spinner />
               </Paper>
             </center>
           </div>
