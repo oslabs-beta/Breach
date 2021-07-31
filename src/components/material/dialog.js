@@ -62,6 +62,7 @@ export default function CustomizedDialogs(props) {
 
   return (
     <div>
+
       <Button variant="contained" color="secondary" onClick={handleClickOpen}>
         Defend
       </Button>

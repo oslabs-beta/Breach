@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
-import CustomizedDialogs from '../material/dialog';
+import CustomizedDialogs from '../material/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -60,7 +60,9 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-    // console.log(el)
+
+    console.log(el);
+
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
@@ -78,20 +80,23 @@ function History() {
             jqueryXSS={
               el.jqueryTest ? 'Not safe from XSS in jQuery' : 'Safe from XSS in jQuery'
             }
-            cookieExample={el.cookieTest[0]}
+            cookieExample={el.cookieTest}
           />
         </div>
         <div className='history-flex'>
-          <CustomizedDialogs className='history-button-margin' info={el} text='Defend'/>
+
+          <CustomizedDialogs className='history-button-margin' info={el} text='Expand' />
+          <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
+
           <Button
-              variant='outlined'
-              size='small'
-              color='primary'
-              // className='history-button-margin'
-              // className={classes.margin}
-              onClick={() => clearItem(i)}
-              >
-              Clear
+            variant='outlined'
+            size='small'
+            color='primary'
+            // className='history-button-margin'
+            // className={classes.margin}
+            onClick={() => clearItem(i)}
+          >
+            Clear
           </Button>
         </div>
       </div>
@@ -162,7 +167,6 @@ function History() {
           </Paper>
         </center>
         <ul className='history-grid'>{pastStats}</ul>
-        
       </div>
     </ThemeProvider>
   );

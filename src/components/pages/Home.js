@@ -114,7 +114,7 @@ function Home() {
                             ? 'Not safe from XSS in jQuery'
                             : 'Safe from XSS in jQuery'
                         }
-                        cookieExample={arg.cookieTest[0]}
+                        cookieExample={arg.cookieTest}
                       />
                     );
                   });
@@ -150,6 +150,12 @@ function Home() {
     //fetches();
   };
 
+
+  const disclaimer = () => {
+    return document.getElementsByName('url')[0].value.includes('q=')
+      ? ''
+      : 'For XSS testing please input a url containg a q= query';
+  };
 
 
   return (
