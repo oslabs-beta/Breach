@@ -79,8 +79,8 @@ export default function CustomizedDialogs(props) {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Exit
+          <Button autoFocus onClick={handleClose} color="secondary">
+            <FontAwesomeIcon icon={['fas', 'window-close']} />
           </Button>
         </DialogActions>
       </Dialog>
