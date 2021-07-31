@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
 import CustomizedDialogs from './dialog';
+import SimpleAccordion from './Accordion';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -30,6 +32,8 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
+
+  console.log('38 cookies ', props.cookieExample);
 
   return (
     <Card className={classes.root}>
@@ -57,7 +61,17 @@ export default function SimpleCard(props) {
           className={classes.pos}
           color='textSecondary'
         >
-          {(props.cookieExample) ? <NestedList primary={props.cookieExample} /> : <Typography variant='body2'>No Cookies Available</Typography>}
+          {props.cookieExample ? (
+            <SimpleAccordion cookiesArr={props.cookieExample} />
+          ) : (
+            <Typography variant='body2'>No Cookies Available</Typography>
+          )}
+
+          {/* {props.cookieExample ? (
+            <NestedList primary={props.cookieExample} />
+          ) : (
+            <Typography variant='body2'>No Cookies Available</Typography>
+          )} */}
         </Typography>
       </CardContent>
       {/* <CardActions>

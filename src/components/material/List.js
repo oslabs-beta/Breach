@@ -27,11 +27,6 @@ export default function NestedList(props) {
     <List
       component='nav'
       aria-labelledby='nested-list-subheader'
-      subheader={
-        <ListSubheader component='div' id='nested-list-subheader'>
-          Cookie Test Results
-        </ListSubheader>
-      }
       className={classes.root}
     >
       <ListItem button>
