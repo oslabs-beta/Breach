@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
-import CustomizedDialogs from '../material/dialog';
+import CustomizedDialogs from '../material/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
