@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
-import CustomizedDialogs from './Dialog';
+import CustomizedDialogs from './dialog';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
