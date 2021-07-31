@@ -9,7 +9,7 @@ import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
 import CustomizedDialogs from '../material/Dialog';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -61,7 +61,6 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-
     console.log(el);
 
     return (
@@ -85,7 +84,6 @@ function History() {
           />
         </div>
         <div className='history-flex'>
-
           {/* <CustomizedDialogs className='history-button-margin' info={el} text='Expand' /> */}
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
 

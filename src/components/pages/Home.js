@@ -100,7 +100,7 @@ function Home() {
                     setVisible(false);
                     setTestResults(
                       <Card
-                        style={{ width: '50%' }}
+                        // style={{ width: '50%' }}
                         url={link}
                         currentTime={arg.currentTime}
                         innerHTML={arg.innerHTMLtest}
@@ -150,13 +150,11 @@ function Home() {
     //fetches();
   };
 
-
   const disclaimer = () => {
     return document.getElementsByName('url')[0].value.includes('q=')
       ? ''
       : 'For XSS testing please input a url containg a q= query';
   };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -209,7 +207,7 @@ function Home() {
                 variant='outlined'
                 className='inside-paper inside-paper-bottom'
               >
-                <center>{testResults}</center>
+                {testResults}
                 <Spinner visible={isVisible} />
               </Paper>
             </center>

@@ -2,8 +2,6 @@
 
 @import '_example/example.css';
 
-
-
 .settingsDiv {
   margin-left: 30px;
 }
@@ -100,7 +98,7 @@ body {
 }
 
 .export-button {
-  width:fit-content;
+  width: fit-content;
   margin: 0% 4.5%;
 }
 
@@ -131,7 +129,7 @@ body {
   padding: 15px;
   width: 75%;
   /* height: 15vh; */
-  margin: 0% 1% 0% 5%;
+  /* margin: 0% 1% 0% 5%; */
   display: flex;
   align-items: center;
   align-content: center;
@@ -141,7 +139,7 @@ body {
 }
 
 .inside-paper-bottom {
-  margin: 0% 0% 0.5% 5%;
+  /* margin: 0% 0% 0.5% 5%; */
   height: fit-content !important;
   display: flex;
   align-items: stretch;
@@ -166,7 +164,6 @@ body {
 
 .whole-cards {
   height: fit-content;
-  
 }
 
 .top-div {
