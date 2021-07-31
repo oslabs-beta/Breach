@@ -1,4 +1,6 @@
 /* Example stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100&display=swap');
+
 @media screen and (prefers-color-scheme: light), screen and (prefers-color-scheme: no-preference) {
   Light theme
   body{
@@ -17,6 +19,6 @@
 }
 
 * {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;;
 }
 

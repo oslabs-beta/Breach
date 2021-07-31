@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleAccordion(props) {
   const classes = useStyles();
 
-  return props.cookiesArr.map((el, i) => {
+  const cookieAcc = props.cookiesArr.map((el, i) => {
     return (
       <div className={classes.root} key={i}>
         <Accordion>
@@ -41,4 +41,10 @@ export default function SimpleAccordion(props) {
       </div>
     );
   });
+
+  return (
+    <Accordion>
+      {cookieAcc}
+    </Accordion>
+  )
 }
