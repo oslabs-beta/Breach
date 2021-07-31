@@ -64,6 +64,11 @@ body {
   gap: 2% 2%;
 }
 
+.accordion-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .history-flex {
   display: flex;
   margin: 15px 10px;
