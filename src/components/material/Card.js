@@ -6,13 +6,16 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
-import CustomizedDialogs from './dialog';
+import CustomizedDialogs from './Dialog';
+import SimpleAccordion from './Accordion';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     fontSize: 10,
-    height: '100%',
+    height: 'fit-content',
     width: '100%',
+    // margin: '0% 0% 6% 0%'
     // overflow: 'hidden'
   },
   bullet: {
@@ -30,8 +33,19 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  // console.log(props)
-  // console.log(props.innerHTMLtest)
+  
+  const disclaimer = () => {
+    console.log('inside function')
+    if (!props.url.includes('=')) {
+      console.log('inside if statement')
+      return (
+        <Typography className={classes.title} color='textPrimary' gutterBottom>
+          * XSS attack tests require a query ('=') in the url *
+        </Typography>
+      )
+    }
+  }
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -44,10 +58,11 @@ export default function SimpleCard(props) {
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>
-          {props.jsXSS}
+          {(disclaimer()) ? '' : props.jsXSS}
         </Typography>
+        {disclaimer()}
         <Typography className={classes.pos} color='textSecondary'>
-          {props.jqueryXSS}
+          {(disclaimer()) ? '' : props.jqueryXSS}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
           {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
@@ -58,7 +73,17 @@ export default function SimpleCard(props) {
           className={classes.pos}
           color='textSecondary'
         >
-          {(props.cookieExample) ? <NestedList primary={props.cookieExample} /> : <Typography variant='body2'>No Cookies Available</Typography>}
+          {props.cookieExample ? (
+            <SimpleAccordion cookiesArr={props.cookieExample} />
+          ) : (
+            <Typography variant='body2'>No Cookies Available</Typography>
+          )}
+
+          {/* {props.cookieExample ? (
+            <NestedList primary={props.cookieExample} />
+          ) : (
+            <Typography variant='body2'>No Cookies Available</Typography>
+          )} */}
         </Typography>
       </CardContent>
       {/* <CardActions>

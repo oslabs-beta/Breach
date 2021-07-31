@@ -22,16 +22,11 @@ const useStyles = makeStyles((theme) => ({
 export default function NestedList(props) {
   const classes = useStyles();
 
-  console.log('list 26 ', props.primary);
+  // console.log('list 26 ', props.primary);
   return (
     <List
       component='nav'
       aria-labelledby='nested-list-subheader'
-      subheader={
-        <ListSubheader component='div' id='nested-list-subheader'>
-          Cookie Test Results
-        </ListSubheader>
-      }
       className={classes.root}
     >
       <ListItem button>
