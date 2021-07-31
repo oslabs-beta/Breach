@@ -150,9 +150,7 @@ function Home() {
     //fetches();
   };
 
-  const disclaimer = () => {
-    return document.getElementsByName('url')[0].value.includes('q=') ? '' : 'For XSS testing please input a url containg a q= query'
-  }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -190,7 +188,6 @@ function Home() {
                   >
                     Test
                   </Button>
-                  {disclaimer}
                 </form>
               </Paper>
             </center>
@@ -206,7 +203,7 @@ function Home() {
                 variant='outlined'
                 className='inside-paper inside-paper-bottom'
               >
-                {testResults}
+                <center>{testResults}</center>
                 <Spinner visible={isVisible} />
               </Paper>
             </center>

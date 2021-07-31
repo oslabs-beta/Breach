@@ -60,7 +60,7 @@ function History() {
   };
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-    console.log(el)
+    // console.log(el)
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
@@ -105,7 +105,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 3, 6, 9, 12];
+  const historyLengths = [1, 2, 4, 6, 8];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
