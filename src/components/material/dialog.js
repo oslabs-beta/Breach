@@ -50,7 +50,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs(props) {
-  console.log(props, props.info)
+  // console.log(props, props.info)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
