@@ -85,7 +85,6 @@ function History() {
         </div>
         <div className='history-flex'>
 
-          <CustomizedDialogs className='history-button-margin' info={el} text='Expand' />
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
 
           <Button
