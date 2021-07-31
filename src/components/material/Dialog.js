@@ -50,7 +50,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs(props) {
-  console.log(props, props.info)
+  // console.log(props, props.info)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -62,31 +62,22 @@ export default function CustomizedDialogs(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {(props.text ==='Defend') ? 'Defend' : 'Expanded'}
+      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+        Defend
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          Defend Your Front-End
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography gutterBottom color='textSecondary'>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
             in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
+            Exit
           </Button>
         </DialogActions>
       </Dialog>
