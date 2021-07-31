@@ -60,7 +60,7 @@ body {
 .history-grid {
   padding: 0% 0% 5% 0px;
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 50% 50%;
   gap: 2% 2%;
 }
 
