@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Settings() {
   const [label, setLabel] = useState({});
@@ -71,15 +72,9 @@ function Settings() {
         <ControlledOpenSelect options={fontSizes} />
         <br></br>
         <Button variant='contained' size='small' color='primary' onClick={clicked}>
-          Save Changes
+          <FontAwesomeIcon icon={['fas', 'save']} />
         </Button>
       </Paper>
-      <center>
-        {/* <button id='export-button'>Export Data</button> */}
-        <Button variant='contained' size='small' color='secondary' id='export-button'>
-          Export Data
-        </Button>
-      </center>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>
