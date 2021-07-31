@@ -8,16 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
 
 import SimpleAccordion from './Accordion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     fontSize: 10,
     height: 'fit-content',
-    width: '100%',
-
-    textAlign: 'center',
-
+    // width: '100%',
     // margin: '0% 0% 6% 0%'
 
     // overflow: 'hidden'
@@ -58,7 +56,7 @@ export default function SimpleCard(props) {
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>
-          Timestamp: {props.currentTime}
+          <FontAwesomeIcon icon={['fas', 'clock']} />: {props.currentTime}
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>
