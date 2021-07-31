@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
-import CustomizedDialogs from './Dialog';
+
 import SimpleAccordion from './Accordion';
 
 const useStyles = makeStyles({
@@ -33,18 +33,18 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  
+
   const disclaimer = () => {
-    console.log('inside function')
+    console.log('inside function');
     if (!props.url.includes('=')) {
-      console.log('inside if statement')
+      console.log('inside if statement');
       return (
         <Typography className={classes.title} color='textPrimary' gutterBottom>
           * XSS attack tests require a query ('=') in the url *
         </Typography>
-      )
+      );
     }
-  }
+  };
 
   return (
     <Card className={classes.root}>
@@ -58,11 +58,11 @@ export default function SimpleCard(props) {
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>
-          {(disclaimer()) ? '' : props.jsXSS}
+          {disclaimer() ? '' : props.jsXSS}
         </Typography>
         {disclaimer()}
         <Typography className={classes.pos} color='textSecondary'>
-          {(disclaimer()) ? '' : props.jqueryXSS}
+          {disclaimer() ? '' : props.jqueryXSS}
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
           {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
@@ -86,9 +86,6 @@ export default function SimpleCard(props) {
           )} */}
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <CustomizedDialogs info={props}/>
-      </CardActions> */}
     </Card>
   );
 }
