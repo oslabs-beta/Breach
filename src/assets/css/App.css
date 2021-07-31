@@ -93,8 +93,15 @@ body {
 .settings-paper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 3%;
-  margin: 4% 7%;
+  margin: 4% 15% !important;
+}
+
+.export-button {
+  width:fit-content;
+  margin: 0% 4.5%;
 }
 
 .about-paper {
