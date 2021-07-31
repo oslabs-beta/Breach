@@ -15,11 +15,11 @@ const useStyles = makeStyles({
     fontSize: 10,
     height: 'fit-content',
     width: '100%',
-<<<<<<< HEAD
+
     textAlign: 'center',
-=======
+
     // margin: '0% 0% 6% 0%'
->>>>>>> 403c165f8c057e3b49a748ab4956eec06cefa4cd
+
     // overflow: 'hidden'
   },
   bullet: {
