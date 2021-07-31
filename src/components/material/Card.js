@@ -14,8 +14,8 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     fontSize: 10,
-    height: 'fit-content',
-    // width: '100%',
+    minHeight: 350,
+    width: '100%',
     // margin: '0% 0% 6% 0%'
     // overflow: 'hidden'
   },
@@ -41,17 +41,31 @@ export default function SimpleCard(props) {
       console.log('inside if statement');
       return (
         <Typography className={classes.title} color='textPrimary' gutterBottom>
-          * XSS attack tests require a query ('=') in the url *
+          <br></br>* XSS attack tests require a query ('=') in the url *<br></br>
+          <br></br>
         </Typography>
       );
     }
+  };
+  const domain = () => {
+    let count = 0;
+    let split = props.url;
+    let output = '';
+    for (let i = 0; i < split.length; i++) {
+      if (split[i] === '/') count += 1;
+      if (count >= 3) {
+        break;
+      }
+      output += split[i];
+    }
+    return output;
   };
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color='textPrimary' gutterBottom>
-          Results for {props.url}
+          Results for {domain()}
         </Typography>
 
         <Typography className={classes.pos} color='textSecondary'>

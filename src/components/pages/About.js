@@ -37,21 +37,21 @@ function About() {
           </Typography>
         </center>
         <Paper elevation={3} className='about-paper'>
-          <Typography variant='h4' color='textSecondary'>
+          <Typography variant='h5' color='textSecondary'>
             Version
           </Typography>
           <Typography variant='h6' color='textPrimary'>
             1.0.0
           </Typography>
           <br></br>
-          <Typography variant='h4' color='textSecondary'>
+          <Typography variant='h5' color='textSecondary'>
             How it Works?
           </Typography>
           <Typography variant='h6' color='textPrimary'>
             Input a URL on the home page and see security readings once the test has loaded.
           </Typography>
           <br></br>
-          <Typography variant='h4' color='textSecondary'>
+          <Typography variant='h5' color='textSecondary'>
             Who it's for?
           </Typography>
           <Typography variant='h6' color='textPrimary'>
@@ -59,7 +59,7 @@ function About() {
             Cross-Site-Scripting or Cookie vulnerabilities.
           </Typography>
           <br></br>
-          <Typography variant='h4' color='textSecondary'>
+          <Typography variant='h5' color='textSecondary'>
             Disclaimer
           </Typography>
           <Typography variant='h6' color='textPrimary'>

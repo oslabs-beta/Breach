@@ -8,7 +8,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const styles = (theme) => ({
   root: {
@@ -27,9 +27,9 @@ const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
+      <Typography variant='h6'>{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton aria-label='close' className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -51,7 +51,19 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs(props) {
-  console.log(props, props.info)
+  const { jsXSS, jqueryTest, cookieTest, innerHTMLtest, url } = props.info;
+
+  const disclaimer = () => {
+    if (!url.includes('=')) {
+      console.log('inside if statement');
+      return (
+        <Typography className={classes.title} color='textPrimary' gutterBottom>
+          * XSS attack tests require a query ('=') in the url *
+        </Typography>
+      );
+    }
+  };
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -61,28 +73,30 @@ export default function CustomizedDialogs(props) {
     setOpen(false);
   };
 
+  const secureCookie = cookieTest.some(
+    (cookie) => cookie.secure === false || cookie.httpOnly === false
+  );
+
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-      {/* <FontAwesomeIcon icon="fa-solid fa-user-shield" /> */}
+      <Button variant='contained' color='secondary' onClick={handleClickOpen}>
+        {/* <FontAwesomeIcon icon="fa-solid fa-user-shield" /> */}
         {/* <FontAwesomeIcon icon="fa-solid fa-shield-blank" /> */}
         <FontAwesomeIcon icon={['fas', 'user-shield']} />
       </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          How to defend your front-end
+      <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
+        <DialogTitle id='customized-dialog-title' onClose={handleClose}>
+          How to defend your front-end ?
         </DialogTitle>
         <DialogContent dividers>
+          <Typography gutterBottom>{disclaimer()}</Typography>
+          <Typography gutterBottom>{jqueryTest ? 'jquery' : ''}</Typography>
+          <Typography gutterBottom>{secureCookie ? 'cookie' : 'no cookie'}</Typography>
           <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            {innerHTMLtest ? 'innerHTML' : 'no innerHTML'}
           </Typography>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="secondary">
-            <FontAwesomeIcon icon={['fas', 'window-close']} />
-          </Button>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
     </div>
   );

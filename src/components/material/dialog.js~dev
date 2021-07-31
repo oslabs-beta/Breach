@@ -8,7 +8,6 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const styles = (theme) => ({
   root: {
@@ -51,7 +50,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs(props) {
-  console.log(props, props.info)
+  // console.log(props, props.info)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -64,23 +63,21 @@ export default function CustomizedDialogs(props) {
   return (
     <div>
       <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-      {/* <FontAwesomeIcon icon="fa-solid fa-user-shield" /> */}
-        {/* <FontAwesomeIcon icon="fa-solid fa-shield-blank" /> */}
-        <FontAwesomeIcon icon={['fas', 'user-shield']} />
+        Defend
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          How to defend your front-end
+          Defend Your Front-End
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography gutterBottom color='textSecondary'>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
             in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="secondary">
-            <FontAwesomeIcon icon={['fas', 'window-close']} />
+          <Button autoFocus onClick={handleClose} color="primary">
+            Exit
           </Button>
         </DialogActions>
       </Dialog>
