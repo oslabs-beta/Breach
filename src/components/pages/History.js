@@ -9,6 +9,7 @@ import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
 import CustomizedDialogs from '../material/Dialog';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -85,7 +86,7 @@ function History() {
         </div>
         <div className='history-flex'>
 
-          <CustomizedDialogs className='history-button-margin' info={el} text='Expand' />
+          {/* <CustomizedDialogs className='history-button-margin' info={el} text='Expand' /> */}
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
 
           <Button
@@ -96,7 +97,7 @@ function History() {
             // className={classes.margin}
             onClick={() => clearItem(i)}
           >
-            Clear
+            <FontAwesomeIcon icon={['fas', 'minus-square']} />
           </Button>
         </div>
       </div>
@@ -122,25 +123,6 @@ function History() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/*</ThemeProvider> <div className='historyDiv'>
-         <center>
-           <Typography variant='h3'>History</Typography>
-         </center>
-         <ControlledOpenSelect options={historyLengths} />
-         <Button variant='contained' color='primary' size='small' onClick={clicked}>
-           Change Length
-         </Button>
-         <ul>{pastStats}</ul>
-         <Button
-           variant='contained'
-           size='small'
-           color='primary'
-           className={classes.margin}
-           onClick={clearHistory}
-         >
-           Clear History
-         </Button>
-         <PermanentDrawerLeft /> </div>*/}
       <div id='historyDiv'>
         <center>
           <Typography variant='h3' color='textSecondary' className='history-title-margin'>
@@ -151,9 +133,8 @@ function History() {
           <Paper elevation={3} className='history-bottom'>
             <ControlledOpenSelect options={historyLengths} className='history-input' />
             <Button variant='contained' color='primary' size='small' onClick={clicked}>
-              Change Length
+              <FontAwesomeIcon icon={['fas', 'save']} />
             </Button>
-
             <Button
               variant='contained'
               size='small'
@@ -161,7 +142,10 @@ function History() {
               className={classes.margin}
               onClick={clearHistory}
             >
-              Clear History
+              <FontAwesomeIcon icon={['fas', 'trash']} />
+            </Button>
+            <Button variant='contained' size='small' color='secondary' id='export-button'>
+              <FontAwesomeIcon icon={['fas', 'download']} />
             </Button>
             <PermanentDrawerLeft />
           </Paper>
