@@ -6,7 +6,7 @@ const { JSDOM } = require('jsdom');
 const webScrape = {
   cookieTester: async (url, result) => {
     try {
-      console.log(url);
+      // console.log(url);
       await pie.initialize(app);
       const browser = await pie.connect(app, puppeteer);
       const window = new BrowserWindow();
@@ -40,29 +40,29 @@ const webScrape = {
 
       var content = await page._client.send('Network.getAllCookies');
 
-      console.log(content);
+      // console.log(content);
 
       const safety = content.cookies.map((c) => {
         return c.httpOnly;
       });
 
       if (safety.every((e) => e === false)) {
-        console.log('This website does not have httpSecure cookies!');
+        // console.log('This website does not have httpSecure cookies!');
         result = 'This website does not have httpSecure cookies!';
       } else if (safety.some((e) => e === false)) {
-        console.log('some cookies do not use httpOnly');
+        // console.log('some cookies do not use httpOnly');
         result = 'some cookies do not use httpOnly';
       } else if (safety.length === 0) {
-        console.log('No cookies recieved');
+        // console.log('No cookies recieved');
         result = 'No cookies recieved';
       } else {
-        console.log('cookies secure');
+        // console.log('cookies secure');
         result = 'cookies secure';
       }
-      console.log('here');
+      // console.log('here');
       await window.destroy();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       await window.destroy();
     }
   },
@@ -83,7 +83,7 @@ const webScrape = {
       page.on('dialog', async (dialog) => {
         alertHappened = true;
         boolean = true;
-        console.log('here ', dialog._message);
+        // console.log('here ', dialog._message);
         await window.destroy();
       });
 
@@ -91,14 +91,14 @@ const webScrape = {
         waitUntil: 'networkidle2',
       });
 
-      console.log(url);
+      // console.log(url);
 
       //await window.destroy();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       //await window.destroy();
     } finally {
-      console.log('javascriptXSS ', alertHappened);
+      // console.log('javascriptXSS ', alertHappened);
       await window.destroy();
     }
   },
@@ -119,7 +119,7 @@ const webScrape = {
       page.on('dialog', async (dialog) => {
         alertHappened = true;
         boolean = true;
-        console.log('here ', dialog._message);
+        // console.log('here ', dialog._message);
         await window.destroy();
       });
 
@@ -129,10 +129,10 @@ const webScrape = {
 
       //await window.destroy();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       //await window.destroy();
     } finally {
-      console.log('jqueryXSS ', alertHappened);
+      // console.log('jqueryXSS ', alertHappened);
       await window.destroy();
     }
   },

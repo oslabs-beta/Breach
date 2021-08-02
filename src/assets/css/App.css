@@ -183,6 +183,11 @@ body {
   padding-top: 10%;
 }
 
+.logo {
+  height: 75px;
+  fill: white;
+}
+
 /* @media screen and (max-width: 650px), (max-height: 820px) {
   body {
     overflow: auto !important;

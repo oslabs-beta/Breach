@@ -12,6 +12,9 @@ import { TextField } from '@material-ui/core';
 import Card from '../material/Card';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Spinner from '../material/spinner/Spinner';
+import { ReactComponent as Logo } from '../Logo.svg'
+import { ReactComponent as Logo1 } from '../Logo1.svg'
+import { ReactComponent as Logo2 } from '../Logo2.svg'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -28,7 +31,7 @@ function Home() {
   const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.send('load-data');
     ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
     });
@@ -82,7 +85,7 @@ function Home() {
           axios
             .post('http://localhost:5000/cookieTester', userObject)
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               testStats.cookieTest = res.data;
               cookieResult = res.data;
             })
@@ -90,13 +93,13 @@ function Home() {
               axios
                 .post('http://localhost:5000/innerHTML', userObject)
                 .then((res) => {
-                  console.log(res.data);
+                  // console.log(res.data);
                   testStats.innerHTMLtest = res.data;
                 })
                 .then(() => {
                   ipcRenderer.send('url', testStats);
                   ipcRenderer.once('testOutput', (event, arg) => {
-                    console.log(arg);
+                    // console.log(arg);
                     setVisible(false);
                     setTestResults(
                       <Card
@@ -134,7 +137,7 @@ function Home() {
           axios
             .post('http://localhost:5000/jqueryXSS', userObject)
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               testStats.jqueryTest = res.data;
               jqueryResult = res.data;
             })
@@ -159,12 +162,9 @@ function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       <div className='homeDiv'>
-        {/* <center>
-          <Typography variant='h3' color='textPrimary'>
-            Home Page
-          </Typography>
-        </center> */}
+        <Logo className='logo'/>
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>

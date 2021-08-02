@@ -28,7 +28,7 @@ function History() {
   useEffect(() => {
     let isFetched = true;
     try {
-      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.send('load-data');
       ipcRenderer.once('data-reply', (event, arg) => {
         setLabel(arg);
 
@@ -62,7 +62,7 @@ function History() {
   //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
 
-    console.log(el);
+    // console.log(el);
 
     return (
       <div className='whole-cards'>

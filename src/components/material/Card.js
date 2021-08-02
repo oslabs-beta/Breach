@@ -9,9 +9,11 @@ import NestedList from './List';
 import CustomizedDialogs from './Dialog';
 import SimpleAccordion from './Accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ReactComponent as Logo } from '../Logo.svg'
 
 const useStyles = makeStyles({
   root: {
+    backgroundImage: 'url(Logo.svg)',
     minWidth: 275,
     fontSize: 10,
     minHeight: 350,
@@ -36,9 +38,9 @@ export default function SimpleCard(props) {
   const classes = useStyles();
 
   const disclaimer = () => {
-    console.log('inside function');
+    // console.log('inside function');
     if (!props.url.includes('=')) {
-      console.log('inside if statement');
+      // console.log('inside if statement');
       return (
         <Typography className={classes.title} color='textPrimary' gutterBottom>
           <br></br>* XSS attack tests require a query ('=') in the url *<br></br>

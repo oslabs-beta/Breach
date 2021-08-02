@@ -9,7 +9,7 @@ function About() {
   const [label, setLabel] = useState({});
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.send('load-data');
     ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
     });

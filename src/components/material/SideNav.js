@@ -20,6 +20,7 @@ import Home from "@material-ui/icons/Home";
 import { AccessTime } from "@material-ui/icons";
 import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import InfoIcon from "@material-ui/icons/Info";
+import { ReactComponent as Logo } from '../Logo.svg'
 
 import { useHistory } from "react-router-dom";
 
@@ -132,8 +133,9 @@ export default function PersistentDrawerLeft(props) {
           >
             <MenuIcon />
           </IconButton>
+          <Logo className='logo'/>
           <Typography variant="h6" noWrap>
-            What The Hack
+            Breach
           </Typography>
         </Toolbar>
       </AppBar>

@@ -16,7 +16,7 @@ function Settings() {
   useEffect(() => {
     let isFetched = true;
     try {
-      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.send('load-data');
       ipcRenderer.on('data-reply', (event, arg) => {
         if (isFetched) setLabel(arg);
       });
@@ -46,9 +46,9 @@ function Settings() {
   const fontSizes = ['12px', '16px', '20px', '24px'];
 
   const clicked = () => {
-    console.log('state updated');
+    // console.log('state updated');
 
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.send('load-data');
     ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
     });
