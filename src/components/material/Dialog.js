@@ -50,9 +50,8 @@ export default function CustomizedDialogs(props) {
   const { jsXSS, jqueryTest, cookieTest, innerHTMLtest, url } = props.info;
   const disclaimer = () => {
     if (!url.includes('=')) {
-      // console.log('inside if statement');
       return (
-        <Typography  color='textPrimary' gutterBottom>
+        <Typography  color='textSecondary' gutterBottom>
           * XSS attack tests require a query ('=') in the url *
         </Typography>
       );
@@ -69,36 +68,36 @@ export default function CustomizedDialogs(props) {
   let jQueryDialog = () => {
     if (!disclaimer()) {
       return (jqueryTest) ? 
-      <Typography  color='textSecondary' gutterBottom>At risk for jQuery Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
+      <Typography  color='textPrimary' gutterBottom>At risk for jQuery Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
       : 
-      <Typography  color='textSecondary' gutterBottom>Not susceptible to jQuery Reflected XSS attacks.</Typography>
+      <Typography  color='textPrimary' gutterBottom>Not susceptible to jQuery Reflected XSS attacks.</Typography>
     }
     
   }
   let jsXSSDialog = () => {
     if (!disclaimer()) {
       return (jsXSS) ? 
-      <Typography  color='textSecondary' gutterBottom>At risk for Javascript Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
+      <Typography  color='textPrimary' gutterBottom>At risk for Javascript Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
       : 
-      <Typography  color='textSecondary' gutterBottom>Not susceptible to Javascript Reflected XSS attacks.</Typography>
+      <Typography  color='textPrimary' gutterBottom>Not susceptible to Javascript Reflected XSS attacks.</Typography>
     }
   }
 
   const secureCookie = () => {
   if (cookieTest.every((cookie) => cookie.secure === false && cookie.httpOnly === false)) {
-    return <Typography  color='textSecondary' gutterBottom>None of your cookies are secure. Consider making cookies with personal information or session information are private by marking them as "secure" or "httpOnly".</Typography> 
+    return <Typography  color='textPrimary' gutterBottom>None of your cookies are secure. Consider making cookies with personal information or session information are private by marking them as "secure" or "httpOnly".</Typography> 
   }
   else {
-    return <Typography  color='textSecondary' gutterBottom>Some of your cookies are secure, make sure that all cookies with personal information or session information are private.</Typography> 
+    return <Typography  color='textPrimary' gutterBottom>Some of your cookies are secure, make sure that all cookies with personal information or session information are private.</Typography> 
   }
 }
 
   let innerHTMLDialog = () => {
     if (!innerHTMLtest) {
-      return <Typography  color='textSecondary' gutterBottom>No instances of innerHTML.</Typography> 
+      return <Typography  color='textPrimary' gutterBottom>No instances of innerHTML.</Typography> 
     }
     else {
-      return <Typography  color='textSecondary' gutterBottom>{innerHTMLtest} instances of innerHTML detected, this may be a result of your bundler. Make sure to sanitize user input before passing to the front or back end to prevent from stored or reflected XSS.</Typography> 
+      return <Typography  color='textPrimary' gutterBottom>{innerHTMLtest} instances of innerHTML detected, this may be a result of your bundler. Make sure to sanitize user input before passing to the front or back end to prevent from stored or reflected XSS.</Typography> 
     }
   }
 
@@ -110,7 +109,7 @@ export default function CustomizedDialogs(props) {
         <FontAwesomeIcon icon={['fas', 'user-shield']} />
       </Button>
       <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
-        <DialogTitle id='customized-dialog-title' color='textPrimary' onClose={handleClose}>
+        <DialogTitle id='customized-dialog-title' color='textSecondary' onClose={handleClose}>
           How to defend your front-end
         </DialogTitle>
         <DialogContent dividers>

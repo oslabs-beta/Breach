@@ -9,17 +9,15 @@ import NestedList from './List';
 import CustomizedDialogs from './Dialog';
 import SimpleAccordion from './Accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactComponent as Logo } from '../Logo.svg'
+import { ReactComponent as Logo } from '../../../Logo.svg'
 
 const useStyles = makeStyles({
   root: {
-    backgroundImage: 'url(Logo.svg)',
+    // backgroundImage: 'url(Logo.svg)',
     minWidth: 275,
     fontSize: 10,
     minHeight: 350,
     width: '100%',
-    // margin: '0% 0% 6% 0%'
-    // overflow: 'hidden'
   },
   bullet: {
     display: 'inline-block',
@@ -38,11 +36,9 @@ export default function SimpleCard(props) {
   const classes = useStyles();
 
   const disclaimer = () => {
-    // console.log('inside function');
     if (!props.url.includes('=')) {
-      // console.log('inside if statement');
       return (
-        <Typography className={classes.title} color='textPrimary' gutterBottom>
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
           <br></br>* XSS attack tests require a query ('=') in the url *<br></br>
           <br></br>
         </Typography>
@@ -66,34 +62,34 @@ export default function SimpleCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color='textPrimary' gutterBottom>
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
           Results for {domain()}
         </Typography>
 
-        <Typography className={classes.pos} color='textSecondary'>
+        <Typography className={classes.pos} color='textPrimary'>
           <FontAwesomeIcon icon={['fas', 'clock']} />: {props.currentTime}
         </Typography>
 
-        <Typography className={classes.pos} color='textSecondary'>
+        <Typography className={classes.pos} color='textPrimary'>
           {disclaimer() ? '' : props.jsXSS}
         </Typography>
         {disclaimer()}
-        <Typography className={classes.pos} color='textSecondary'>
+        <Typography className={classes.pos} color='textPrimary'>
           {disclaimer() ? '' : props.jqueryXSS}
         </Typography>
-        <Typography className={classes.pos} color='textSecondary'>
+        <Typography className={classes.pos} color='textPrimary'>
           {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
         </Typography>
 
         <Typography
           style={{ wordWrap: 'break-word' }}
           className={classes.pos}
-          color='textSecondary'
+          color='textPrimary'
         >
           {props.cookieExample ? (
             <SimpleAccordion cookiesArr={props.cookieExample} />
           ) : (
-            <Typography variant='body2'>No Cookies Available</Typography>
+            <Typography variant='body2' color='textSecondary'>No Cookies Available</Typography>
           )}
 
           {/* {props.cookieExample ? (

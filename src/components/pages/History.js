@@ -10,6 +10,8 @@ import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
 import CustomizedDialogs from '../material/Dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { default as Logo } from '../../../Logo.svg'
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -59,16 +61,12 @@ function History() {
       setHistory(arg);
     });
   };
-  //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-
-    // console.log(el);
 
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
           <Card
-            // className='results-grid-history'
             style={{ width: '50%' }}
             url={el.url}
             currentTime={el.currentTime}
@@ -87,7 +85,6 @@ function History() {
         <div className='history-flex'>
 
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
-
           <Button
             variant='outlined'
             size='small'
@@ -124,7 +121,7 @@ function History() {
       <CssBaseline />
       <div id='historyDiv'>
         <center>
-          <Typography variant='h3' color='textSecondary' className='history-title-margin'>
+          <Typography variant='h3' color='textPrimary' className='history-title-margin'>
             History
           </Typography>
         </center>
@@ -151,6 +148,13 @@ function History() {
         </center>
         <ul className='history-grid'>{pastStats}</ul>
       </div>
+      <div className="center-logo">{
+      (label.theme === 'Regular Hacker Mode') ?
+      <Logo className='logo-bottom-regular'/> :
+      <Logo className='logo-bottom'/>
+      }
+      </div>
+      <div><Logo className='logo-top'/></div>
     </ThemeProvider>
   );
 }

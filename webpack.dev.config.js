@@ -30,16 +30,8 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              titleProp: true,
-            },
-          },
-          'file-loader',
-        ],
-      },
+        use: ['@svgr/webpack'],
+      }
     ],
   },
   target: 'electron-renderer',

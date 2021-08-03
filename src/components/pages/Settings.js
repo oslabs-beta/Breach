@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { default as Logo } from '../../../Logo.svg'
 
 function Settings() {
   const [label, setLabel] = useState({});
@@ -24,7 +25,7 @@ function Settings() {
       console.log(e);
     }
 
-    // cancel async otherwise to prevent memory leak
+    //  cancel async otherwise to prevent memory leak
     return () => (isFetched = false);
   }, []);
 
@@ -46,8 +47,6 @@ function Settings() {
   const fontSizes = ['12px', '16px', '20px', '24px'];
 
   const clicked = () => {
-    // console.log('state updated');
-
     ipcRenderer.send('load-data');
     ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
@@ -61,13 +60,13 @@ function Settings() {
       <CssBaseline />
       <div className='settingsDiv'>
         <center>
-        <Typography variant='h3' color='textSecondary'>Settings</Typography>
+        <Typography variant='h3' color='textPrimary'>Settings</Typography>
         </center>
       <Paper elevation={3} className='settings-paper'>
-        <Typography variant='h4' color='textPrimary'>Color Themes</Typography>
+        <Typography variant='h4' color='textSecondary'>Color Themes</Typography>
         <ControlledOpenSelect options={modes} />
         <br></br>
-        <Typography variant='h4' color='textPrimary'>Text Size</Typography>
+        <Typography variant='h4' color='textSecondary'>Text Size</Typography>
         <br></br>
         <ControlledOpenSelect options={fontSizes} />
         <br></br>
@@ -75,14 +74,18 @@ function Settings() {
           <FontAwesomeIcon icon={['fas', 'save']} />
         </Button>
       </Paper>
+      {/* <svg><img src={Logo} className='logo-bottom' /></svg> */}
+      <div className="center-logo">{
+      (label.theme === 'Regular Hacker Mode') ?
+      <Logo className='logo-bottom-regular'/> :
+      <Logo className='logo-bottom'/>
+      }
+      <div><Logo className='logo-top'/></div>
+      </div>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>
   );
-}
-
-{
-  /* <img src='' onerror='alert(`dialogue`)'> */
 }
 
 export default Settings;

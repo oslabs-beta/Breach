@@ -12,9 +12,7 @@ import { TextField } from '@material-ui/core';
 import Card from '../material/Card';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Spinner from '../material/spinner/Spinner';
-import { ReactComponent as Logo } from '../Logo.svg'
-import { ReactComponent as Logo1 } from '../Logo1.svg'
-import { ReactComponent as Logo2 } from '../Logo2.svg'
+import { default as Logo } from '../../../Logo.svg'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -85,7 +83,6 @@ function Home() {
           axios
             .post('http://localhost:5000/cookieTester', userObject)
             .then((res) => {
-              // console.log(res.data);
               testStats.cookieTest = res.data;
               cookieResult = res.data;
             })
@@ -93,17 +90,14 @@ function Home() {
               axios
                 .post('http://localhost:5000/innerHTML', userObject)
                 .then((res) => {
-                  // console.log(res.data);
                   testStats.innerHTMLtest = res.data;
                 })
                 .then(() => {
                   ipcRenderer.send('url', testStats);
                   ipcRenderer.once('testOutput', (event, arg) => {
-                    // console.log(arg);
                     setVisible(false);
                     setTestResults(
                       <Card
-                        // style={{ width: '50%' }}
                         url={link}
                         currentTime={arg.currentTime}
                         innerHTML={arg.innerHTMLtest}
@@ -137,7 +131,6 @@ function Home() {
           axios
             .post('http://localhost:5000/jqueryXSS', userObject)
             .then((res) => {
-              // console.log(res.data);
               testStats.jqueryTest = res.data;
               jqueryResult = res.data;
             })
@@ -150,7 +143,6 @@ function Home() {
 
     //track promise, invoke spinner
     trackPromise(fetches());
-    //fetches();
   };
 
   const disclaimer = () => {
@@ -164,11 +156,10 @@ function Home() {
       <CssBaseline />
 
       <div className='homeDiv'>
-        <Logo className='logo'/>
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>
-              <Typography variant='h3' color='textSecondary'>
+              <Typography variant='h3' color='textPrimary'>
                 Scan Link
               </Typography>
             </center>
@@ -177,7 +168,7 @@ function Home() {
               <Paper elevation={2} variant='outlined' className='inside-paper'>
                 <form>
                   <TextField
-                    color='textPrimary'
+                    color='textSecondary'
                     id='filled-basic'
                     name='url'
                     label='Input URL here'
@@ -197,7 +188,7 @@ function Home() {
             </center>
             <br></br>
             <center>
-              <Typography variant='h3' color='textSecondary'>
+              <Typography variant='h3' color='textPrimary'>
                 Results
               </Typography>
             </center>
@@ -213,6 +204,14 @@ function Home() {
             </center>
           </div>
         </Paper>
+        {/* <svg><img src={Logo} className='logo-bottom' /></svg> */}
+        <div className="center-logo">{
+      (label.theme === 'Regular Hacker Mode') ?
+      <Logo className='logo-bottom-regular'/> :
+      <Logo className='logo-bottom'/>
+      }
+      <div><Logo className='logo-top'/></div>
+      </div>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>
