@@ -116,25 +116,15 @@ export default function CustomizedDialogs(props) {
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>{disclaimer()}</Typography>
-
-
-
           <Typography gutterBottom>{jsXSSDialog()}</Typography>
-
-          
-
           <Typography gutterBottom>{jQueryDialog()}</Typography>
         </DialogContent>
-          
         <DialogContent dividers>
           <Typography gutterBottom>{secureCookie()}</Typography>
         </DialogContent>
-          
         <DialogContent dividers>
           <Typography gutterBottom>{innerHTMLDialog()}</Typography>
         </DialogContent>
-          
-        
         {/* <DialogActions></DialogActions> */}
       </Dialog>
     </div>

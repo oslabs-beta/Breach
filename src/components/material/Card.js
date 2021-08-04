@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
-import CustomizedDialogs from './Dialog';
+
 import SimpleAccordion from './Accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactComponent as Logo } from '../../../Logo.svg'
@@ -18,6 +18,10 @@ const useStyles = makeStyles({
     fontSize: 10,
     minHeight: 350,
     width: '100%',
+//     height: 'fit-content',
+    // width: '100%',
+    // margin: '0% 0% 6% 0%'
+    // overflow: 'hidden'
   },
   bullet: {
     display: 'inline-block',
@@ -99,9 +103,6 @@ export default function SimpleCard(props) {
           )} */}
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <CustomizedDialogs info={props}/>
-      </CardActions> */}
     </Card>
   );
 }
