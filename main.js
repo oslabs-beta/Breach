@@ -5,6 +5,11 @@ const url = require('url');
 const { ipcMain } = require('electron');
 const Store = require('electron-store');
 const store = new Store();
+const iconUrl = url.format({
+  pathname: path.join(__dirname, 'Icons/win/icon.ico'),
+  protocol: 'file:',
+  slashes: true,
+});
 
 //local storage working
 
@@ -32,6 +37,7 @@ function createWindow() {
     width: 1200,
     height: 1000,
     show: false,
+    icon: path.join(__dirname, 'assets/icons/mac/icon.icns'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -41,21 +47,28 @@ function createWindow() {
   // and load the index.html of the app.
   let indexPath;
 
-  if (dev && process.argv.indexOf('--noDevServer') === -1) {
-    indexPath = url.format({
-      protocol: 'http:',
-      host: 'localhost:8080',
-      pathname: 'index.html',
-      slashes: true,
-    });
-  } else {
-    indexPath = url.format({
-      protocol: 'file:',
-      //change back to "dist" and "index.html" after webpack rebuild or for production build
-      pathname: path.join(__dirname, 'dist', 'index.html'),
-      slashes: true,
-    });
-  }
+  // if (dev && process.argv.indexOf('--noDevServer') === -1) {
+  //   indexPath = url.format({
+  //     protocol: 'http:',
+  //     host: 'localhost:8080',
+  //     pathname: 'index.html',
+  //     slashes: true,
+  //   });
+  // } else {
+  //   indexPath = url.format({
+  //     protocol: 'file:',
+  //     //change back to "dist" and "index.html" after webpack rebuild or for production build
+  //     pathname: path.join(__dirname, 'dist', 'index.html'),
+  //     slashes: true,
+  //   });
+  // }
+
+  indexPath = url.format({
+    protocol: 'file:',
+    //change back to "dist" and "index.html" after webpack rebuild or for production build
+    pathname: path.join(__dirname, 'dist', 'index.html'),
+    slashes: true,
+  });
 
   mainWindow.loadURL(indexPath);
 
@@ -245,7 +258,6 @@ function createWindow() {
   if (!store.get('fontSize')) store.set('fontSize', '16px');
 
   ipcMain.on('load-data', function (event, arg) {
-
     if (arg && typeof arg.options[0] === 'number') {
       mainWindow.webContents.send('data-reply', store.store);
     } else {

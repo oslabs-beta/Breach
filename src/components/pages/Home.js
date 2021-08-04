@@ -12,9 +12,8 @@ import { TextField } from '@material-ui/core';
 import Card from '../material/Card';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Spinner from '../material/spinner/Spinner';
-import { default as Logo } from '../../../Logo.svg'
+import { default as Logo } from '../../../Logo.svg';
 import CustomizedDialogs from '../material/Dialog';
-
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -97,41 +96,49 @@ function Home() {
                 .then(() => {
                   ipcRenderer.send('url', testStats);
                   ipcRenderer.once('testOutput', (event, arg) => {
-                    arg.url = link
-                    arg.jsXSS = testStats.jsXSS
-                    arg.jqueryTest = testStats.jqueryTest
+                    arg.url = link;
+                    arg.jsXSS = testStats.jsXSS;
+                    arg.jqueryTest = testStats.jqueryTest;
                     setVisible(false);
                     setTestResults(
                       <div>
-                      <Card
-                        url={link}
-                        currentTime={arg.currentTime}
-                        innerHTML={arg.innerHTMLtest}
-                        jsXSS={
-                          testStats.jsXSS
-                            ? 'Not safe from XSS in javascript'
-                            : 'Safe from XSS in javascript'
-                        }
-                        jqueryXSS={
-                          testStats.jqueryTest
-                            ? 'Not safe from XSS in jQuery'
-                            : 'Safe from XSS in jQuery'
-                        }
-                        cookieExample={arg.cookieTest}
-                      />
-                      <CustomizedDialogs className='home-button-margin' info={arg} text='Defend' />
+                        <Card
+                          url={link}
+                          currentTime={arg.currentTime}
+                          innerHTML={arg.innerHTMLtest}
+                          jsXSS={
+                            testStats.jsXSS
+                              ? 'Not safe from XSS in javascript'
+                              : 'Safe from XSS in javascript'
+                          }
+                          jqueryXSS={
+                            testStats.jqueryTest
+                              ? 'Not safe from XSS in jQuery'
+                              : 'Safe from XSS in jQuery'
+                          }
+                          cookieExample={arg.cookieTest}
+                        />
+                        <CustomizedDialogs
+                          className='home-button-margin'
+                          info={arg}
+                          text='Defend'
+                        />
                       </div>
                     );
                   });
                 })
 
                 .catch((error) => {
-                  console.log(error);
+                  console.log('132 ', error);
+                  setVisible(false);
+                  return Promise.reject();
                 });
             })
 
             .catch((error) => {
-              console.log(error);
+              console.log('139 ', error);
+              setVisible(false);
+              return Promise.reject();
             });
         })
 
@@ -145,7 +152,14 @@ function Home() {
 
             .catch((error) => {
               console.log(error);
+              setVisible(false);
+              return Promise.reject();
             });
+        })
+        .catch((error) => {
+          console.log('158 ', error);
+          setVisible(false);
+          return Promise.reject(error);
         });
     };
 
@@ -213,13 +227,14 @@ function Home() {
           </div>
         </Paper>
         {/* <svg><img src={Logo} className='logo-bottom' /></svg> */}
-        <div className="center-logo">{
-      (label.theme === 'Regular Hacker Mode') ?
-      <Logo className='logo-bottom-regular'/> :
-      <Logo className='logo-bottom'/>
-      }
-      {/* <div><Logo className='logo-top'/></div> */}
-      </div>
+        <div className='center-logo'>
+          {label.theme === 'Regular Hacker Mode' ? (
+            <Logo className='logo-bottom-regular' />
+          ) : (
+            <Logo className='logo-bottom' />
+          )}
+          {/* <div><Logo className='logo-top'/></div> */}
+        </div>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>

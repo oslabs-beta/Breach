@@ -30,7 +30,7 @@ export default function AccordionMult(props) {
             aria-controls='panel1a-content'
             id='panel1a-header'
           >
-            <Typography className={classes.heading}>Cookie Result {i}</Typography>
+            <Typography className={classes.heading}>Cookie Result {i + 1}</Typography>
           </AccordionSummary>
 
           <AccordionDetails>
