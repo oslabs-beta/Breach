@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    // marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -120,7 +120,7 @@ export default function PersistentDrawerLeft(props) {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          // [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
@@ -133,8 +133,7 @@ export default function PersistentDrawerLeft(props) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <svg><img src={Logo} className='logo-top' /></svg> */}
-          {/* <div><Logo className='logo-top'/></div> */}
+          <div><Logo className='logo-top-sideNav'/></div>
         </Toolbar>
 
       </AppBar>

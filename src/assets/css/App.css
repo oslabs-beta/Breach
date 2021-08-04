@@ -28,6 +28,10 @@ body {
   margin: 2% 5% 0% 5% !important;
 }
 
+.home-button-margin {
+  margin: 3%;
+}
+
 .results-grid-home {
   padding: 1%;
   margin: 1%;
@@ -188,7 +192,16 @@ body {
   fill: white;
   position: absolute;
   left: 5.75%;
-  top: -3%;
+  top: -3.1%;
+  z-index: 1120;
+}
+
+.logo-top-sideNav {
+  width: 1.3in;
+  fill: white;
+  position: absolute;
+  left: 7.75%;
+  top: -45%;
   z-index: 1120;
 }
 

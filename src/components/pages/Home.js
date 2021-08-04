@@ -13,6 +13,8 @@ import Card from '../material/Card';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Spinner from '../material/spinner/Spinner';
 import { default as Logo } from '../../../Logo.svg'
+import CustomizedDialogs from '../material/Dialog';
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -41,7 +43,7 @@ function Home() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   const classes = useStyles();
 
@@ -95,8 +97,12 @@ function Home() {
                 .then(() => {
                   ipcRenderer.send('url', testStats);
                   ipcRenderer.once('testOutput', (event, arg) => {
+                    arg.url = link
+                    arg.jsXSS = testStats.jsXSS
+                    arg.jqueryTest = testStats.jqueryTest
                     setVisible(false);
                     setTestResults(
+                      <div>
                       <Card
                         url={link}
                         currentTime={arg.currentTime}
@@ -113,6 +119,8 @@ function Home() {
                         }
                         cookieExample={arg.cookieTest}
                       />
+                      <CustomizedDialogs className='home-button-margin' info={arg} text='Defend' />
+                      </div>
                     );
                   });
                 })
@@ -210,7 +218,7 @@ function Home() {
       <Logo className='logo-bottom-regular'/> :
       <Logo className='logo-bottom'/>
       }
-      <div><Logo className='logo-top'/></div>
+      {/* <div><Logo className='logo-top'/></div> */}
       </div>
         <PermanentDrawerLeft />
       </div>

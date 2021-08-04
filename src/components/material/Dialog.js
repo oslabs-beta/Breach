@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const styles = (theme) => ({
   root: {
-    margin: 0,
+    margin: '2%',
     padding: theme.spacing(2),
   },
   closeButton: {
@@ -68,36 +68,36 @@ export default function CustomizedDialogs(props) {
   let jQueryDialog = () => {
     if (!disclaimer()) {
       return (jqueryTest) ? 
-      <Typography  color='textPrimary' gutterBottom>At risk for jQuery Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
+      <Typography  color='textPrimary' gutterBottom>This website is at risk for jQuery Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
       : 
-      <Typography  color='textPrimary' gutterBottom>Not susceptible to jQuery Reflected XSS attacks.</Typography>
+      <Typography  color='textPrimary' gutterBottom>The website is not susceptible to jQuery Reflected XSS attacks.</Typography>
     }
     
   }
   let jsXSSDialog = () => {
     if (!disclaimer()) {
       return (jsXSS) ? 
-      <Typography  color='textPrimary' gutterBottom>At risk for Javascript Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
+      <Typography  color='textPrimary' gutterBottom>This website is at risk for Javascript Reflected XSS attacks. Consider sanitizing inputs and search queries.</Typography> 
       : 
-      <Typography  color='textPrimary' gutterBottom>Not susceptible to Javascript Reflected XSS attacks.</Typography>
+      <Typography  color='textPrimary' gutterBottom>The website is not susceptible to Javascript Reflected XSS attacks.</Typography>
     }
   }
 
   const secureCookie = () => {
   if (cookieTest.every((cookie) => cookie.secure === false && cookie.httpOnly === false)) {
-    return <Typography  color='textPrimary' gutterBottom>None of your cookies are secure. Consider making cookies with personal information or session information are private by marking them as "secure" or "httpOnly".</Typography> 
+    return <Typography  color='textPrimary' gutterBottom>None of your cookies are secure. Consider making cookies with personal information or session information private by marking them as "secure" or "httpOnly".</Typography> 
   }
   else {
-    return <Typography  color='textPrimary' gutterBottom>Some of your cookies are secure, make sure that all cookies with personal information or session information are private.</Typography> 
+    return <Typography  color='textPrimary' gutterBottom>Some of your cookies are secure. Make sure that all cookies with personal information or session information are private.</Typography> 
   }
 }
 
   let innerHTMLDialog = () => {
     if (!innerHTMLtest) {
-      return <Typography  color='textPrimary' gutterBottom>No instances of innerHTML.</Typography> 
+      return <Typography  color='textPrimary' gutterBottom>No instances of innerHTML found.</Typography> 
     }
     else {
-      return <Typography  color='textPrimary' gutterBottom>{innerHTMLtest} instances of innerHTML detected, this may be a result of your bundler. Make sure to sanitize user input before passing to the front or back end to prevent from stored or reflected XSS.</Typography> 
+      return <Typography  color='textPrimary' gutterBottom>{innerHTMLtest} instances of innerHTML detected. While this may be a result of your bundler, using this property to change input text can be a security risk. Make sure to sanitize user input before passing data from the front-end to the back-end. This will prevent stored or reflected XSS.</Typography> 
     }
   }
 
@@ -110,16 +110,32 @@ export default function CustomizedDialogs(props) {
       </Button>
       <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
         <DialogTitle id='customized-dialog-title' color='textSecondary' onClose={handleClose}>
-          How to defend your front-end
+          <Typography variant='h4' color='textPrimary'>
+            Defend Your Front-End
+          </Typography>
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>{disclaimer()}</Typography>
+
+
+
           <Typography gutterBottom>{jsXSSDialog()}</Typography>
+
+          
+
           <Typography gutterBottom>{jQueryDialog()}</Typography>
+        </DialogContent>
+          
+        <DialogContent dividers>
           <Typography gutterBottom>{secureCookie()}</Typography>
+        </DialogContent>
+          
+        <DialogContent dividers>
           <Typography gutterBottom>{innerHTMLDialog()}</Typography>
         </DialogContent>
-        <DialogActions></DialogActions>
+          
+        
+        {/* <DialogActions></DialogActions> */}
       </Dialog>
     </div>
   );

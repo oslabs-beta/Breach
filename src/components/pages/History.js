@@ -53,7 +53,7 @@ function History() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   const clearItem = (index) => {
     ipcRenderer.send('clearItem', index);
@@ -107,7 +107,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 2, 4, 6, 8];
+  const historyLengths = [2, 4, 6, 8];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -140,9 +140,9 @@ function History() {
             >
               <FontAwesomeIcon icon={['fas', 'trash']} />
             </Button>
-            <Button variant='contained' size='small' color='secondary' id='export-button'>
+            {/* <Button variant='contained' size='small' color='secondary' id='export-button'>
               <FontAwesomeIcon icon={['fas', 'download']} />
-            </Button>
+            </Button> */}
             <PermanentDrawerLeft />
           </Paper>
         </center>
@@ -154,7 +154,7 @@ function History() {
       <Logo className='logo-bottom'/>
       }
       </div>
-      <div><Logo className='logo-top'/></div>
+      {/* <div><Logo className='logo-top'/></div> */}
     </ThemeProvider>
   );
 }

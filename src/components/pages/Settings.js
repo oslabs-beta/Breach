@@ -35,14 +35,14 @@ function Settings() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   const modes = [
     'Regular Hacker Mode',
     'Dark XSS Mode',
     'Blue DOS Mode',
     'Purple SQL Injection Mode',
-    'Green Forest Mode',
+    'Green Slow Loris Mode',
   ];
   const fontSizes = ['12px', '16px', '20px', '24px'];
 
@@ -80,7 +80,7 @@ function Settings() {
       <Logo className='logo-bottom-regular'/> :
       <Logo className='logo-bottom'/>
       }
-      <div><Logo className='logo-top'/></div>
+      {/* <div><Logo className='logo-top'/></div> */}
       </div>
         <PermanentDrawerLeft />
       </div>

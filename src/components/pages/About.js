@@ -27,7 +27,7 @@ function About() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,14 +68,13 @@ function About() {
             Although the tests are non-invasive, it is suggested to only input URLs that the user is authorized to pentest.
           </Typography>
         </Paper>
-        {/* <svg><img src={Logo} className='logo-bottom' /></svg> */}
         <div className="center-logo">{
       (label.theme === 'Regular Hacker Mode') ?
       <Logo className='logo-bottom-regular'/> :
       <Logo className='logo-bottom'/>
       }
       </div>
-      <div><Logo className='logo-top'/></div>
+      {/* <div><Logo className='logo-top'/></div> */}
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>
