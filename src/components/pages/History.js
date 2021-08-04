@@ -12,7 +12,6 @@ import CustomizedDialogs from '../material/Dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as Logo } from '../../../Logo.svg'
 
-
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -62,7 +61,6 @@ function History() {
     });
   };
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
@@ -83,7 +81,6 @@ function History() {
           />
         </div>
         <div className='history-flex'>
-
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
           <Button
             variant='outlined'

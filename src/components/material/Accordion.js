@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleAccordion(props) {
   const classes = useStyles();
-
     return (
       <div className={classes.root}>
         <Accordion>
