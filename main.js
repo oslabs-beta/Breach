@@ -1,17 +1,10 @@
 'use strict';
-// Import parts of electron to use
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 const { ipcMain } = require('electron');
 const Store = require('electron-store');
 const store = new Store();
-const webScrape = require('./puppeteer');
-// const fetch = require('electron-fetch').default;
-
-// const electron = require('electron');
-
-// const net = electron.remote.net;
 
 //local storage working
 
@@ -28,7 +21,6 @@ if (process.env.NODE_ENV !== undefined && process.env.NODE_ENV === 'development'
 }
 
 // Temporary fix broken high-dpi scale factor on Windows (125% scaling)
-// info: https://github.com/electron/electron/issues/9691
 if (process.platform === 'win32') {
   app.commandLine.appendSwitch('high-dpi-support', 'true');
   app.commandLine.appendSwitch('force-device-scale-factor', '1');
@@ -158,8 +150,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgb(255, 255, 255, .7)',
-        secondary: 'rgb(255, 255, 255, .9)',
+        primary: 'rgb(255, 255, 255, .9)',
+        secondary: 'rgb(255, 255, 255, .7)',
         disabled: 'rgba(255, 255, 255, 1)',
         hint: 'rgba(0, 0, 0, 0.38)',
       },
@@ -200,8 +192,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgb(255, 255, 255, .7)',
-        secondary: 'rgb(255, 255, 255, .9)',
+        primary: 'rgb(255, 255, 255, .9)',
+        secondary: 'rgb(255, 255, 255, .7)',
         disabled: 'rgba(255, 255, 255, 0.38)',
         hint: 'rgba(255, 255, 255, 0.38)',
       },
@@ -242,8 +234,8 @@ function createWindow() {
         contrastText: '#fff',
       },
       text: {
-        primary: 'rgb(255, 255, 255, .7)',
-        secondary: 'rgb(255, 255, 255, .9)',
+        primary: 'rgb(255, 255, 255, .9)',
+        secondary: 'rgb(255, 255, 255, .7)',
         disabled: 'rgba(255, 255, 255, 0.38)',
         hint: 'rgba(255, 255, 255, 0.38)',
       },
@@ -253,7 +245,7 @@ function createWindow() {
   if (!store.get('fontSize')) store.set('fontSize', '16px');
 
   ipcMain.on('load-data', function (event, arg) {
-    // console.log(store.store)
+
     if (arg && typeof arg.options[0] === 'number') {
       mainWindow.webContents.send('data-reply', store.store);
     } else {
@@ -324,8 +316,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgb(255, 255, 255, .7)',
-            secondary: 'rgb(255, 255, 255, .9)',
+            primary: 'rgb(255, 255, 255, .9)',
+            secondary: 'rgb(255, 255, 255, .7)',
             disabled: 'rgba(255, 255, 255, 1)',
             hint: 'rgba(0, 0, 0, 0.38)',
           },
@@ -366,8 +358,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgb(255, 255, 255, .7)',
-            secondary: 'rgb(255, 255, 255, .9)',
+            primary: 'rgb(255, 255, 255, .9)',
+            secondary: 'rgb(255, 255, 255, .7)',
             disabled: 'rgba(255, 255, 255, 0.38)',
             hint: 'rgba(255, 255, 255, 0.38)',
           },
@@ -408,8 +400,8 @@ function createWindow() {
             contrastText: '#fff',
           },
           text: {
-            primary: 'rgb(255, 255, 255, .7)',
-            secondary: 'rgb(255, 255, 255, .9)',
+            primary: 'rgb(255, 255, 255, .9)',
+            secondary: 'rgb(255, 255, 255, .7)',
             disabled: 'rgba(255, 255, 255, 0.38)',
             hint: 'rgba(255, 255, 255, 0.38)',
           },
@@ -442,7 +434,7 @@ function createWindow() {
       } = require('electron-devtools-installer');
 
       installExtension(REACT_DEVELOPER_TOOLS).catch((err) =>
-        console.log('Error loading React DevTools: ', err)
+        console.error('Error loading React DevTools: ', err)
       );
       mainWindow.webContents.openDevTools();
     }

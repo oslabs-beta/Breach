@@ -12,6 +12,9 @@ import { TextField } from '@material-ui/core';
 import Card from '../material/Card';
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
 import Spinner from '../material/spinner/Spinner';
+import { default as Logo } from '../../../Logo.svg'
+import CustomizedDialogs from '../material/Dialog';
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -28,7 +31,7 @@ function Home() {
   const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
-    ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+    ipcRenderer.send('load-data');
     ipcRenderer.once('data-reply', (event, arg) => {
       setLabel(arg);
     });
@@ -40,7 +43,7 @@ function Home() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   const classes = useStyles();
 
@@ -82,7 +85,6 @@ function Home() {
           axios
             .post('http://localhost:5000/cookieTester', userObject)
             .then((res) => {
-              console.log(res.data);
               testStats.cookieTest = res.data;
               cookieResult = res.data;
             })
@@ -90,17 +92,18 @@ function Home() {
               axios
                 .post('http://localhost:5000/innerHTML', userObject)
                 .then((res) => {
-                  console.log(res.data);
                   testStats.innerHTMLtest = res.data;
                 })
                 .then(() => {
                   ipcRenderer.send('url', testStats);
                   ipcRenderer.once('testOutput', (event, arg) => {
-                    console.log(arg);
+                    arg.url = link
+                    arg.jsXSS = testStats.jsXSS
+                    arg.jqueryTest = testStats.jqueryTest
                     setVisible(false);
                     setTestResults(
+                      <div>
                       <Card
-                        style={{ width: '50%' }}
                         url={link}
                         currentTime={arg.currentTime}
                         innerHTML={arg.innerHTMLtest}
@@ -116,6 +119,8 @@ function Home() {
                         }
                         cookieExample={arg.cookieTest}
                       />
+                      <CustomizedDialogs className='home-button-margin' info={arg} text='Defend' />
+                      </div>
                     );
                   });
                 })
@@ -134,7 +139,6 @@ function Home() {
           axios
             .post('http://localhost:5000/jqueryXSS', userObject)
             .then((res) => {
-              console.log(res.data);
               testStats.jqueryTest = res.data;
               jqueryResult = res.data;
             })
@@ -147,9 +151,7 @@ function Home() {
 
     //track promise, invoke spinner
     trackPromise(fetches());
-    //fetches();
   };
-
 
   const disclaimer = () => {
     return document.getElementsByName('url')[0].value.includes('q=')
@@ -157,20 +159,15 @@ function Home() {
       : 'For XSS testing please input a url containg a q= query';
   };
 
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       <div className='homeDiv'>
-        {/* <center>
-          <Typography variant='h3' color='textPrimary'>
-            Home Page
-          </Typography>
-        </center> */}
         <Paper elevation={3} square>
           <div className='mainContainer'>
             <center>
-              <Typography variant='h3' color='textSecondary'>
+              <Typography variant='h3' color='textPrimary'>
                 Scan Link
               </Typography>
             </center>
@@ -179,7 +176,7 @@ function Home() {
               <Paper elevation={2} variant='outlined' className='inside-paper'>
                 <form>
                   <TextField
-                    color='textPrimary'
+                    color='textSecondary'
                     id='filled-basic'
                     name='url'
                     label='Input URL here'
@@ -199,7 +196,7 @@ function Home() {
             </center>
             <br></br>
             <center>
-              <Typography variant='h3' color='textSecondary'>
+              <Typography variant='h3' color='textPrimary'>
                 Results
               </Typography>
             </center>
@@ -209,12 +206,20 @@ function Home() {
                 variant='outlined'
                 className='inside-paper inside-paper-bottom'
               >
-                <center>{testResults}</center>
+                {testResults}
                 <Spinner visible={isVisible} />
               </Paper>
             </center>
           </div>
         </Paper>
+        {/* <svg><img src={Logo} className='logo-bottom' /></svg> */}
+        <div className="center-logo">{
+      (label.theme === 'Regular Hacker Mode') ?
+      <Logo className='logo-bottom-regular'/> :
+      <Logo className='logo-bottom'/>
+      }
+      {/* <div><Logo className='logo-top'/></div> */}
+      </div>
         <PermanentDrawerLeft />
       </div>
     </ThemeProvider>

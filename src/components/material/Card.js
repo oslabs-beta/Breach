@@ -6,15 +6,20 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import NestedList from './List';
-import CustomizedDialogs from './Dialog';
+
 import SimpleAccordion from './Accordion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ReactComponent as Logo } from '../../../Logo.svg'
 
 const useStyles = makeStyles({
   root: {
+    // backgroundImage: 'url(Logo.svg)',
     minWidth: 275,
     fontSize: 10,
-    height: 'fit-content',
+    minHeight: 350,
     width: '100%',
+//     height: 'fit-content',
+    // width: '100%',
     // margin: '0% 0% 6% 0%'
     // overflow: 'hidden'
   },
@@ -33,50 +38,62 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  
+
   const disclaimer = () => {
-    console.log('inside function')
     if (!props.url.includes('=')) {
-      console.log('inside if statement')
       return (
-        <Typography className={classes.title} color='textPrimary' gutterBottom>
-          * XSS attack tests require a query ('=') in the url *
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
+          <br></br>* XSS attack tests require a query ('=') in the url *<br></br>
+          <br></br>
         </Typography>
-      )
+      );
     }
-  }
+  };
+  const domain = () => {
+    let count = 0;
+    let split = props.url;
+    let output = '';
+    for (let i = 0; i < split.length; i++) {
+      if (split[i] === '/') count += 1;
+      if (count >= 3) {
+        break;
+      }
+      output += split[i];
+    }
+    return output;
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color='textPrimary' gutterBottom>
-          Results for {props.url}
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
+          Results for {domain()}
         </Typography>
 
-        <Typography className={classes.pos} color='textSecondary'>
-          Timestamp: {props.currentTime}
+        <Typography className={classes.pos} color='textPrimary'>
+          <FontAwesomeIcon icon={['fas', 'clock']} />: {props.currentTime}
         </Typography>
 
-        <Typography className={classes.pos} color='textSecondary'>
-          {(disclaimer()) ? '' : props.jsXSS}
+        <Typography className={classes.pos} color='textPrimary'>
+          {disclaimer() ? '' : props.jsXSS}
         </Typography>
         {disclaimer()}
-        <Typography className={classes.pos} color='textSecondary'>
-          {(disclaimer()) ? '' : props.jqueryXSS}
+        <Typography className={classes.pos} color='textPrimary'>
+          {disclaimer() ? '' : props.jqueryXSS}
         </Typography>
-        <Typography className={classes.pos} color='textSecondary'>
+        <Typography className={classes.pos} color='textPrimary'>
           {`Instances of InnerHTML in scripts: ${props.innerHTML}`}
         </Typography>
 
         <Typography
           style={{ wordWrap: 'break-word' }}
           className={classes.pos}
-          color='textSecondary'
+          color='textPrimary'
         >
           {props.cookieExample ? (
             <SimpleAccordion cookiesArr={props.cookieExample} />
           ) : (
-            <Typography variant='body2'>No Cookies Available</Typography>
+            <Typography variant='body2' color='textSecondary'>No Cookies Available</Typography>
           )}
 
           {/* {props.cookieExample ? (
@@ -86,9 +103,6 @@ export default function SimpleCard(props) {
           )} */}
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <CustomizedDialogs info={props}/>
-      </CardActions> */}
     </Card>
   );
 }

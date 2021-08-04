@@ -32,6 +32,10 @@ module.exports = {
         ],
         include: defaultInclude,
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      }
     ],
   },
   target: "electron-renderer",
