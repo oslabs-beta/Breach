@@ -28,6 +28,10 @@ body {
   margin: 2% 5% 0% 5% !important;
 }
 
+.home-button-margin {
+  margin: 3%;
+}
+
 .results-grid-home {
   padding: 1%;
   margin: 1%;
@@ -60,6 +64,11 @@ body {
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 2% 2%;
+}
+
+.accordion-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .history-flex {
@@ -176,6 +185,50 @@ body {
 
 .spin {
   padding-top: 10%;
+}
+
+.logo-top {
+  width: 1.3in;
+  fill: white;
+  position: absolute;
+  left: 5.75%;
+  top: -3.1%;
+  z-index: 1120;
+}
+
+.logo-top-sideNav {
+  width: 1.3in;
+  fill: white;
+  position: absolute;
+  left: 7.75%;
+  top: -45%;
+  z-index: 1120;
+}
+
+.logo-history {
+  width: 80px;
+  fill: white;
+  /* margin-left: 38.6vw; */
+}
+
+.center-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-bottom {
+  width: 13%;
+  fill: white;
+  /* position: absolute;
+  left: 45.2%;
+  top: 83vh; */
+}
+
+.logo-bottom-regular {
+    width: 15%;
+    /* background-color: #3f51b5; */
+    fill: black;
 }
 
 /* @media screen and (max-width: 650px), (max-height: 820px) {

@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    // height: 200,
     overflowY: 'hidden',
   },
   nested: {
@@ -21,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NestedList(props) {
   const classes = useStyles();
-
-  // console.log('list 26 ', props.primary);
   return (
     <List
       component='nav'

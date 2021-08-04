@@ -9,7 +9,8 @@ import ControlledOpenSelect from '../material/OpenSelect';
 import { Typography } from '@material-ui/core';
 import Card from '../material/Card';
 import CustomizedDialogs from '../material/Dialog';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { default as Logo } from '../../../Logo.svg'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -28,7 +29,7 @@ function History() {
   useEffect(() => {
     let isFetched = true;
     try {
-      ipcRenderer.send('load-data', console.log('40, OpenSelect.js'));
+      ipcRenderer.send('load-data');
       ipcRenderer.once('data-reply', (event, arg) => {
         setLabel(arg);
 
@@ -51,7 +52,7 @@ function History() {
   if (label.theme === 'Dark XSS Mode') theme = createTheme(label.dark);
   if (label.theme === 'Blue DOS Mode') theme = createTheme(label.blue);
   if (label.theme === 'Purple SQL Injection Mode') theme = createTheme(label.purple);
-  if (label.theme === 'Green Forest Mode') theme = createTheme(label.green);
+  if (label.theme === 'Green Slow Loris Mode') theme = createTheme(label.green);
 
   const clearItem = (index) => {
     ipcRenderer.send('clearItem', index);
@@ -59,15 +60,11 @@ function History() {
       setHistory(arg);
     });
   };
-  //console.log(history);
   const pastStats = history.slice(0, historyLength).map((el, i) => {
-    console.log(el);
-
     return (
       <div className='whole-cards'>
         <div key={i} className='historyCard'>
           <Card
-            // className='results-grid-history'
             style={{ width: '50%' }}
             url={el.url}
             currentTime={el.currentTime}
@@ -84,9 +81,7 @@ function History() {
           />
         </div>
         <div className='history-flex'>
-          {/* <CustomizedDialogs className='history-button-margin' info={el} text='Expand' /> */}
           <CustomizedDialogs className='history-button-margin' info={el} text='Defend' />
-
           <Button
             variant='outlined'
             size='small'
@@ -109,7 +104,7 @@ function History() {
     });
   };
 
-  const historyLengths = [1, 2, 4, 6, 8];
+  const historyLengths = [2, 4, 6, 8];
 
   const clicked = () => {
     ipcRenderer.send('getHistoryLength');
@@ -123,7 +118,7 @@ function History() {
       <CssBaseline />
       <div id='historyDiv'>
         <center>
-          <Typography variant='h3' color='textSecondary' className='history-title-margin'>
+          <Typography variant='h3' color='textPrimary' className='history-title-margin'>
             History
           </Typography>
         </center>
@@ -142,14 +137,21 @@ function History() {
             >
               <FontAwesomeIcon icon={['fas', 'trash']} />
             </Button>
-            <Button variant='contained' size='small' color='secondary' id='export-button'>
+            {/* <Button variant='contained' size='small' color='secondary' id='export-button'>
               <FontAwesomeIcon icon={['fas', 'download']} />
-            </Button>
+            </Button> */}
             <PermanentDrawerLeft />
           </Paper>
         </center>
         <ul className='history-grid'>{pastStats}</ul>
       </div>
+      <div className="center-logo">{
+      (label.theme === 'Regular Hacker Mode') ?
+      <Logo className='logo-bottom-regular'/> :
+      <Logo className='logo-bottom'/>
+      }
+      </div>
+      {/* <div><Logo className='logo-top'/></div> */}
     </ThemeProvider>
   );
 }

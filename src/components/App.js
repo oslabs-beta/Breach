@@ -22,25 +22,20 @@ function App() {
   const RedirectToHome = () => {
     return <Redirect to='/home' />;
   };
+  RedirectToHome()
 
   return (
     <div className='router'>
       <PermanentDrawerLeft />
-      {/* <TransitionGroup>
-        <CSSTransition timeout={0} classNames='fade' key={location.key}> */}
-      {/* <div> */}
       <Switch location={location}>
-        {/* <Route render={() => <Redirect to="/" />} /> */}
         <Route exact path='/home' component={Home} />
         <Route exact path='/history' component={History} />
         <Route exact path='/settings' component={Settings} />
         <Route exact path='/about' component={About} />
-
-        <Route path='/index.html' component={RedirectToHome} />
+        <Route path="/" render={() => {
+          return (<Redirect to="/home"/>)
+        }}/>
       </Switch>
-      {/* </div> */}
-      {/* </CSSTransition>
-      </TransitionGroup> */}
     </div>
   );
 }

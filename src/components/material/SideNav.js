@@ -20,6 +20,7 @@ import Home from "@material-ui/icons/Home";
 import { AccessTime } from "@material-ui/icons";
 import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import InfoIcon from "@material-ui/icons/Info";
+import { default as Logo } from '../../../Logo.svg'
 
 import { useHistory } from "react-router-dom";
 
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    // marginLeft: drawerWidth,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -59,14 +60,13 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    // padding: theme.spacing(0, 1),
+
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
-    // padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -116,10 +116,11 @@ export default function PersistentDrawerLeft(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          // [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
@@ -132,11 +133,11 @@ export default function PersistentDrawerLeft(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            What The Hack
-          </Typography>
+          <div><Logo className='logo-top-sideNav'/></div>
         </Toolbar>
+
       </AppBar>
+
       <Drawer
         className={classes.drawer}
         variant="persistent"

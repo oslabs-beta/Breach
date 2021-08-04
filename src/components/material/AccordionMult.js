@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import NestedList from './List';
 import { props } from 'bluebird';
-import AccordionMult from './AccordionMult'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,25 +18,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleAccordion(props) {
+export default function AccordionMult(props) {
   const classes = useStyles();
+
+  return props.cookiesArr.map((el, i) => {
     return (
-      <div className={classes.root}>
+      <div className={classes.root} key={i}>
         <Accordion>
-        <AccordionSummary
+          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel1a-content'
             id='panel1a-header'
           >
-            Open for Cookie Results
+            <Typography className={classes.heading}>Cookie Result {i}</Typography>
           </AccordionSummary>
 
-          <AccordionDetails className='accordion-column'>
-            <AccordionMult cookiesArr={props.cookiesArr}></AccordionMult>
+          <AccordionDetails>
+            <NestedList primary={el} />
           </AccordionDetails>
-
         </Accordion>
         <br></br>
       </div>
     );
+  });
 }

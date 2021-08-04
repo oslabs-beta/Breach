@@ -1,17 +1,18 @@
 {
-  "name": "whatthehack",
+  "name": "Breach",
+  "productName": "Breach",
   "version": "1.0.0",
   "description": "A cyber-sec tool to be used responsibly in identifying XSS vulnerabilities",
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/WhatThe-Hack/WhatTheHack.git"
+    "url": "https://github.com/oslabs-beta/Breach"
   },
   "author": {
     "name": "Jason Yoon, Michael Geismar, Tommy Edmunds",
     "email": "jasony779@gmail.com",
-    "url": "https://github.com/WhatThe-Hack/WhatTheHack"
+    "url": "https://github.com/oslabs-beta/Breach"
   },
   "keywords": [
     "app",
@@ -74,6 +75,7 @@
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
+    "@svgr/webpack": "^5.5.0",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^5.1.1",
