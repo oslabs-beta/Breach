@@ -1,5 +1,4 @@
-<!-- <img src="../First-M8/build/5bf60e15d76211f7b0d6.png"> -->
-<img src="./client/assets/first-m8-logo.png">
+<img src="./Logo.svg">
 
 ![license](https://img.shields.io/github/license/oslabs-beta/Breach?color=blue) ![version](https://img.shields.io/badge/version-1.0.0-forestgreen) ![lastcommit](https://img.shields.io/github/last-commit/oslabs-beta/Breach?color=red) ![gitcontribute](https://img.shields.io/github/contributors/oslabs-beta/Breach) ![gitstars​](https://img.shields.io/github/stars/oslabs-beta/Breach?style=social) ![gitforks](https://img.shields.io/github/forks/oslabs-beta/Breach?style=social)
 
