@@ -47,21 +47,7 @@ function createWindow() {
   // and load the index.html of the app.
   let indexPath;
 
-  // if (dev && process.argv.indexOf('--noDevServer') === -1) {
-  //   indexPath = url.format({
-  //     protocol: 'http:',
-  //     host: 'localhost:8080',
-  //     pathname: 'index.html',
-  //     slashes: true,
-  //   });
-  // } else {
-  //   indexPath = url.format({
-  //     protocol: 'file:',
-  //     //change back to "dist" and "index.html" after webpack rebuild or for production build
-  //     pathname: path.join(__dirname, 'dist', 'index.html'),
-  //     slashes: true,
-  //   });
-  // }
+  //need it like this to create the production build, variable has to be declared first
 
   indexPath = url.format({
     protocol: 'file:',
@@ -484,13 +470,6 @@ app.on('activate', () => {
 });
 
 ipcMain.on('url', function (event, arg) {
-  // let test = {
-  //   url: arg,
-  //   cookieTest: '',
-  //   jqueryTest: false,
-  //   jsXSS: false,
-  // };
-
   let history;
   store.get('history') ? (history = store.get('history')) : (history = []);
   history.unshift(arg);

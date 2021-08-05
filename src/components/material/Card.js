@@ -9,7 +9,7 @@ import NestedList from './List';
 
 import SimpleAccordion from './Accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactComponent as Logo } from '../../../Logo.svg'
+import { ReactComponent as Logo } from '../../../Logo.svg';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     fontSize: 10,
     minHeight: 350,
     width: '100%',
-//     height: 'fit-content',
+    //     height: 'fit-content',
     // width: '100%',
     // margin: '0% 0% 6% 0%'
     // overflow: 'hidden'
@@ -93,14 +93,10 @@ export default function SimpleCard(props) {
           {props.cookieExample ? (
             <SimpleAccordion cookiesArr={props.cookieExample} />
           ) : (
-            <Typography variant='body2' color='textSecondary'>No Cookies Available</Typography>
+            <Typography variant='body2' color='textSecondary'>
+              No Cookies Available
+            </Typography>
           )}
-
-          {/* {props.cookieExample ? (
-            <NestedList primary={props.cookieExample} />
-          ) : (
-            <Typography variant='body2'>No Cookies Available</Typography>
-          )} */}
         </Typography>
       </CardContent>
     </Card>

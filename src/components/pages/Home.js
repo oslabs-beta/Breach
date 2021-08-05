@@ -70,6 +70,8 @@ function Home() {
 
     testStats.innerHTMLtest = null;
 
+    // need nested fetch calls in order to properly render the card, for some reacson they weren't rendering with normal promise chaining
+
     const fetches = () => {
       setVisible(true);
       axios
