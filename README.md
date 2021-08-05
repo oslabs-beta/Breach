@@ -1,5 +1,5 @@
 <!-- <img src="../First-M8/build/5bf60e15d76211f7b0d6.png"> -->
-<img src="./Logo.svg">
+<img src="./client/assets/first-m8-logo.png">
 
 ![license](https://img.shields.io/github/license/oslabs-beta/Breach?color=blue) ![version](https://img.shields.io/badge/version-1.0.0-forestgreen) ![lastcommit](https://img.shields.io/github/last-commit/oslabs-beta/Breach?color=red) ![gitcontribute](https://img.shields.io/github/contributors/oslabs-beta/Breach) ![gitstars​](https://img.shields.io/github/stars/oslabs-beta/Breach?style=social) ![gitforks](https://img.shields.io/github/forks/oslabs-beta/Breach?style=social)
 
@@ -9,6 +9,10 @@ Visit the Breach website [here](https://breachapplication.netlify.app/)
 - <a href="#about">About Breach</a>
 - <a href="#getting-started">Getting Started</a>
 - <a href="#demo">Demo</a>
+  - <a href="#url">Scan URL</a>
+  - <a href="#results">Results</a>
+  - <a href="#history">History</a>
+  - <a href="#settings">Settings</a>
 - <a href="#looking-ahead">Looking Ahead</a>
 - <a href="#license">License</a>
 - <a href="#contributors">Contributors</a>
@@ -48,7 +52,7 @@ Once you have these two items up and running you can get started or use our demo
 
 Once you have opened [Breach](https://breachapplication.netlify.app/) and [BreachServer](https://github.com/oslabs-beta/BreachServer)...
 
-### Scan URL
+### Scan URL <a id="url"></a>
 Upon entering a URL the app sends out a request to the server, running tests for instances of innerHTML in the code, cookies and some XSS tests. 
 #### Writing the URL for testing XSS 
 - The URL must be formatted for a search query (have "q=") in order for the XSS tests to be run. 
@@ -56,18 +60,18 @@ Upon entering a URL the app sends out a request to the server, running tests for
 ![image](https://miro.medium.com/max/480/0*I_4NbNZs3mlLrnEB)
 
 #
-### Results
+### Results <a id="results"></a>
 When the app is finished loading, it will print your results. 
 - Click on the defend logo to learn more about how to defend your app.
 
 ![image](https://miro.medium.com/max/480/0*mK9YJOS5qRCbsmj5)
 #
-### History
+### History <a id="history"></a>
 - You may view the history of results, change how many are shown, delete history items, or check out how to defend from attacks in the History tab of the application.
 
 ![image](https://miro.medium.com/max/480/0*PU2oFHccXRkpfyYW)
 #
-### Settings
+### Settings <a id="settings"></a>
 - From the settings page you can change the color of the application to one of five different settings, as well as change the font size on the pages.
 
 ![image](https://miro.medium.com/max/480/0*ME6_mHgysoCqLbeh)
