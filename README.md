@@ -28,9 +28,9 @@ Breach is an electron-based Cybersecurity application intended to keep front-end
 
 ## Getting Started <a id="getting-started"></a>
 
-### Download [Breach](https://breachapplication.netlify.app/) and [BreachServer](https://github.com/oslabs-beta/BreachServer)
+### Download [Breach](https://breachapplication.netlify.app/) and [BreachServer](https://github.com/tommyedmunds/breachServer)
 
-The application can be downloaded for [windows]() or [mac]() (Linux option for packaging from codebase is not confirmed.)
+The application can be downloaded for [windows](https://drive.google.com/file/d/145yAP5TmEQ5Ti9ohv3nl3cAHoqawgV2Q/view?usp=sharing) or [mac](https://drive.google.com/file/d/1kRA23lBGhJ-vXaD8gVmvyWeAOaZuZmFR/view?usp=sharing) (Linux option for packaging from codebase is not confirmed.)
 
 -  It is ready to go off the bat.
 
