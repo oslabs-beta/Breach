@@ -86,7 +86,7 @@ Breach is currently in its first release. The features we would like to implemen
 
 ## License <a id="license"></a>
 
-This product is MIT Licensed -- see [LICENSE.md](https://github.com/oslabs-beta/Breach/blob/main/LICENSE) file for more details.
+MIT -- see [LICENSE.md](https://github.com/oslabs-beta/Breach/blob/main/LICENSE) file for more details.
 
 ## Contributors <a id="contributors"></a>
 
