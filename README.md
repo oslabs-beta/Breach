@@ -32,7 +32,8 @@ Breach is an electron-based Cybersecurity application intended to keep front-end
 
 The application can be downloaded for [windows](https://drive.google.com/file/d/145yAP5TmEQ5Ti9ohv3nl3cAHoqawgV2Q/view?usp=sharing) or [mac](https://drive.google.com/file/d/1kRA23lBGhJ-vXaD8gVmvyWeAOaZuZmFR/view?usp=sharing) (Linux option for packaging from codebase is not confirmed.)
 
--  It is ready to go off the bat.
+-  For Mac OSX, right click on the downloaded file and click open. 
+-  For Windows users, simply open the .exe file to begin.
 
 The server can be forked and cloned to your local machine. Once it has been cloned, navigate to the correct folder in your terminal and
 
