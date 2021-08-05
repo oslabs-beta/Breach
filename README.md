@@ -13,8 +13,8 @@ Visit the Breach website [here](https://breachapplication.netlify.app/)
   - <a href="#history">History</a>
   - <a href="#settings">Settings</a>
 - <a href="#looking-ahead">Looking Ahead</a>
-- <a href="#license">License</a>
 - <a href="#contributors">Contributors</a>
+- <a href="#license">License</a>
 
 ## About <a id="about"></a>
 
@@ -84,10 +84,6 @@ Breach is currently in its first release. The features we would like to implemen
 - Integrate server into app.
 - Linux installer.
 
-## License <a id="license"></a>
-
-MIT -- see [LICENSE.md](https://github.com/oslabs-beta/Breach/blob/main/LICENSE) file for more details.
-
 ## Contributors <a id="contributors"></a>
 
 [Jason Yoon](https://www.linkedin.com/in/jason-t-yoon/) [@Jason Yoon](https://github.com/jasony779)
@@ -95,6 +91,10 @@ MIT -- see [LICENSE.md](https://github.com/oslabs-beta/Breach/blob/main/LICENSE)
 [Tommy Edmunds](https://www.linkedin.com/in/tommy-edmunds-a91aa41a9/) [@Tommy Edmunds](https://github.com/tommyedmunds)
 
 [Michael Geismar](https://www.linkedin.com/in/michael-geismar-46707b7a/) [@michaelgeismar](https://github.com/MichaelGeismar)
+
+## License <a id="license"></a>
+
+MIT -- see [LICENSE.md](https://github.com/oslabs-beta/Breach/blob/main/LICENSE) file for more details.
 
 #
 This product is accelerated by [OS Labs](https://opensourcelabs.io/).
