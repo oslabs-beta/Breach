@@ -91,7 +91,7 @@ Breach is currently in its first release. The features we would like to implemen
 
 [Tommy Edmunds](https://www.linkedin.com/in/tommy-edmunds-a91aa41a9/) [@Tommy Edmunds](https://github.com/tommyedmunds)
 
-[Michael Geismar](https://www.linkedin.com/in/michael-geismar-46707b7a/) [@michaelgeismar](https://github.com/MichaelGeismar)
+[Michael Geismar](https://www.linkedin.com/in/michael-geismar) [@michaelgeismar](https://github.com/MichaelGeismar)
 
 ## License <a id="license"></a>
 
