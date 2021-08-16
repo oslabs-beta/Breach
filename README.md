@@ -18,7 +18,7 @@ Visit the Breach website [here](https://breachapplication.netlify.app/)
 
 ## About <a id="about"></a>
 
-Breach is an electron-based Cybersecurity application intended to keep front-ends safe without doing damage.
+Breach is an Cybersecurity desktop application intended to keep front-ends safe without doing damage.
 
 • One click for URL security test.
 
